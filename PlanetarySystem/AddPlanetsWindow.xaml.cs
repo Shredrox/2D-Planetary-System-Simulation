@@ -16,8 +16,8 @@ namespace PlanetarySystem
 {
     public partial class AddPlanetsWindow : Window
     {                                   
-        private ImageSource addImage = new BitmapImage(new Uri(@"C:\Users\User\Desktop\Stuff\add.png", UriKind.RelativeOrAbsolute));
-        private ImageSource addImage2 = new BitmapImage(new Uri(@"C:\Users\User\Desktop\Stuff\add2.png", UriKind.RelativeOrAbsolute));
+        private ImageSource addImage = new BitmapImage(new Uri("../../Images/add.png", UriKind.RelativeOrAbsolute));
+        private ImageSource addImage2 = new BitmapImage(new Uri("../../Images/add2.png", UriKind.RelativeOrAbsolute));
         private List<Image> images = new List<Image>();
         private List<TextBlock> textBlocks = new List<TextBlock>();
         private SolarSystem editedSystem = new SolarSystem();
