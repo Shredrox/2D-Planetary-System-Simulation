@@ -17,7 +17,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using PlanetarySystem.Properties;
 
 namespace PlanetarySystem
 {
@@ -31,46 +30,62 @@ namespace PlanetarySystem
         private string path = System.IO.Path.GetFullPath("../../Data/PlanetData.txt");
 
         //images
-        private BitmapImage sunImage = new BitmapImage(new Uri("../../Images/sun.png", UriKind.Relative));
-        private BitmapImage earthImage = new BitmapImage(new Uri("../../Images/earth.png", UriKind.Relative));
-        private BitmapImage marsImage = new BitmapImage(new Uri("../../Images/mars.png", UriKind.Relative));
-        private BitmapImage mercuryImage = new BitmapImage(new Uri("../../Images/mercury.png", UriKind.Relative));
-        private BitmapImage venusImage = new BitmapImage(new Uri("../../Images/venus.png", UriKind.Relative));
-        private BitmapImage moonImage = new BitmapImage(new Uri("../../Images/moon.png", UriKind.Relative));
-        private BitmapImage jupiterImage = new BitmapImage(new Uri("../../Images/jupiter.png", UriKind.Relative));
-        private BitmapImage saturnImage = new BitmapImage(new Uri("../../Images/saturn.png", UriKind.Relative));
-        private BitmapImage uranusImage = new BitmapImage(new Uri("../../Images/uranus.png", UriKind.Relative));
-        private BitmapImage neptuneImage = new BitmapImage(new Uri("../../Images/neptune.png", UriKind.Relative));
-        private BitmapImage cometImage = new BitmapImage(new Uri("../../Images/comet.png", UriKind.Relative));
-        private BitmapImage backgroundImage = new BitmapImage(new Uri("../../Images/spaceCanvasBackground.jpg", UriKind.RelativeOrAbsolute));
+        private BitmapImage sunImage;
+        private BitmapImage earthImage;
+        private BitmapImage marsImage;
+        private BitmapImage mercuryImage;
+        private BitmapImage venusImage;
+        private BitmapImage moonImage;
+        private BitmapImage jupiterImage;
+        private BitmapImage saturnImage;
+        private BitmapImage uranusImage;
+        private BitmapImage neptuneImage;
+        private BitmapImage cometImage;
+        private BitmapImage backgroundImage;
+
+        //function to create images 
+        public BitmapImage CreateImage(string filePath)
+        {
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.UriSource = new Uri(filePath, UriKind.RelativeOrAbsolute);
+            bitmapImage.EndInit();
+            bitmapImage.Freeze();
+
+            return bitmapImage;
+        }
 
         public MainWindow()
         { 
             InitializeComponent();
 
+            sunImage = CreateImage("../../Images/sun.png");
+            earthImage = CreateImage("../../Images/earth.png");
+            marsImage = CreateImage("../../Images/mars.png");
+            mercuryImage = CreateImage("../../Images/mercury.png");
+            venusImage = CreateImage("../../Images/venus.png");
+            moonImage = CreateImage("../../Images/moon.png");
+            jupiterImage = CreateImage("../../Images/jupiter.png");
+            saturnImage = CreateImage("../../Images/saturn.png");
+            uranusImage = CreateImage("../../Images/uranus.png");
+            neptuneImage = CreateImage("../../Images/neptune.png");
+            cometImage = CreateImage("../../Images/comet.png");
+
             //main window background
-            BitmapImage windowBackground = new BitmapImage();
-            windowBackground.BeginInit();
-            windowBackground.CacheOption = BitmapCacheOption.OnLoad;
-            windowBackground.UriSource = new Uri("../../Images/windowBackground.png", UriKind.RelativeOrAbsolute);
-            windowBackground.EndInit();
-            windowBackground.Freeze();
+            BitmapImage windowBackground = CreateImage("../../Images/windowBackground.png");
             ImageBrush imageBackground = new ImageBrush();
             imageBackground.ImageSource = windowBackground;
             this.Background = imageBackground;
 
             //planet info background
-            BitmapImage windowBackground2 = new BitmapImage();
-            windowBackground2.BeginInit();
-            windowBackground2.CacheOption = BitmapCacheOption.OnLoad;
-            windowBackground2.UriSource = new Uri("../../Images/windowBackground2.jpg", UriKind.RelativeOrAbsolute);
-            windowBackground2.EndInit();
-            windowBackground2.Freeze();
+            BitmapImage windowBackground2 = CreateImage("../../Images/windowBackground2.jpg");
             ImageBrush imageBackground2 = new ImageBrush();
             imageBackground2.ImageSource = windowBackground2;
             PlanetInfoPanel.Background = imageBackground2;
 
             //canvas background
+            backgroundImage = CreateImage("../../Images/spaceCanvasBackground.jpg");
             ImageBrush image = new ImageBrush();
             image.ImageSource = backgroundImage;
             MainCanvas.Background = image;
@@ -135,12 +150,7 @@ namespace PlanetarySystem
                     {
                         var lineElements = lineContent[k].Split('|');
 
-                        BitmapImage newImage = new BitmapImage();
-                        newImage.BeginInit();
-                        newImage.CacheOption = BitmapCacheOption.OnLoad;
-                        newImage.UriSource = new Uri(lineElements[6], UriKind.RelativeOrAbsolute);
-                        newImage.EndInit();
-                        newImage.Freeze();
+                        BitmapImage newImage = CreateImage(lineElements[6]);
 
                         Planet newPlanet = new Planet(lineElements[0], lineElements[1], lineElements[2], lineElements[3], int.Parse(lineElements[4]),
                                                  lineElements[5], newImage, 100, 100, true, int.Parse(lineElements[7]),
@@ -412,12 +422,7 @@ namespace PlanetarySystem
                 fullPath = System.IO.Path.GetFullPath(planet.Image.ImageSource.ToString());
             }
 
-            BitmapImage planetImage = new BitmapImage();
-            planetImage.BeginInit();
-            planetImage.CacheOption = BitmapCacheOption.OnLoad;
-            planetImage.UriSource = new Uri(fullPath, UriKind.RelativeOrAbsolute);
-            planetImage.EndInit();
-            planetImage.Freeze();
+            BitmapImage planetImage = CreateImage(fullPath);
 
             SelectedPlanetImage.Source = planetImage;
         }

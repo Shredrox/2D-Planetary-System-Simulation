@@ -182,7 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\spaceCanvasBackground.jpg" />
-    <Resource Include="Images\spaceCanvasBackground2.jpg" />
     <Resource Include="Images\spaceCanvasBackground3.jpg" />
     <Resource Include="Images\spaceCanvasBackground4.jpg" />
     <Resource Include="Images\spaceCanvasBackground5.jpg" />
@@ -192,6 +191,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\add2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\spaceCanvasBackground2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />

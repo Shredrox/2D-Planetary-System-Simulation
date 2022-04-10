@@ -48,13 +48,7 @@ namespace PlanetarySystem
                 fullPath = System.IO.Path.GetFullPath(planet.Image.ImageSource.ToString());
             }
 
-            BitmapImage planetImage = new BitmapImage();
-            planetImage.BeginInit();
-            planetImage.CacheOption = BitmapCacheOption.OnLoad;
-            planetImage.UriSource = new Uri(fullPath, UriKind.RelativeOrAbsolute);
-            planetImage.EndInit();
-            planetImage.Freeze();
-
+            BitmapImage planetImage = ((MainWindow)Application.Current.MainWindow).CreateImage(fullPath);
             PlanetImage.Source = planetImage;
 
             editedPlanet = planet;
@@ -70,12 +64,7 @@ namespace PlanetarySystem
 
             if (fileDialog.ShowDialog() == true)
             {
-                newImage = new BitmapImage();
-                newImage.BeginInit();
-                newImage.CacheOption = BitmapCacheOption.OnLoad;
-                newImage.UriSource = new Uri(fileDialog.FileName, UriKind.RelativeOrAbsolute);
-                newImage.EndInit();
-                newImage.Freeze();
+                newImage = ((MainWindow)Application.Current.MainWindow).CreateImage(fileDialog.FileName);
                 PlanetImage.Source = newImage;
             }
         }

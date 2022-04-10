@@ -16,8 +16,8 @@ namespace PlanetarySystem
 {
     public partial class AddPlanetsWindow : Window
     {                                   
-        private ImageSource addImage = new BitmapImage(new Uri("../../Images/add.png", UriKind.RelativeOrAbsolute));
-        private ImageSource addImage2 = new BitmapImage(new Uri("../../Images/add2.png", UriKind.RelativeOrAbsolute));
+        private BitmapImage addImage = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/add.png");
+        private BitmapImage addImage2 = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/add2.png");
         private List<Image> images = new List<Image>();
         private List<TextBlock> textBlocks = new List<TextBlock>();
         private SolarSystem editedSystem = new SolarSystem();
@@ -71,21 +71,11 @@ namespace PlanetarySystem
                     fullPath = System.IO.Path.GetFullPath(onlyPlanets[i].Image.ImageSource.ToString());
                 }
 
-                images[i].Source = ImageSetter(fullPath);
+                images[i].Source = ((MainWindow)Application.Current.MainWindow).CreateImage(fullPath);
                 textBlocks[i].Text = onlyPlanets[i].Name;
             }
 
             editedSystem = solarSystem;
-        }
-
-        private BitmapImage ImageSetter(string source)
-        {
-            BitmapImage planetImage = new BitmapImage();
-            planetImage.BeginInit();
-            planetImage.UriSource = new Uri(source, UriKind.RelativeOrAbsolute);
-            planetImage.EndInit();
-
-            return planetImage;
         }
 
         private void ImageClick(object s, MouseEventArgs e)

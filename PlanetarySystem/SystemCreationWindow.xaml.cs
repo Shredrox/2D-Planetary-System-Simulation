@@ -21,7 +21,7 @@ namespace PlanetarySystem
         private BitmapImage defaultImage;
         private BitmapImage newImage;
         private int counter = 0;
-        private Star sun = new Star("Sun", new BitmapImage(new Uri("../../Images/sun.png", UriKind.Relative)),
+        private Star sun = new Star("Sun", ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/sun.png"),
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualWidth / 2,
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 86, 86);
 
@@ -29,13 +29,8 @@ namespace PlanetarySystem
         {
             InitializeComponent();
 
-            defaultImage = new BitmapImage();
-            defaultImage.BeginInit();
-            defaultImage.CacheOption = BitmapCacheOption.OnLoad;
-            defaultImage.UriSource = new Uri("../../Images/defaultPlanet.png", UriKind.RelativeOrAbsolute);
-            defaultImage.EndInit();
-            defaultImage.Freeze();
-            
+            defaultImage = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/defaultPlanet.png");
+
             AddImageButton.Visibility = Visibility.Hidden;
         }
 
@@ -104,7 +99,7 @@ namespace PlanetarySystem
                     for (int m = 1; m < int.Parse(MoonCount.Text) + 1; m++)
                     {
                         newSystemObjects.Add(new Moon($"Moon {m}",
-                            new BitmapImage(new Uri("../../Images/moon.png", UriKind.Relative)), 
+                            ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"), 
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width/2 + 10 + m * 4, m));
                     }
                 }
@@ -113,7 +108,7 @@ namespace PlanetarySystem
                     for (int m = 1; m < 4; m++)
                     {
                         newSystemObjects.Add(new Moon($"Moon {m}",
-                            new BitmapImage(new Uri("../../Images/moon.png", UriKind.Relative)), 
+                            ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"), 
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                     }
                 }
@@ -156,12 +151,7 @@ namespace PlanetarySystem
 
                 if (fileDialog.ShowDialog() == true)
                 {
-                    newImage = new BitmapImage();
-                    newImage.BeginInit();
-                    newImage.CacheOption = BitmapCacheOption.OnLoad;
-                    newImage.UriSource = new Uri(fileDialog.FileName, UriKind.RelativeOrAbsolute);
-                    newImage.EndInit();
-                    newImage.Freeze();
+                    newImage = ((MainWindow)Application.Current.MainWindow).CreateImage(fileDialog.FileName);
                 }
             }
         }

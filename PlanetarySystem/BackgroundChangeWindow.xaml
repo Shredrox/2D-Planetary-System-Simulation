@@ -50,7 +50,7 @@
 
             <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                 <Image Name="Background2" Height="110" Margin="10,0,10,0"/>
-                <TextBlock Name="Background2Name" Height="20" Text="Cosmic Silence" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
+                <TextBlock Name="Background2Name" Height="20" Text="Heart Of Creation" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
             </StackPanel>
             
            
@@ -66,7 +66,7 @@
 
             <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                 <Image Name="Background3" Height="110" Margin="10,0,10,0"/>
-                <TextBlock Name="Background3Name" Height="20" Text="Cosmic Silence" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
+                <TextBlock Name="Background3Name" Height="20" Text="Galactic Winds" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
             </StackPanel>
            
         </materialDesign:Card>
@@ -81,7 +81,7 @@
 
             <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                 <Image Name="Background4" Height="110" Margin="10,0,10,0"/>
-                <TextBlock Name="Background4Name" Height="20" Text="Cosmic Silence" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
+                <TextBlock Name="Background4Name" Height="20" Text="Stellar Chaos" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
             </StackPanel>
             
         </materialDesign:Card>
@@ -96,7 +96,7 @@
 
             <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                 <Image Name="Background5" Height="110" Margin="10,0,10,0"/>
-                <TextBlock Name="Background5Name" Height="20" Text="Cosmic Silence" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
+                <TextBlock Name="Background5Name" Height="20" Text="Nebula Storm" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
             </StackPanel>
         </materialDesign:Card>
 
