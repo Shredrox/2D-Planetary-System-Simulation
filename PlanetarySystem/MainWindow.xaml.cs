@@ -24,6 +24,7 @@ namespace PlanetarySystem
         private List<string> paths = new List<string>();
         private int systemIndex = 0;
         private int orbitIndex = 0;
+        private string[] imageFilesPaths = Directory.GetFiles("../../UserImages/");
 
         //images
         private BitmapImage sunImage;
@@ -86,6 +87,7 @@ namespace PlanetarySystem
             image.ImageSource = backgroundImage;
             MainCanvas.Background = image;
 
+            //zoom in and zoom out
             var mt = new MatrixTransform();
             MainCanvas.RenderTransform = mt;
             MainCanvas.MouseWheel += (s, e) =>
@@ -115,14 +117,84 @@ namespace PlanetarySystem
                     mt.Matrix = matrix;
                     e.Handled = true;
                 }
-                else if (mt.Value.OffsetX == 0 && mt.Value.OffsetY == 0 && e.Delta < 0)
-                {
-                    e.Handled = true;
-                    return;
-                }
             };
 
             LoadFromFile();
+        }
+
+        //serializes data to file
+        private void SaveToFile()
+        {
+            solarSystems.Clear();
+            foreach (var system in SystemList.Items)
+            {
+                for (int i = 0; i < ((SolarSystem)system).SystemPlanets.Count; i++)
+                {
+                    paths.Add(((SolarSystem)system).SystemPlanets[i].Image.ImageSource.ToString());
+                }
+                ImageCopy(paths);
+
+                for (int i = 0; i < ((SolarSystem)system).SystemPlanets.Count; i++)
+                {
+                    ((SolarSystem)system).SystemPlanets[i].ImageUri = paths[i];
+                }
+
+                solarSystems.Add((SolarSystem)system);
+            }
+
+            XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
+            XmlTextWriter myWriter = new XmlTextWriter("data", Encoding.UTF8);
+            mySerializer.Serialize(myWriter, solarSystems);
+            myWriter.Close();
+        }
+
+        //deserializes data from file
+        private void LoadFromFile()
+        {
+            solarSystems.Clear();
+            XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
+
+            if (File.Exists("data"))
+            {
+                using (var myFileStream = new FileStream("data", FileMode.Open))
+                {
+                    solarSystems = (List<SolarSystem>)mySerializer.Deserialize(myFileStream);
+                }
+
+                foreach (var system in solarSystems)
+                {
+                    foreach (var s in system.SystemPlanets)
+                    {
+                        LoadedObjectShapeSet(s);
+                        if (s.GetType() == typeof(Moon))
+                        {
+                            int moonIndex = system.SystemPlanets.FindIndex(p => p.Equals(s));
+
+                            for (int i = moonIndex; i >= 0; i--)
+                            {
+                                if (system.SystemPlanets[i].GetType() == typeof(Planet))
+                                {
+                                    ((Moon)s).GravityCenter = system.SystemPlanets[i];
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    SystemList.Items.Add(system);
+                }
+            }
+        }
+
+        //sets the shape and the image of an object after loading from file
+        private void LoadedObjectShapeSet(CelestialObject systemObj)
+        {
+            systemObj.Image.ImageSource = CreateImage(systemObj.ImageUri);
+            systemObj.Shape.Width = systemObj.Width;
+            systemObj.Shape.Height = systemObj.Height;
+            systemObj.Shape.SetValue(Canvas.LeftProperty, systemObj.X);
+            systemObj.Shape.SetValue(Canvas.TopProperty, systemObj.Y);
+            systemObj.Shape.Margin = new Thickness(-systemObj.Shape.Height / 2);
+            systemObj.Shape.Fill = systemObj.Image;
         }
 
         //copies newly added images to project folder for reuse
@@ -138,6 +210,20 @@ namespace PlanetarySystem
                     string combinedPath = System.IO.Path.Combine("../../UserImages/", name);
                     File.Copy(path, combinedPath, true);
                     paths[i] = combinedPath;
+                }
+            }
+        }
+
+        //delets unused images
+        private void ImageDelete()
+        {
+            var userImages = paths.Where(p => p.Contains("/UserImages")).ToArray();
+
+            for (int i = 0; i < imageFilesPaths.Length; i++)
+            {
+                if (!userImages.Contains(imageFilesPaths[i]))
+                {
+                    File.Delete(imageFilesPaths[i]);
                 }
             }
         }
@@ -444,75 +530,7 @@ namespace PlanetarySystem
             CompositionTarget.Rendering += AnimationUpdate;
         }
 
-        private void LoadedObjectShapeSet(CelestialObject systemObj)
-        {
-            systemObj.Image.ImageSource = CreateImage(systemObj.ImageUri);
-            systemObj.Shape.Width = systemObj.Width;
-            systemObj.Shape.Height = systemObj.Height;
-            systemObj.Shape.SetValue(Canvas.LeftProperty, systemObj.X);
-            systemObj.Shape.SetValue(Canvas.TopProperty, systemObj.Y);
-            systemObj.Shape.Margin = new Thickness(-systemObj.Shape.Height / 2);
-            systemObj.Shape.Fill = systemObj.Image;
-        }
 
-        private void SaveToFile()
-        {
-            solarSystems.Clear();
-            foreach (var system in SystemList.Items)
-            {
-                for (int i = 0; i < ((SolarSystem)system).SystemPlanets.Count; i++)
-                {
-                    paths.Add(((SolarSystem)system).SystemPlanets[i].Image.ImageSource.ToString());
-                }
-                ImageCopy(paths);
-
-                for (int i = 0; i < ((SolarSystem)system).SystemPlanets.Count; i++)
-                {
-                    //((SolarSystem)system).SystemPlanets[i].Image.ImageSource = CreateImage(paths[i]);
-                    ((SolarSystem)system).SystemPlanets[i].ImageUri = paths[i];
-                }
-
-                solarSystems.Add((SolarSystem)system);
-            }
-
-            XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
-            XmlTextWriter myWriter = new XmlTextWriter("data", Encoding.UTF8);
-            mySerializer.Serialize(myWriter, solarSystems);
-            myWriter.Close();
-        }
-
-        private void LoadFromFile()
-        {
-            solarSystems.Clear();
-            XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
-
-            using (var myFileStream = new FileStream("data", FileMode.Open))
-            {
-                solarSystems = (List<SolarSystem>)mySerializer.Deserialize(myFileStream);
-            }
-            
-            foreach (var system in solarSystems)
-            {
-                foreach (var s in system.SystemPlanets)
-                {
-                    LoadedObjectShapeSet(s);
-                    if (s.GetType() == typeof(Moon))
-                    {
-                        int moonIndex = system.SystemPlanets.FindIndex(p => p.Equals(s));
-
-                        for (int i = moonIndex; i >= 0; i--)
-                        {
-                            if (system.SystemPlanets[i].GetType() == typeof(Planet))
-                            {
-                                ((Moon)s).GravityCenter = system.SystemPlanets[i];
-                                break;
-                            }
-                        }
-                    }
-                }
-                SystemList.Items.Add(system);
-            }
-        }
 
         //opens a new window for system creation
         private void CreateSystemButton_Click(object sender, RoutedEventArgs e)
@@ -714,6 +732,7 @@ namespace PlanetarySystem
             SaveToFile();
             MainCanvas.Children.Clear();
             systemObjects.Clear();
+            ImageDelete();
             this.Close();
         }
 

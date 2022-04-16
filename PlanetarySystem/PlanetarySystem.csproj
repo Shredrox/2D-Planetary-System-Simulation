@@ -198,9 +198,6 @@
     <Resource Include="Images\venus.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Data\PlanetData.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\defaultPlanet.png" />
   </ItemGroup>
   <ItemGroup>

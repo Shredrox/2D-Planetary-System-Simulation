@@ -87,7 +87,7 @@ namespace PlanetarySystem
                 }
 
                 //editedSystem.SystemPlanets.Add(newPlanet);
-                editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count-2, newPlanet);
+                editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, newPlanet);
 
                 if (int.Parse(PlanetMoonCount.Text) <= 3 && int.Parse(PlanetMoonCount.Text) > 0)
                 {
@@ -97,7 +97,7 @@ namespace PlanetarySystem
                         //    ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"), 
                         //    10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
 
-                        editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 2, new Moon($"Moon {m}",
+                        editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}",
                             ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"),
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                     }
@@ -110,7 +110,7 @@ namespace PlanetarySystem
                         //    ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"), 
                         //    10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
 
-                        editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 2, new Moon($"Moon {m}",
+                        editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}",
                             ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"),
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                     }
