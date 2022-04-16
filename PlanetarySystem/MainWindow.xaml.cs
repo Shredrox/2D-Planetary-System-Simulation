@@ -24,7 +24,6 @@ namespace PlanetarySystem
         private List<string> paths = new List<string>();
         private int systemIndex = 0;
         private int orbitIndex = 0;
-        private string[] imageFilesPaths = Directory.GetFiles("../../UserImages/");
 
         //images
         private BitmapImage sunImage;
@@ -214,9 +213,10 @@ namespace PlanetarySystem
             }
         }
 
-        //delets unused images
+        //deletes unused images
         private void ImageDelete()
         {
+            string[] imageFilesPaths = Directory.GetFiles("../../UserImages/");
             var userImages = paths.Where(p => p.Contains("/UserImages")).ToArray();
 
             for (int i = 0; i < imageFilesPaths.Length; i++)
