@@ -1,33 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Threading;
+using System.Xml.Serialization;
+using System.Xml;
 
 namespace PlanetarySystem
 {
     public partial class MainWindow : Window
     {
         private List<CelestialObject> systemObjects = new List<CelestialObject>();
+        private List<SolarSystem> solarSystems = new List<SolarSystem>();
         private List<Ellipse> orbits = new List<Ellipse>();
         private List<string> paths = new List<string>();
         private int systemIndex = 0;
         private int orbitIndex = 0;
-        private string path = System.IO.Path.GetFullPath("../../Data/PlanetData.txt");
 
         //images
         private BitmapImage sunImage;
@@ -126,116 +122,7 @@ namespace PlanetarySystem
                 }
             };
 
-            LoadDataFromFile();
-        }
-        
-        //loads data from file
-        private void LoadDataFromFile()
-        {
-            if (File.Exists(path))
-            {
-                string[] fileLines = File.ReadAllLines(path);
-                List<CelestialObject> planets = new List<CelestialObject>();
-                Star sun = new Star("Sun", sunImage, 450, 425, 86, 86);
-
-                for (int i = 0; i < fileLines.Length; i++)
-                {
-                    if (fileLines[i] == String.Empty)
-                    {
-                        return;
-                    }
-                    var lineContent = fileLines[i].Split('\t');
-
-                    for (int k = 1; k < lineContent.Length; k++)
-                    {
-                        var lineElements = lineContent[k].Split('|');
-
-                        BitmapImage newImage = CreateImage(lineElements[6]);
-
-                        Planet newPlanet = new Planet(lineElements[0], lineElements[1], lineElements[2], lineElements[3], int.Parse(lineElements[4]),
-                                                 lineElements[5], newImage, 100, 100, true, int.Parse(lineElements[7]),
-                                                 int.Parse(lineElements[8]), sun, int.Parse(lineElements[9]), double.Parse(lineElements[10]));
-
-                        planets.Add(newPlanet);
-
-                        if (newPlanet.MoonCount <= 3 && newPlanet.MoonCount > 0)
-                        {
-                            for (int m = 1; m < newPlanet.MoonCount + 1; m++)
-                            {
-                                planets.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
-                            }
-                        }
-                        else if (newPlanet.MoonCount > 3)
-                        {
-                            for (int m = 1; m < 4; m++)
-                            {
-                                planets.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
-                            }
-                        }
-                    }
-
-                    planets.Add(sun);
-                    SolarSystem solarSystem = new SolarSystem { SystemName = lineContent[0], PlanetCount = planets.Count, SystemPlanets = planets };
-                    SystemList.Items.Add(solarSystem);
-                    SystemList.SelectedValuePath = solarSystem.SystemName;
-                    planets = new List<CelestialObject>();
-                }
-            }
-        }
-
-        //saves data to file
-        private void SaveDataToFile()
-        {
-            if (SystemList.Items.Count > 0)
-            {
-                string spliter = "\t";
-
-                using (StreamWriter file = File.CreateText(path))
-                {
-                    foreach (SolarSystem system in SystemList.Items)
-                    {
-                        system.SystemPlanets.RemoveAll(x => x.GetType() == typeof(Star));
-                        system.SystemPlanets.RemoveAll(x => x.GetType() == typeof(Moon));
-
-                        for (int i = 0; i < system.SystemPlanets.Count; i++)
-                        {
-                            paths.Add(system.SystemPlanets[i].Image.ImageSource.ToString());
-                        }
-                        ImageCopy(paths);
-
-                        file.Write(system.SystemName + "\t");
-                        for (int i = 0; i < system.SystemPlanets.Count; i++)
-                        {
-                            if (system.SystemPlanets[i].GetType() == typeof(Planet))
-                            {
-                                if (i == system.SystemPlanets.Count - 1)
-                                {
-                                    spliter = string.Empty;
-                                }
-                                string name = system.SystemPlanets[i].Name;
-                                string atmosphere = ((Planet)system.SystemPlanets[i]).Atmosphere;
-                                string orbitalPeriod = ((Planet)system.SystemPlanets[i]).OrbitalPeriod;
-                                string rotationPeriod = ((Planet)system.SystemPlanets[i]).RotationPeriod;
-                                int moonCount = ((Planet)system.SystemPlanets[i]).MoonCount;
-                                string life = ((Planet)system.SystemPlanets[i]).Life;
-                                string image = paths[i];
-                                int width = system.SystemPlanets[i].Width;
-                                int height = system.SystemPlanets[i].Height;
-                                int radius = ((Planet)system.SystemPlanets[i]).Radius;
-                                double speed = ((Planet)system.SystemPlanets[i]).Speed;
-                                file.Write(name + "|" + atmosphere + "|" + orbitalPeriod + "|" + rotationPeriod + "|" +
-                                           moonCount + "|" + life + "|" + image + "|" + width + "|" + height + "|" + radius +
-                                           "|" + speed + "|" + spliter);
-                            }
-                        }
-                        spliter = "\t";
-                        file.WriteLine();
-                        paths.Clear();
-                    }
-                    file.Flush();
-                    file.Dispose();
-                }
-            }
+            LoadFromFile();
         }
 
         //copies newly added images to project folder for reuse
@@ -557,6 +444,76 @@ namespace PlanetarySystem
             CompositionTarget.Rendering += AnimationUpdate;
         }
 
+        private void LoadedObjectShapeSet(CelestialObject systemObj)
+        {
+            systemObj.Image.ImageSource = CreateImage(systemObj.ImageUri);
+            systemObj.Shape.Width = systemObj.Width;
+            systemObj.Shape.Height = systemObj.Height;
+            systemObj.Shape.SetValue(Canvas.LeftProperty, systemObj.X);
+            systemObj.Shape.SetValue(Canvas.TopProperty, systemObj.Y);
+            systemObj.Shape.Margin = new Thickness(-systemObj.Shape.Height / 2);
+            systemObj.Shape.Fill = systemObj.Image;
+        }
+
+        private void SaveToFile()
+        {
+            solarSystems.Clear();
+            foreach (var system in SystemList.Items)
+            {
+                for (int i = 0; i < ((SolarSystem)system).SystemPlanets.Count; i++)
+                {
+                    paths.Add(((SolarSystem)system).SystemPlanets[i].Image.ImageSource.ToString());
+                }
+                ImageCopy(paths);
+
+                for (int i = 0; i < ((SolarSystem)system).SystemPlanets.Count; i++)
+                {
+                    //((SolarSystem)system).SystemPlanets[i].Image.ImageSource = CreateImage(paths[i]);
+                    ((SolarSystem)system).SystemPlanets[i].ImageUri = paths[i];
+                }
+
+                solarSystems.Add((SolarSystem)system);
+            }
+
+            XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
+            XmlTextWriter myWriter = new XmlTextWriter("data", Encoding.UTF8);
+            mySerializer.Serialize(myWriter, solarSystems);
+            myWriter.Close();
+        }
+
+        private void LoadFromFile()
+        {
+            solarSystems.Clear();
+            XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
+
+            using (var myFileStream = new FileStream("data", FileMode.Open))
+            {
+                solarSystems = (List<SolarSystem>)mySerializer.Deserialize(myFileStream);
+            }
+            
+            foreach (var system in solarSystems)
+            {
+                foreach (var s in system.SystemPlanets)
+                {
+                    LoadedObjectShapeSet(s);
+                    if (s.GetType() == typeof(Moon))
+                    {
+                        int moonIndex = system.SystemPlanets.FindIndex(p => p.Equals(s));
+
+                        for (int i = moonIndex; i >= 0; i--)
+                        {
+                            if (system.SystemPlanets[i].GetType() == typeof(Planet))
+                            {
+                                ((Moon)s).GravityCenter = system.SystemPlanets[i];
+                                break;
+                            }
+                        }
+                    }
+                }
+                SystemList.Items.Add(system);
+            }
+        }
+
         //opens a new window for system creation
         private void CreateSystemButton_Click(object sender, RoutedEventArgs e)
         {
@@ -592,16 +549,20 @@ namespace PlanetarySystem
                 {
                     for (int m = 1; m < ((Planet)selectedPlanet).MoonCount + 1; m++)
                     {
-                        ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
-                        systemObjects.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
+                        //((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
+                        //systemObjects.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
+                        ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
+                        systemObjects.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
                     }
                 }
                 else if (((Planet)selectedPlanet).MoonCount > 3)
                 {
                     for (int m = 1; m < 4; m++)
                     {
-                        ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
-                        systemObjects.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
+                        //((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
+                        //systemObjects.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
+                        ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
+                        systemObjects.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
                     }
                 }
 
@@ -700,6 +661,7 @@ namespace PlanetarySystem
                 {
                     SystemList.SelectedValuePath = ((SolarSystem)SystemList.Items[systemIndex]).SystemName;
                     SystemList.Items.Refresh();
+
                     LoadSystem_Click(sender, e);
                 };
             }
@@ -749,7 +711,7 @@ namespace PlanetarySystem
         //closes the program
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveDataToFile();
+            SaveToFile();
             MainCanvas.Children.Clear();
             systemObjects.Clear();
             this.Close();

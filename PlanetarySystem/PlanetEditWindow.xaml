@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlanetarySystem"
         mc:Ignorable="d"
-        Title="PlanetEditWindow" Height="800" Width="530" Foreground="#FF964646" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="PlanetEditWindow" Height="800" Width="530" Foreground="#FF964646" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -43,7 +43,8 @@
                 <TextBlock Text="Life: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
                 <TextBlock Text="Width: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
                 <TextBlock Text="Height: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-                <TextBlock Text="Speed: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
+                <TextBlock Text="Speed: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
+                <Button Name="ImageEditButton" Width="130" Content="Change Image" Margin="10" Click="ImageEditButton_Click"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
@@ -119,9 +120,10 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
+                
                 <StackPanel Orientation="Horizontal">
-                    <Button Name="ImageEditButton" Width="130" Content="Change Image" Margin="10" Click="ImageEditButton_Click"/>
-                    <Button Name="SaveButton" Width="80" Content="Save" Margin="10" Click="SaveButton_Click"/>
+                    <Button Name="CancelButton" Width="80" Content="Cancel" Margin="35,14,10,10" Click="CancelButton_Click" />
+                    <Button Name="SaveButton" Width="80" Content="Save" Margin="10,14,10,10" Click="SaveButton_Click"/>
                 </StackPanel>
                 
             </StackPanel>

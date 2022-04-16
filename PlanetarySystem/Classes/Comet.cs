@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace PlanetarySystem
 {
@@ -12,7 +13,7 @@ namespace PlanetarySystem
     {
         public Canvas Canvas { get; set; }
 
-        public Comet(string name, Canvas scene, ImageSource image, double startx, double starty, bool orbiting, int width, int height)
+        public Comet(string name, Canvas scene, BitmapImage image, double startx, double starty, bool orbiting, int width, int height)
             : base(name, image, startx, starty, orbiting, width, height)
         {
             Canvas = scene;

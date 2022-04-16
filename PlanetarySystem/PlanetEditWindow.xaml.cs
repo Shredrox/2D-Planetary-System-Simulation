@@ -87,11 +87,18 @@ namespace PlanetarySystem
             editedPlanet.Width = int.Parse(PlanetWidth.Text);
             editedPlanet.Height = int.Parse(PlanetHeight.Text);
             ((Planet)editedPlanet).Speed = double.Parse(PlanetSpeed.Text);
+            
             if(newImage != null)
             {
                 editedPlanet.Image.ImageSource = newImage;
+                editedPlanet.ImageUri = newImage.UriSource.ToString();
             }
 
+            this.Close();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
             this.Close();
         }
     }

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace PlanetarySystem
 {
+    [Serializable]
     public class Moon : CelestialObject
     {
         public CelestialObject GravityCenter { get; set; }
@@ -14,12 +16,17 @@ namespace PlanetarySystem
         public double Speed { get; set; }
         private double Angle = 0;
 
-        public Moon(string name, ImageSource image, double startx, double starty, bool orbiting, int width, int height,
+        public Moon(string name, BitmapImage image, double startx, double starty, bool orbiting, int width, int height,
             CelestialObject center, int radius, double speed) : base(name, image, startx, starty, orbiting, width, height)
         {
             Speed = speed;
             Radius = radius;
             GravityCenter = center;
+        }
+
+        protected Moon()
+        {
+
         }
 
         protected override void CalculateChanges()

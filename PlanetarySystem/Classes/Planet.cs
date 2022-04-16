@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Xml.Serialization;
 
 namespace PlanetarySystem
 {
+    [Serializable]
+    [XmlInclude(typeof(Star))]
     public class Planet : CelestialObject
     {
         public string Atmosphere { get; set; }
@@ -22,7 +28,7 @@ namespace PlanetarySystem
         private double Angle = 0;
 
         public Planet(string name, string atmosphere, string orbitalPeriod, string rotationPeriod,
-            int mooncount, string life, ImageSource image, 
+            int mooncount, string life, BitmapImage image, 
             double startx, double starty,bool orbiting, int width, int height, 
             CelestialObject center, int radius, double speed) : base(name, image, startx, starty, orbiting, width, height)
         {
@@ -34,6 +40,11 @@ namespace PlanetarySystem
             Speed = speed;
             Radius = radius;
             GravityCenter = center;
+        }
+
+        protected Planet()
+        {
+
         }
 
         protected override void CalculateChanges()

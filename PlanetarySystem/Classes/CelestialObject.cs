@@ -2,29 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace PlanetarySystem
 {
+    [Serializable]
+    [XmlInclude(typeof(Planet))]
+    [XmlInclude(typeof(Moon))]
+    [XmlInclude(typeof(Star))]
     public class CelestialObject 
     {
         public string Name { get; set; }
+        [XmlIgnore]
         public Ellipse Shape { get; set; }
+        [XmlIgnore]
         public ImageBrush Image { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         public bool IsOrbiting { get; set; }
+        public string ImageUri { get; set; }
 
         private ImageBrush imageBrush = new ImageBrush();
 
-        public CelestialObject(string name, ImageSource image, double startx, double starty, bool orbiting, int width, int height)
+        public CelestialObject(string name, BitmapImage image, double startx, double starty, bool orbiting, int width, int height)
         {
             Name = name;
             Shape = new Ellipse();
@@ -43,10 +52,17 @@ namespace PlanetarySystem
             IsOrbiting = orbiting;
             Width = width;
             Height = height;
+            ImageUri = Image.ImageSource.ToString();
 
             DrawOjbect();
         }
         
+        protected CelestialObject()
+        {
+            Shape = new Ellipse();
+            Image = new ImageBrush();
+        }
+
         protected void DrawOjbect()
         {
             Shape.SetValue(Canvas.LeftProperty, X);
