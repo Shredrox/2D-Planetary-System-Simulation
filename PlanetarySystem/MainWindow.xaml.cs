@@ -24,6 +24,7 @@ namespace PlanetarySystem
         private List<string> paths = new List<string>();
         private int systemIndex = 0;
         private int orbitIndex = 0;
+        private int pathIndex = 0;
 
         //images
         private BitmapImage sunImage;
@@ -135,9 +136,10 @@ namespace PlanetarySystem
 
                 for (int i = 0; i < ((SolarSystem)system).SystemPlanets.Count; i++)
                 {
-                    ((SolarSystem)system).SystemPlanets[i].ImageUri = paths[i];
+                    ((SolarSystem)system).SystemPlanets[i].ImageUri = paths[i+pathIndex];
                 }
 
+                pathIndex += ((SolarSystem)system).SystemPlanets.Count;
                 solarSystems.Add((SolarSystem)system);
             }
 
@@ -493,22 +495,22 @@ namespace PlanetarySystem
 
             Star sun = new Star("Sun", sunImage, MainCanvas.ActualWidth / 2, MainCanvas.ActualHeight / 2, 86, 86);
             Planet mercury = new Planet("Mercury", "Not Breathable", "88 Days", "58 Days",
-                                        0, "Uninhabited", mercuryImage, 10, 10, true, 10, 10, sun, 50, 4);
+                                        0, "Uninhabited", mercuryImage, 10, 10, true, 10, 10, sun, 50, -4);
             Planet venus = new Planet("Venus", "Not Breathable", "225 Days", "116 Days",
-                                        0, "Uninhabited", venusImage, 10, 10, true, 10, 10, sun, 100, 3);
+                                        0, "Uninhabited", venusImage, 10, 10, true, 10, 10, sun, 100, -3);
             Planet earth = new Planet("Earth", "Breathable", "365 Days", "1 Day / 24 Hours",
-                                        1, "Inhabited", earthImage, 10, 10, true, 20, 20, sun, 150, 2);
-            Moon moon = new Moon("Luna", moonImage, 10, 10, true, 5, 5, earth, 23, 4);
+                                        1, "Inhabited", earthImage, 10, 10, true, 20, 20, sun, 150, -2);
+            Moon moon = new Moon("Luna", moonImage, 10, 10, true, 5, 5, earth, 23, -4);
             Planet mars = new Planet("Mars", "Not Breathable", "687 Days", "1 Day / 24 Hours",
-                                        2, "Uninhabited", marsImage, 10, 10, true, 20, 20, sun, 200, 1.5);
+                                        2, "Uninhabited", marsImage, 10, 10, true, 20, 20, sun, 200, -1.5);
             Planet jupiter = new Planet("Jupiter", "Not Breathable", "12 Years", "10 Hours",
-                                        79, "Uninhabited", jupiterImage, 10, 10, true, 30, 30, sun, 280, 1);
+                                        79, "Uninhabited", jupiterImage, 10, 10, true, 30, 30, sun, 280, -1);
             Planet saturn = new Planet("Saturn", "Not Breathable", "29 Years", "11 Hours",
-                                        82, "Uninhabited", saturnImage, 10, 10, true, 40, 30, sun, 330, 0.75);
+                                        82, "Uninhabited", saturnImage, 10, 10, true, 40, 30, sun, 330, -0.75);
             Planet uranus = new Planet("Uranus", "Not Breathable", "84 Years", "17 Hours",
-                                        27, "Uninhabited", uranusImage, 10, 10, true, 30, 30, sun, 370, 0.5);
+                                        27, "Uninhabited", uranusImage, 10, 10, true, 30, 30, sun, 370, -0.5);
             Planet neptune = new Planet("Neptune", "Not Breathable", "165 Years", "16 Hours",
-                                        14, "Uninhabited", neptuneImage, 10, 10, true, 40, 30, sun, 400, 0.25);
+                                        14, "Uninhabited", neptuneImage, 10, 10, true, 40, 30, sun, 400, -0.25);
 
             systemObjects.Add(mercury);
             systemObjects.Add(venus);
@@ -567,8 +569,6 @@ namespace PlanetarySystem
                 {
                     for (int m = 1; m < ((Planet)selectedPlanet).MoonCount + 1; m++)
                     {
-                        //((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
-                        //systemObjects.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
                         ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
                         systemObjects.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
                     }
@@ -577,8 +577,6 @@ namespace PlanetarySystem
                 {
                     for (int m = 1; m < 4; m++)
                     {
-                        //((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
-                        //systemObjects.Add(new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
                         ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
                         systemObjects.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
                     }

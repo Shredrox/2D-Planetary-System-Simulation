@@ -1,17 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PlanetarySystem
 {
@@ -86,17 +78,12 @@ namespace PlanetarySystem
                     defaultImage, 10, 10, true, int.Parse(PlanetWidth.Text), int.Parse(PlanetHeight.Text), sun, radius, double.Parse(PlanetSpeed.Text));
                 }
 
-                //editedSystem.SystemPlanets.Add(newPlanet);
                 editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, newPlanet);
 
                 if (int.Parse(PlanetMoonCount.Text) <= 3 && int.Parse(PlanetMoonCount.Text) > 0)
                 {
                     for (int m = 1; m < int.Parse(PlanetMoonCount.Text) + 1; m++)
                     {
-                        //editedSystem.SystemPlanets.Add(new Moon($"Moon {m}",
-                        //    ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"), 
-                        //    10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
-
                         editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}",
                             ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"),
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
@@ -106,10 +93,6 @@ namespace PlanetarySystem
                 {
                     for (int m = 1; m < 4; m++)
                     {
-                        //editedSystem.SystemPlanets.Add(new Moon($"Moon {m}",
-                        //    ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"), 
-                        //    10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
-
                         editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}",
                             ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"),
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
