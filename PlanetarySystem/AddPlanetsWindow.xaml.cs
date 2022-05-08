@@ -4,18 +4,21 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using CelestialObjectsLibrary;
 
 namespace PlanetarySystem
 {
     public partial class AddPlanetsWindow : Window
     {                                   
-        private BitmapImage addImage = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/add.png");
-        private BitmapImage addImage2 = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/add2.png");
+        private BitmapImage addImage = DataControl.CreateImage("../../Images/add.png");
+        private BitmapImage addImage2 = DataControl.CreateImage("../../Images/add2.png");
+
         private List<Image> images = new List<Image>();
         private List<TextBlock> textBlocks = new List<TextBlock>();
-        private SolarSystem editedSystem = new SolarSystem();
-        private List<CelestialObject> onlyPlanets;
 
+        private List<CelestialObject> onlyPlanets;
+        private SolarSystem editedSystem = new SolarSystem();
+        
         public AddPlanetsWindow(SolarSystem solarSystem)
         {
             InitializeComponent();
@@ -46,25 +49,11 @@ namespace PlanetarySystem
                 images[i].MouseMove += ImageSelected;
             }
 
-            onlyPlanets = solarSystem.SystemPlanets.Where(s => s.GetType() == typeof(Planet)).ToList();
+            onlyPlanets = DataControl.GetOnlyPlanets(solarSystem);
 
             for (int i = 0; i < onlyPlanets.Count; i++)
             {
-                string fullPath;
-                if (onlyPlanets[i].Image.ImageSource.ToString().Contains("file://"))
-                {
-                    fullPath = onlyPlanets[i].Image.ImageSource.ToString();
-                }
-                else if (onlyPlanets[i].Image.ImageSource.ToString().Contains("/Images"))
-                {
-                    fullPath = onlyPlanets[i].Image.ImageSource.ToString();
-                }
-                else
-                {
-                    fullPath = System.IO.Path.GetFullPath(onlyPlanets[i].Image.ImageSource.ToString());
-                }
-
-                images[i].Source = ((MainWindow)Application.Current.MainWindow).CreateImage(fullPath);
+                images[i].Source = DataControl.CreateImage(System.IO.Path.GetFullPath(onlyPlanets[i].Image.ImageSource.ToString()));
                 textBlocks[i].Text = onlyPlanets[i].Name;
             }
 
@@ -86,7 +75,10 @@ namespace PlanetarySystem
                     {
                         if (newPlanetWindow.IsNewPlanet)
                         {
-                            onlyPlanets = editedSystem.SystemPlanets.Where(p => p.GetType() == typeof(Planet)).ToList();
+                            onlyPlanets = editedSystem.SystemPlanets
+                                .Where(p => p is Planet)
+                                .ToList();
+
                             images[imageIndex].Source = newPlanetWindow.NewImage();
                             textBlocks[imageIndex].Text = onlyPlanets[onlyPlanets.Count - 1].Name;
                         }

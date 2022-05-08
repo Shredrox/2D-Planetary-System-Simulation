@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlanetarySystem"
         mc:Ignorable="d"
-        Title="MainWindow" Height="966" Width="1300"
+        Title="MainWindow" Height="966" Width="1660"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -31,6 +31,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="360"/>
             <ColumnDefinition Width="940"/>
             <ColumnDefinition Width="360"/>
         </Grid.ColumnDefinitions>
@@ -39,7 +40,7 @@
             <RowDefinition Height="880"/>
         </Grid.RowDefinitions>
 
-        <materialDesign:TransitioningContent Grid.Column="1" Grid.Row="0" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
+        <materialDesign:TransitioningContent Grid.Column="2" Grid.Row="0" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
             <materialDesign:Card Grid.Column="1" Grid.Row="0" UniformCornerRadius="20" Margin="10,10,12,0">
                 <materialDesign:Card.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -56,7 +57,7 @@
             </materialDesign:Card>
         </materialDesign:TransitioningContent>
 
-        <materialDesign:TransitioningContent Grid.Column="0" Grid.Row="0" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
+        <materialDesign:TransitioningContent Grid.Column="1" Grid.Row="0" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
             <materialDesign:Card MouseDown="Card_MouseDown" UniformCornerRadius="20" Grid.Row="0" Grid.Column="0" Margin="10,10,10,0">
                 <materialDesign:Card.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -90,7 +91,7 @@
             </materialDesign:Card>
         </materialDesign:TransitioningContent>
 
-        <Border ClipToBounds="True" Grid.Row="1" BorderThickness="5" CornerRadius="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border ClipToBounds="True" Grid.Row="1" Grid.Column="1" BorderThickness="5" CornerRadius="8" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
@@ -107,7 +108,7 @@
             </Canvas>
         </Border>
 
-        <Border ClipToBounds="True" Grid.Column="1" Grid.Row="1" BorderThickness="5" CornerRadius="8" HorizontalAlignment="Center"
+        <Border ClipToBounds="True" Grid.Column="2" Grid.Row="1" BorderThickness="5" CornerRadius="8" HorizontalAlignment="Center"
                     VerticalAlignment="Center">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -210,5 +211,38 @@
                 </materialDesign:Card>
             </materialDesign:TransitioningContent>
         </Border>
+
+        <Border ClipToBounds="True" Grid.Column="0" Grid.Row="1" BorderThickness="5" CornerRadius="8" HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF0A0F5D" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:1.5}">
+                <materialDesign:Card Name="SystemInfoPanel" Margin="10" Width="330" Height="850">
+                    <materialDesign:Card.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="#FF1A127F" Offset="1"/>
+                        </LinearGradientBrush>
+                    </materialDesign:Card.Background>
+                </materialDesign:Card>
+            </materialDesign:TransitioningContent>
+        </Border>
+
+        <materialDesign:TransitioningContent Grid.Column="0" Grid.Row="0" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
+            <materialDesign:Card Grid.Column="1" Grid.Row="0" UniformCornerRadius="20" Margin="10,10,12,0">
+                <materialDesign:Card.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF1D2A77" Offset="1"/>
+                    </LinearGradientBrush>
+                </materialDesign:Card.Background>
+            </materialDesign:Card>
+        </materialDesign:TransitioningContent>
+
     </Grid>
 </Window>

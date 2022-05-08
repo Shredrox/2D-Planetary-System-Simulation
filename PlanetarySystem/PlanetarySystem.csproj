@@ -70,11 +70,6 @@
     <Compile Include="BackgroundChangeWindow.xaml.cs">
       <DependentUpon>BackgroundChangeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Comet.cs" />
-    <Compile Include="Classes\Planet.cs" />
-    <Compile Include="Classes\SolarSystem.cs" />
-    <Compile Include="Classes\Star.cs" />
-    <Compile Include="Classes\Moon.cs" />
     <Compile Include="NewPlanetWindow.xaml.cs">
       <DependentUpon>NewPlanetWindow.xaml</DependentUpon>
     </Compile>
@@ -100,7 +95,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\CelestialObject.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -191,6 +185,12 @@
     <PackageReference Include="MaterialDesignThemes">
       <Version>4.3.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CelestialObjectsLibrary\CelestialObjectsLibrary.csproj">
+      <Project>{4cdd12dc-e1d5-45be-83a5-cff339c15d17}</Project>
+      <Name>CelestialObjectsLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

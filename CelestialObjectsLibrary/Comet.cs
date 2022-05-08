@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace PlanetarySystem
+namespace CelestialObjectsLibrary
 {
     public class Comet : CelestialObject
     {

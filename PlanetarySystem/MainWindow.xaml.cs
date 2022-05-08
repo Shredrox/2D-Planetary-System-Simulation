@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,20 +9,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Xml.Serialization;
-using System.Xml;
+using CelestialObjectsLibrary;
 
 namespace PlanetarySystem
 {
     public partial class MainWindow : Window
     {
-        private List<CelestialObject> systemObjects = new List<CelestialObject>();
-        private List<SolarSystem> solarSystems = new List<SolarSystem>();
         private List<Ellipse> orbits = new List<Ellipse>();
-        private List<string> paths = new List<string>();
         private int systemIndex = 0;
         private int orbitIndex = 0;
-        private int pathIndex = 0;
+        private bool solSystemLoaded = false;
 
         //images
         private BitmapImage sunImage;
@@ -40,49 +34,42 @@ namespace PlanetarySystem
         private BitmapImage cometImage;
         private BitmapImage backgroundImage;
 
-        //function to create images 
-        public BitmapImage CreateImage(string filePath)
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            bitmapImage.UriSource = new Uri(filePath, UriKind.RelativeOrAbsolute);
-            bitmapImage.EndInit();
-            bitmapImage.Freeze();
-
-            return bitmapImage;
-        }
-
         public MainWindow()
         { 
             InitializeComponent();
 
-            sunImage = CreateImage("../../Images/sun.png");
-            earthImage = CreateImage("../../Images/earth.png");
-            marsImage = CreateImage("../../Images/mars.png");
-            mercuryImage = CreateImage("../../Images/mercury.png");
-            venusImage = CreateImage("../../Images/venus.png");
-            moonImage = CreateImage("../../Images/moon.png");
-            jupiterImage = CreateImage("../../Images/jupiter.png");
-            saturnImage = CreateImage("../../Images/saturn.png");
-            uranusImage = CreateImage("../../Images/uranus.png");
-            neptuneImage = CreateImage("../../Images/neptune.png");
-            cometImage = CreateImage("../../Images/comet.png");
+            sunImage = DataControl.CreateImage("../../Images/sun.png");
+            earthImage = DataControl.CreateImage("../../Images/earth.png");
+            marsImage = DataControl.CreateImage("../../Images/mars.png");
+            mercuryImage = DataControl.CreateImage("../../Images/mercury.png");
+            venusImage = DataControl.CreateImage("../../Images/venus.png");
+            moonImage = DataControl.CreateImage("../../Images/moon.png");
+            jupiterImage = DataControl.CreateImage("../../Images/jupiter.png");
+            saturnImage = DataControl.CreateImage("../../Images/saturn.png");
+            uranusImage = DataControl.CreateImage("../../Images/uranus.png");
+            neptuneImage = DataControl.CreateImage("../../Images/neptune.png");
+            cometImage = DataControl.CreateImage("../../Images/comet.png");
 
             //main window background
-            BitmapImage windowBackground = CreateImage("../../Images/windowBackground.png");
+            BitmapImage windowBackground = DataControl.CreateImage("../../Images/windowBackground.png");
             ImageBrush imageBackground = new ImageBrush();
             imageBackground.ImageSource = windowBackground;
             this.Background = imageBackground;
 
             //planet info background
-            BitmapImage windowBackground2 = CreateImage("../../Images/windowBackground2.jpg");
+            BitmapImage windowBackground2 = DataControl.CreateImage("../../Images/windowBackground2.jpg");
             ImageBrush imageBackground2 = new ImageBrush();
             imageBackground2.ImageSource = windowBackground2;
             PlanetInfoPanel.Background = imageBackground2;
 
+            //systeim info background
+            BitmapImage windowBackground3 = DataControl.CreateImage("../../Images/windowBackground2.jpg");
+            ImageBrush imageBackground3 = new ImageBrush();
+            imageBackground3.ImageSource = windowBackground3;
+            SystemInfoPanel.Background = imageBackground3;
+
             //canvas background
-            backgroundImage = CreateImage("../../Images/spaceCanvasBackground.jpg");
+            backgroundImage = DataControl.CreateImage("../../Images/spaceCanvasBackground.jpg");
             ImageBrush image = new ImageBrush();
             image.ImageSource = backgroundImage;
             MainCanvas.Background = image;
@@ -119,190 +106,34 @@ namespace PlanetarySystem
                 }
             };
 
-            LoadFromFile();
-        }
-
-        //serializes data to file
-        private void SaveToFile()
-        {
-            solarSystems.Clear();
-            foreach (var system in SystemList.Items)
-            {
-                for (int i = 0; i < ((SolarSystem)system).SystemPlanets.Count; i++)
-                {
-                    paths.Add(((SolarSystem)system).SystemPlanets[i].Image.ImageSource.ToString());
-                }
-                ImageCopy(paths);
-
-                for (int i = 0; i < ((SolarSystem)system).SystemPlanets.Count; i++)
-                {
-                    ((SolarSystem)system).SystemPlanets[i].ImageUri = paths[i+pathIndex];
-                }
-
-                pathIndex += ((SolarSystem)system).SystemPlanets.Count;
-                solarSystems.Add((SolarSystem)system);
-            }
-
-            XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
-            XmlTextWriter myWriter = new XmlTextWriter("data", Encoding.UTF8);
-            mySerializer.Serialize(myWriter, solarSystems);
-            myWriter.Close();
-        }
-
-        //deserializes data from file
-        private void LoadFromFile()
-        {
-            solarSystems.Clear();
-            XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
-
-            if (File.Exists("data"))
-            {
-                using (var myFileStream = new FileStream("data", FileMode.Open))
-                {
-                    solarSystems = (List<SolarSystem>)mySerializer.Deserialize(myFileStream);
-                }
-
-                foreach (var system in solarSystems)
-                {
-                    foreach (var s in system.SystemPlanets)
-                    {
-                        LoadedObjectShapeSet(s);
-                        if (s.GetType() == typeof(Moon))
-                        {
-                            int moonIndex = system.SystemPlanets.FindIndex(p => p.Equals(s));
-
-                            for (int i = moonIndex; i >= 0; i--)
-                            {
-                                if (system.SystemPlanets[i].GetType() == typeof(Planet))
-                                {
-                                    ((Moon)s).GravityCenter = system.SystemPlanets[i];
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    SystemList.Items.Add(system);
-                }
-            }
-        }
-
-        //sets the shape and the image of an object after loading from file
-        private void LoadedObjectShapeSet(CelestialObject systemObj)
-        {
-            systemObj.Image.ImageSource = CreateImage(systemObj.ImageUri);
-            systemObj.Shape.Width = systemObj.Width;
-            systemObj.Shape.Height = systemObj.Height;
-            systemObj.Shape.SetValue(Canvas.LeftProperty, systemObj.X);
-            systemObj.Shape.SetValue(Canvas.TopProperty, systemObj.Y);
-            systemObj.Shape.Margin = new Thickness(-systemObj.Shape.Height / 2);
-            systemObj.Shape.Fill = systemObj.Image;
-        }
-
-        //copies newly added images to project folder for reuse
-        private void ImageCopy(List<String> paths)
-        {
-            for (int i = 0; i < paths.Count; i++)
-            {
-                if (paths[i].Contains("file://"))
-                {
-                    string[] pathSplit = paths[i].Split(new string[] { "///" }, StringSplitOptions.None);
-                    string path = pathSplit[1];
-                    string name = System.IO.Path.GetFileName(path);
-                    string combinedPath = System.IO.Path.Combine("../../UserImages/", name);
-                    File.Copy(path, combinedPath, true);
-                    paths[i] = combinedPath;
-                }
-            }
-        }
-
-        //deletes unused images
-        private void ImageDelete()
-        {
-            string[] imageFilesPaths = Directory.GetFiles("../../UserImages/");
-            var userImages = paths.Where(p => p.Contains("/UserImages")).ToArray();
-
-            for (int i = 0; i < imageFilesPaths.Length; i++)
-            {
-                if (!userImages.Contains(imageFilesPaths[i]))
-                {
-                    File.Delete(imageFilesPaths[i]);
-                }
-            }
+            DataControl.LoadFromFile(SystemList);
         }
 
         //draws planet orbits
-        private void OrbitDraw(double scalar)
-        {
-            Ellipse ellipse = new Ellipse();
-            ellipse.RenderTransform = new TranslateTransform(MainCanvas.ActualWidth / 2 - scalar, MainCanvas.ActualHeight / 2 - scalar);
-            ellipse.Width = scalar * 2;
-            ellipse.Height = scalar * 2;
-            ellipse.Stroke = Brushes.White;
-            ellipse.StrokeThickness = 2;
-            ellipse.MouseLeftButtonDown += EllipseClick;
-            ellipse.MouseMove += EllipseSelected;
-
-            orbits.Add(ellipse);
-            MainCanvas.Children.Add(ellipse);
-        }
-
-        //sets the orbit count depending on how much planets there are
         private void SystemOrbitCreation(int count)
         {
-            switch (count)
+            int radius = 0;
+            for (int i = 1; i <= count; i++)
             {
-                case 1:
-                    OrbitDraw(50);
-                    break;
-                case 2:
-                    OrbitDraw(50);
-                    OrbitDraw(100);
-                    break;
-                case 3:
-                    OrbitDraw(50);
-                    OrbitDraw(100);
-                    OrbitDraw(150);
-                    break;
-                case 4:
-                    OrbitDraw(50);
-                    OrbitDraw(100);
-                    OrbitDraw(150);
-                    OrbitDraw(200);
-                    break;
-                case 5:
-                    OrbitDraw(50);
-                    OrbitDraw(100);
-                    OrbitDraw(150);
-                    OrbitDraw(200);
-                    OrbitDraw(280);
-                    break;
-                case 6:
-                    OrbitDraw(50);
-                    OrbitDraw(100);
-                    OrbitDraw(150);
-                    OrbitDraw(200);
-                    OrbitDraw(280);
-                    OrbitDraw(330);
-                    break;
-                case 7:
-                    OrbitDraw(50);
-                    OrbitDraw(100);
-                    OrbitDraw(150);
-                    OrbitDraw(200);
-                    OrbitDraw(280);
-                    OrbitDraw(330);
-                    OrbitDraw(370);
-                    break;
-                case 8:
-                    OrbitDraw(50);
-                    OrbitDraw(100);
-                    OrbitDraw(150);
-                    OrbitDraw(200);
-                    OrbitDraw(280);
-                    OrbitDraw(330);
-                    OrbitDraw(370);
-                    OrbitDraw(400);
-                    break;
+                switch (i)
+                {
+                    case 5: radius += 30; break;
+                    case 7: radius -= 10; break;
+                    case 8: radius -= 20; break;
+                }
+                radius += 50;
+
+                Ellipse ellipse = new Ellipse();
+                ellipse.RenderTransform = new TranslateTransform(MainCanvas.ActualWidth / 2 - radius, MainCanvas.ActualHeight / 2 - radius);
+                ellipse.Width = radius * 2;
+                ellipse.Height = radius * 2;
+                ellipse.Stroke = Brushes.White;
+                ellipse.StrokeThickness = 2;
+                ellipse.MouseLeftButtonDown += EllipseClick;
+                ellipse.MouseMove += EllipseSelected;
+
+                orbits.Add(ellipse);
+                MainCanvas.Children.Add(ellipse);
             }
         }
 
@@ -344,32 +175,21 @@ namespace PlanetarySystem
                 PlanetLifeCard.Visibility = Visibility.Visible;
             }
 
-            var onlyPlanets = systemObjects.Where(s => s.GetType() == typeof(Planet));
+            var selectedOrbitIndex = orbits
+                .FindIndex(o => o.Equals(
+                    orbits
+                    .Where(x => x.IsMouseOver == true)
+                    .FirstOrDefault()));
 
-            for (int i = 0; i < orbits.Count; i++)
-            {
-                if (orbits[i].IsMouseOver == true)
-                {
-                    orbitIndex = i;
-                    PlanetInfoTextChange(onlyPlanets.ElementAt(i));
-                }
-            }
+            PlanetInfoTextChange(DataControl.SelectPlanet(selectedOrbitIndex));
+            orbitIndex = selectedOrbitIndex;
 
-            if (SystemName.Text == "Sol System")
+            if (solSystemLoaded)
             {
                 EditPlanetButton.Visibility = Visibility.Hidden;
                 DeletePlanetButton.Visibility = Visibility.Hidden;
                 LinkTextBlock.Visibility = Visibility.Visible;
-                LinkName.Text = "More Info about " + systemObjects[orbitIndex].Name;
-            }
-        }
-
-        //animates the planets by calling the update method of each object
-        private void AnimationUpdate(object sender, EventArgs e)
-        {
-            foreach (CelestialObject obj in systemObjects)
-            {
-                obj.Update();
+                LinkName.Text = "More Info about " + DataControl.SelectPlanet(orbitIndex).Name;
             }
         }
 
@@ -383,21 +203,7 @@ namespace PlanetarySystem
             PlanetMoonCount.Text = "Moon Count: " + ((Planet)planet).MoonCount.ToString();
             PlanetLife.Text = "Life: " + ((Planet)planet).Life;
 
-            string fullPath;
-            if (planet.Image.ImageSource.ToString().Contains("file://"))
-            {
-                fullPath = planet.Image.ImageSource.ToString();
-            }
-            else if (planet.Image.ImageSource.ToString().Contains("/Images"))
-            {
-                fullPath = planet.Image.ImageSource.ToString();
-            }
-            else
-            {
-                fullPath = System.IO.Path.GetFullPath(planet.Image.ImageSource.ToString());
-            }
-
-            BitmapImage planetImage = CreateImage(fullPath);
+            BitmapImage planetImage = DataControl.CreateImage(System.IO.Path.GetFullPath(planet.Image.ImageSource.ToString()));
 
             SelectedPlanetImage.Source = planetImage;
         }
@@ -424,6 +230,31 @@ namespace PlanetarySystem
             PlanetLifeCard.Visibility = Visibility.Hidden;
         }
 
+        //stopping/playing the animation
+        private bool IsOrbitOn = true;
+        private void StopAnimationButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsOrbitOn)
+            {
+                CompositionTarget.Rendering -= DataControl.AnimationUpdate;
+                IsOrbitOn = false;
+                StopAnimationButton.Content = "Resume Animation";
+            }
+            else
+            {
+                CompositionTarget.Rendering += DataControl.AnimationUpdate;
+                IsOrbitOn = true;
+                StopAnimationButton.Content = "Pause Animation";
+            }
+        }
+
+        //opens the window for background change
+        private void ChangeBackgroundButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackgroundChangeWindow backgroundChangeWindow = new BackgroundChangeWindow();
+            backgroundChangeWindow.Show();
+        }
+
         //loads a system from the combobox list of systems
         private void LoadSystem_Click(object sender, RoutedEventArgs e)
         {
@@ -432,19 +263,21 @@ namespace PlanetarySystem
                 return;
             }
 
-            CompositionTarget.Rendering -= AnimationUpdate;
+            CompositionTarget.Rendering -= DataControl.AnimationUpdate;
 
             VisibilityChange();
             DeleteSystemButton.Visibility = Visibility.Visible;
             EditSystemButton.Visibility= Visibility.Visible;
             LinkTextBlock.Visibility = Visibility.Hidden;
             StopAnimationButton.Visibility = Visibility.Visible;
-            IsOrbitOn = true;
             StopAnimationButton.Content = "Pause Animation";
 
-            if (systemObjects.Count > 0 || orbits.Count > 0) 
+            IsOrbitOn = true;
+            solSystemLoaded = false;
+
+            if (DataControl.SystemObjectsCount() > 0 || orbits.Count > 0) 
             {
-                systemObjects.Clear();
+                DataControl.ClearSystemObjects();
                 MainCanvas.Children.Clear();
                 orbits.Clear();
             }
@@ -457,32 +290,34 @@ namespace PlanetarySystem
 
             foreach (CelestialObject obj in ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets)
             {
-                systemObjects.Add(obj);
-                MainCanvas.Children.Add(obj.Shape);
+                DataControl.AddObject(obj);
             }
+            DataControl.AddObject(comet);
 
-            systemObjects.Add(comet);
-            MainCanvas.Children.Add(comet.Shape);
+            DataControl.FillCanvas(MainCanvas);
 
             SystemName.Text = ((SolarSystem)SystemList.Items[systemIndex]).SystemName;
 
-            CompositionTarget.Rendering += AnimationUpdate;
+            CompositionTarget.Rendering += DataControl.AnimationUpdate;
         }
 
         //loads the Sol System
         private void SolSystemButton_Click(object sender, RoutedEventArgs e)
         {
-            CompositionTarget.Rendering -= AnimationUpdate;
+            CompositionTarget.Rendering -= DataControl.AnimationUpdate;
             
             SystemName.Text = "Sol System";
+            
             VisibilityChange();
             StopAnimationButton.Visibility = Visibility.Visible;
-            IsOrbitOn = true;
             StopAnimationButton.Content = "Pause Animation";
 
-            if (systemObjects.Count > 0 || orbits.Count > 0) 
+            solSystemLoaded = true;
+            IsOrbitOn = true;
+
+            if (DataControl.SystemObjectsCount() > 0 || orbits.Count > 0) 
             {
-                systemObjects.Clear();
+                DataControl.ClearSystemObjects();
                 MainCanvas.Children.Clear();
                 orbits.Clear();
             }
@@ -512,75 +347,37 @@ namespace PlanetarySystem
             Planet neptune = new Planet("Neptune", "Not Breathable", "165 Years", "16 Hours",
                                         14, "Uninhabited", neptuneImage, 10, 10, true, 40, 30, sun, 400, -0.25);
 
-            systemObjects.Add(mercury);
-            systemObjects.Add(venus);
-            systemObjects.Add(earth);
-            systemObjects.Add(mars);
-            systemObjects.Add(jupiter);
-            systemObjects.Add(saturn);
-            systemObjects.Add(uranus);
-            systemObjects.Add(neptune);
-            systemObjects.Add(sun);
-            systemObjects.Add(moon);
-            systemObjects.Add(comet);
+            DataControl.AddObject(mercury);
+            DataControl.AddObject(venus);
+            DataControl.AddObject(earth);
+            DataControl.AddObject(mars);
+            DataControl.AddObject(jupiter);
+            DataControl.AddObject(saturn);
+            DataControl.AddObject(uranus);
+            DataControl.AddObject(neptune);
+            DataControl.AddObject(sun);
+            DataControl.AddObject(moon);
+            DataControl.AddObject(comet);
 
-            for (int i = 0; i < systemObjects.Count; i++)
-            {
-                MainCanvas.Children.Add(systemObjects[i].Shape);
-            }
+            DataControl.FillCanvas(MainCanvas);
 
-            CompositionTarget.Rendering += AnimationUpdate;
-        }
-
-
-
-        //opens a new window for system creation
-        private void CreateSystemButton_Click(object sender, RoutedEventArgs e)
-        {
-            SystemCreationWindow systemCreationWindow = new SystemCreationWindow();
-            systemCreationWindow.Show();
+            CompositionTarget.Rendering += DataControl.AnimationUpdate;
         }
 
         //opens a new window for planet editing
         private void EditPlanetButton_Click(object sender, RoutedEventArgs e)
         {
-            var onlyPlanets = systemObjects.Where(s => s.GetType() == typeof(Planet)).ToList();
-            var selectedPlanet = onlyPlanets[orbitIndex];
-            int selectedPlanetIndex = systemObjects.FindIndex(p => p.Equals(selectedPlanet));
+            var selectedPlanet = DataControl.SelectPlanet(orbitIndex);
+            int selectedPlanetIndex = DataControl.GetPlanetIndex(selectedPlanet);
 
             PlanetEditWindow planetEdit = new PlanetEditWindow(selectedPlanet);
             planetEdit.Show();
             
             planetEdit.Closed += delegate
             {
-                systemObjects[selectedPlanetIndex] = selectedPlanet;
-
-                for (int i = 0; i < ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Count; i++)
-                {
-                    if (systemObjects[i].GetType() == typeof(Moon) && ((Moon)systemObjects[i]).GravityCenter == selectedPlanet)
-                    {
-                        ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.RemoveAt(i);
-                        systemObjects.RemoveAt(i);
-                        i--;
-                    }
-                }
-
-                if (((Planet)selectedPlanet).MoonCount <= 3 && ((Planet)selectedPlanet).MoonCount > 0)
-                {
-                    for (int m = 1; m < ((Planet)selectedPlanet).MoonCount + 1; m++)
-                    {
-                        ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
-                        systemObjects.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
-                    }
-                }
-                else if (((Planet)selectedPlanet).MoonCount > 3)
-                {
-                    for (int m = 1; m < 4; m++)
-                    {
-                        ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
-                        systemObjects.Insert(selectedPlanetIndex + 1, new Moon($"Moon {m}", moonImage, 10, 10, true, 5, 5, selectedPlanet, selectedPlanet.Width / 2 + 10 + m * 4, m));
-                    }
-                }
+                DataControl.UpdatePlanet(selectedPlanet, selectedPlanetIndex);
+                DataControl.RemoveMoons(selectedPlanet, SystemList, systemIndex);
+                DataControl.AddMoons(selectedPlanet, SystemList, systemIndex, selectedPlanetIndex);
 
                 PlanetInfoTextChange(selectedPlanet);
                 LoadSystem_Click(sender, e);
@@ -593,54 +390,29 @@ namespace PlanetarySystem
             if(MessageBox.Show("Are you sure you want to delete this planet?",
                     "Deleting Planet", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                var onlyPlanets = systemObjects.Where(s => s.GetType() == typeof(Planet)).ToList();
-                var planetToRemove = onlyPlanets[orbitIndex];
-                int planetToRemoveIndex = systemObjects.FindIndex(p => p.Equals(planetToRemove));
-                systemObjects.Remove(planetToRemove);
-                ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Remove(planetToRemove);
+                var planetToRemove = DataControl.SelectPlanet(orbitIndex);
 
-                for (int i = 0; i < systemObjects.Count; i++)
-                {
-                    if (systemObjects[i].GetType() == typeof(Moon) && ((Moon)systemObjects[i]).GravityCenter == planetToRemove)
-                    {
-                        ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.RemoveAt(i);
-                        systemObjects.RemoveAt(i);
-                        i--;
-                    }
-                }
+                DataControl.RemoveObject(planetToRemove);
+                ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Remove(planetToRemove);
+                DataControl.RemoveMoons(planetToRemove, SystemList, systemIndex);
 
                 MainCanvas.Children.Clear();
                 orbits.Clear();
-                SystemOrbitCreation(systemObjects.OfType<Planet>().Count());
+                SystemOrbitCreation(DataControl.PlanetCount());
+                DataControl.SetOrbitRadius();
+                DataControl.FillCanvas(MainCanvas);
 
-                int orbitCounter = 1;
-                for (int p = 0; p < systemObjects.Count; p++)
-                {
-                    if (systemObjects[p].GetType() == typeof(Planet))
-                    {
-                        switch (orbitCounter)
-                        {
-                            case 1: ((Planet)systemObjects[p]).Radius = 50; break;
-                            case 2: ((Planet)systemObjects[p]).Radius = 100; break;
-                            case 3: ((Planet)systemObjects[p]).Radius = 150; break;
-                            case 4: ((Planet)systemObjects[p]).Radius = 200; break;
-                            case 5: ((Planet)systemObjects[p]).Radius = 280; break;
-                            case 6: ((Planet)systemObjects[p]).Radius = 330; break;
-                            case 7: ((Planet)systemObjects[p]).Radius = 370; break;
-                            case 8: ((Planet)systemObjects[p]).Radius = 400; break;
-                        }
-                        orbitCounter++;
-                    }
-                }
-
-                for (int i = 0; i < systemObjects.Count; i++)
-                {
-                    MainCanvas.Children.Add(systemObjects[i].Shape);
-                }
                 VisibilityChange();
                 DeleteSystemButton.Visibility = Visibility.Visible;
                 EditSystemButton.Visibility = Visibility.Visible;
             }
+        }
+
+        //opens a new window for system creation
+        private void CreateSystemButton_Click(object sender, RoutedEventArgs e)
+        {
+            SystemCreationWindow systemCreationWindow = new SystemCreationWindow();
+            systemCreationWindow.Show();
         }
 
         //deletes the selected system
@@ -667,20 +439,19 @@ namespace PlanetarySystem
             if (((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.OfType<Planet>().Count() == 8)
             {
                 MessageBox.Show("This system has the max number of planets.");
+                return;
             }
-            else
+
+            AddPlanetsWindow addPlanetsWindow = new AddPlanetsWindow((SolarSystem)SystemList.Items[systemIndex]);
+            addPlanetsWindow.Show();
+
+            addPlanetsWindow.Closed += delegate
             {
-                AddPlanetsWindow addPlanetsWindow = new AddPlanetsWindow((SolarSystem)SystemList.Items[systemIndex]);
-                addPlanetsWindow.Show();
+                SystemList.SelectedValuePath = ((SolarSystem)SystemList.Items[systemIndex]).SystemName;
+                SystemList.Items.Refresh();
 
-                addPlanetsWindow.Closed += delegate
-                {
-                    SystemList.SelectedValuePath = ((SolarSystem)SystemList.Items[systemIndex]).SystemName;
-                    SystemList.Items.Refresh();
-
-                    LoadSystem_Click(sender, e);
-                };
-            }
+                LoadSystem_Click(sender, e);
+            };
         }
 
         //changes combobox text to selected system name
@@ -692,7 +463,7 @@ namespace PlanetarySystem
             }
         }
 
-        //changes trhe selected system
+        //changes the selected system
         private void SystemList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SystemList.SelectedItem != null)
@@ -705,17 +476,16 @@ namespace PlanetarySystem
         //opens wikipedia with e link
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            if (SystemName.Text == "Sol System")
-            {
-                string link = "https://en.wikipedia.org/wiki/";
-                link += systemObjects[orbitIndex].Name + "_(planet)";
-                Process.Start(new ProcessStartInfo(link));
-                e.Handled = true;
-            }
-            else
+            if (!solSystemLoaded)
             {
                 e.Handled = false;
+                return;
             }
+
+            string link = "https://en.wikipedia.org/wiki/";
+            link += DataControl.SelectPlanet(orbitIndex).Name + "_(planet)";
+            Process.Start(new ProcessStartInfo(link));
+            e.Handled = true;
         }
 
         //dragging the window
@@ -727,34 +497,11 @@ namespace PlanetarySystem
         //closes the program
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveToFile();
+            DataControl.SaveToFile(SystemList);
             MainCanvas.Children.Clear();
-            systemObjects.Clear();
-            ImageDelete();
+            DataControl.ClearSystemObjects();
+            DataControl.ImageDelete();
             this.Close();
-        }
-
-        private bool IsOrbitOn = true;
-        private void StopAnimationButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (IsOrbitOn)
-            {
-                CompositionTarget.Rendering -= AnimationUpdate;
-                IsOrbitOn = false;
-                StopAnimationButton.Content = "Resume Animation";
-            }
-            else
-            {
-                CompositionTarget.Rendering += AnimationUpdate;
-                IsOrbitOn = true;
-                StopAnimationButton.Content = "Pause Animation";
-            }
-        }
-
-        private void ChangeBackgroundButton_Click(object sender, RoutedEventArgs e)
-        {
-            BackgroundChangeWindow backgroundChangeWindow = new BackgroundChangeWindow();
-            backgroundChangeWindow.Show();
         }
     }
 }

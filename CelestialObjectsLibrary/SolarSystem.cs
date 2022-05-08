@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace PlanetarySystem
+namespace CelestialObjectsLibrary
 {
     [Serializable]
     [XmlInclude(typeof(List<CelestialObject>))]

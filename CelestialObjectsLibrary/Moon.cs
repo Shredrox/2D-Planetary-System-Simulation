@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media.Imaging;
 
-namespace PlanetarySystem
+namespace CelestialObjectsLibrary
 {
     [Serializable]
     public class Moon : CelestialObject

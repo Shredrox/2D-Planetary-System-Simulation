@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using CelestialObjectsLibrary;
 
 namespace PlanetarySystem
 {
@@ -12,7 +13,7 @@ namespace PlanetarySystem
         {
             InitializeComponent();
 
-            Background1.Source = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/spaceCanvasBackground.jpg");
+            Background1.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground.jpg");
             Background1.MouseDown += delegate
             {
                 Background1Card.Background = Brushes.Cyan;
@@ -23,7 +24,7 @@ namespace PlanetarySystem
                 selectedImage = Background1;
             };
 
-            Background2.Source = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/spaceCanvasBackground2.jpg");
+            Background2.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground2.jpg");
             Background2.MouseDown += delegate
             {
                 Background1Card.Background = Brush1;
@@ -34,7 +35,7 @@ namespace PlanetarySystem
                 selectedImage = Background2;
             };
 
-            Background3.Source = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/spaceCanvasBackground3.jpg");
+            Background3.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground3.jpg");
             Background3.MouseDown += delegate
             {
                 Background1Card.Background = Brush1;
@@ -45,7 +46,7 @@ namespace PlanetarySystem
                 selectedImage = Background3;
             };
 
-            Background4.Source = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/spaceCanvasBackground4.jpg");
+            Background4.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground4.jpg");
             Background4.MouseDown += delegate
             {
                 Background1Card.Background = Brush1;
@@ -56,7 +57,7 @@ namespace PlanetarySystem
                 selectedImage = Background4;
             };
 
-            Background5.Source = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/spaceCanvasBackground5.jpg");
+            Background5.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground5.jpg");
             Background5.MouseDown += delegate
             {
                 Background1Card.Background = Brush1;

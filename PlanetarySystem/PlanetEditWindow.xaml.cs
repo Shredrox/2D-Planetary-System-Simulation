@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using CelestialObjectsLibrary;
 
 namespace PlanetarySystem
 {
@@ -23,21 +24,7 @@ namespace PlanetarySystem
             PlanetHeight.Text = planet.Height.ToString();
             PlanetSpeed.Text = ((Planet)planet).Speed.ToString();
 
-            string fullPath;
-            if (planet.Image.ImageSource.ToString().Contains("file://"))
-            {
-                fullPath = planet.Image.ImageSource.ToString();
-            }
-            else if (planet.Image.ImageSource.ToString().Contains("/Images"))
-            {
-                fullPath = planet.Image.ImageSource.ToString();
-            }
-            else
-            {
-                fullPath = System.IO.Path.GetFullPath(planet.Image.ImageSource.ToString());
-            }
-
-            BitmapImage planetImage = ((MainWindow)Application.Current.MainWindow).CreateImage(fullPath);
+            BitmapImage planetImage = DataControl.CreateImage(System.IO.Path.GetFullPath(planet.Image.ImageSource.ToString()));
             PlanetImage.Source = planetImage;
 
             editedPlanet = planet;
@@ -53,7 +40,7 @@ namespace PlanetarySystem
 
             if (fileDialog.ShowDialog() == true)
             {
-                newImage = ((MainWindow)Application.Current.MainWindow).CreateImage(fileDialog.FileName);
+                newImage = DataControl.CreateImage(fileDialog.FileName);
                 PlanetImage.Source = newImage;
             }
         }

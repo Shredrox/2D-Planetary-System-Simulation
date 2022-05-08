@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanetarySystem", "PlanetarySystem\PlanetarySystem.csproj", "{4B80B41B-41C3-48A7-9EEE-CE5489214865}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CelestialObjectsLibrary", "CelestialObjectsLibrary\CelestialObjectsLibrary.csproj", "{4CDD12DC-E1D5-45BE-83A5-CFF339C15D17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4B80B41B-41C3-48A7-9EEE-CE5489214865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B80B41B-41C3-48A7-9EEE-CE5489214865}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B80B41B-41C3-48A7-9EEE-CE5489214865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CDD12DC-E1D5-45BE-83A5-CFF339C15D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDD12DC-E1D5-45BE-83A5-CFF339C15D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDD12DC-E1D5-45BE-83A5-CFF339C15D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDD12DC-E1D5-45BE-83A5-CFF339C15D17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

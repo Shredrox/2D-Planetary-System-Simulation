@@ -140,7 +140,7 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            <Button Name="AddImageButton" Content="Add Image" Margin="10" Click="AddImageButton_Click"/>
+            <Button Name="AddImageButton" Content="Add Image" Margin="10" Click="AddImageButton_Click" Visibility="Hidden"/>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1">

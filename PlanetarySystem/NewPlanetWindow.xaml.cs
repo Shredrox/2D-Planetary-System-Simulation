@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using CelestialObjectsLibrary;
 
 namespace PlanetarySystem
 {
     public partial class NewPlanetWindow : Window
     {
-        private BitmapImage defaultImage;
+        private BitmapImage defaultImage = DataControl.CreateImage("../../Images/defaultPlanet.png");
         private BitmapImage newImage;
         public bool IsNewPlanet = false;
         private List<CelestialObject> systemPlanets;
         private SolarSystem editedSystem;
-        private Star sun = new Star("Sun", ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/sun.png"),
+        private Star sun = new Star("Sun", DataControl.CreateImage("../../Images/sun.png"),
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualWidth / 2,
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 86, 86);
         Planet newPlanet;
@@ -23,7 +24,6 @@ namespace PlanetarySystem
         {
             InitializeComponent();
 
-            defaultImage = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/defaultPlanet.png");
             PlanetImage.Source = defaultImage;
 
             systemPlanets = planets;
@@ -65,17 +65,13 @@ namespace PlanetarySystem
                     case 8: radius = 400; break;
                 }
 
-                if(newImage != null)
-                {
-                    newPlanet = new Planet(PlanetName.Text, PlanetAtmo.Text, PlanetOrbitalPeriod.Text, PlanetRotationPeriod.Text,
-                    int.Parse(PlanetMoonCount.Text), PlanetLife.Text,
-                    newImage, 10, 10, true, int.Parse(PlanetWidth.Text), int.Parse(PlanetHeight.Text), sun, radius, double.Parse(PlanetSpeed.Text));
-                }
-                else
-                {
-                    newPlanet = new Planet(PlanetName.Text, PlanetAtmo.Text, PlanetOrbitalPeriod.Text, PlanetRotationPeriod.Text,
+                newPlanet = new Planet(PlanetName.Text, PlanetAtmo.Text, PlanetOrbitalPeriod.Text, PlanetRotationPeriod.Text,
                     int.Parse(PlanetMoonCount.Text), PlanetLife.Text,
                     defaultImage, 10, 10, true, int.Parse(PlanetWidth.Text), int.Parse(PlanetHeight.Text), sun, radius, double.Parse(PlanetSpeed.Text));
+
+                if (newImage != null)
+                {
+                    newPlanet.Image.ImageSource = newImage;
                 }
 
                 editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, newPlanet);
@@ -85,7 +81,7 @@ namespace PlanetarySystem
                     for (int m = 1; m < int.Parse(PlanetMoonCount.Text) + 1; m++)
                     {
                         editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}",
-                            ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"),
+                            DataControl.CreateImage("../../Images/moon.png"),
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                     }
                 }
@@ -94,7 +90,7 @@ namespace PlanetarySystem
                     for (int m = 1; m < 4; m++)
                     {
                         editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}",
-                            ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"),
+                            DataControl.CreateImage("../../Images/moon.png"),
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                     }
                 }
@@ -114,7 +110,7 @@ namespace PlanetarySystem
 
             if (fileDialog.ShowDialog() == true)
             {
-                newImage = ((MainWindow)Application.Current.MainWindow).CreateImage(fileDialog.FileName);
+                newImage = DataControl.CreateImage(fileDialog.FileName);
                 PlanetImage.Source = newImage;
             }
         }

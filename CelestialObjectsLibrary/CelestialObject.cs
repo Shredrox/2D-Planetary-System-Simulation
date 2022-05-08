@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 
-namespace PlanetarySystem
+namespace CelestialObjectsLibrary
 {
     [Serializable]
     [XmlInclude(typeof(Planet))]

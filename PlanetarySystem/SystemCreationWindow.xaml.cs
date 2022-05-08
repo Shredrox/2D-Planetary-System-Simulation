@@ -5,26 +5,25 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using CelestialObjectsLibrary;
 
 namespace PlanetarySystem
 {
     public partial class SystemCreationWindow : Window
     {
         public List<CelestialObject> newSystemObjects = new List<CelestialObject>();
-        private BitmapImage defaultImage;
+
+        private BitmapImage defaultImage = DataControl.CreateImage("../../Images/defaultPlanet.png");
         private BitmapImage newImage;
+
         private int counter = 0;
-        private Star sun = new Star("Sun", ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/sun.png"),
+        private Star sun = new Star("Sun", DataControl.CreateImage("../../Images/sun.png"),
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualWidth / 2,
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 86, 86);
 
         public SystemCreationWindow()
         {
             InitializeComponent();
-
-            defaultImage = ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/defaultPlanet.png");
-
-            AddImageButton.Visibility = Visibility.Hidden;
         }
 
         private void CreatePlanetButton_Click(object sender, RoutedEventArgs e)
@@ -92,7 +91,7 @@ namespace PlanetarySystem
                     for (int m = 1; m < int.Parse(MoonCount.Text) + 1; m++)
                     {
                         newSystemObjects.Add(new Moon($"Moon {m}",
-                            ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"), 
+                            DataControl.CreateImage("../../Images/moon.png"), 
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width/2 + 10 + m * 4, m));
                     }
                 }
@@ -101,35 +100,13 @@ namespace PlanetarySystem
                     for (int m = 1; m < 4; m++)
                     {
                         newSystemObjects.Add(new Moon($"Moon {m}",
-                            ((MainWindow)Application.Current.MainWindow).CreateImage("../../Images/moon.png"), 
+                            DataControl.CreateImage("../../Images/moon.png"), 
                             10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                     }
                 }
 
                 PlanetList.Items.Add($"Planet {counter}: " + newPlanet.Name + "     Image: " + ImageOption.IsChecked);
             }
-        }
-
-        private void CreateSystemButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (SystemNameText.Text != String.Empty)
-            {
-                newSystemObjects.Add((sun));
-
-                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-
-                SolarSystem newSystem = new SolarSystem { SystemName = SystemNameText.Text, SystemPlanets = newSystemObjects, PlanetCount = newSystemObjects.Count };
-
-                mainWindow.SystemList.Items.Add(newSystem);
-                mainWindow.SystemList.SelectedValuePath = newSystem.SystemName;
-
-                this.Close();
-            }
-        }
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
         }
 
         private void AddImageButton_Click(object sender, RoutedEventArgs e)
@@ -144,14 +121,33 @@ namespace PlanetarySystem
 
                 if (fileDialog.ShowDialog() == true)
                 {
-                    newImage = ((MainWindow)Application.Current.MainWindow).CreateImage(fileDialog.FileName);
+                    newImage = DataControl.CreateImage(fileDialog.FileName);
                 }
             }
         }
 
+        private void CreateSystemButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SystemNameText.Text != String.Empty)
+            {
+                newSystemObjects.Add((sun));
+
+                SolarSystem newSystem = new SolarSystem { SystemName = SystemNameText.Text, SystemPlanets = newSystemObjects, PlanetCount = newSystemObjects.Count };
+
+                ((MainWindow)Application.Current.MainWindow).SystemList.Items.Add(newSystem);
+                ((MainWindow)Application.Current.MainWindow).SystemList.SelectedValuePath = newSystem.SystemName;
+
+                this.Close();
+            }
+        }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
 
         private void ImageOption_Checked(object sender, RoutedEventArgs e)
