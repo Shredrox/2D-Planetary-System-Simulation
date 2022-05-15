@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Diagnostics;
 
 namespace CelestialObjectsLibrary
 {
@@ -108,6 +109,13 @@ namespace CelestialObjectsLibrary
                 .Count();
         }
 
+        public static int GetSystemMoonCount()
+        {
+            return _systemObjects
+                .Where(o => o is Moon)
+                .Count();
+        }
+
         public static void SetOrbitRadius()
         {
             int orbitCounter = 1;
@@ -139,12 +147,32 @@ namespace CelestialObjectsLibrary
             }
         }
 
+
+        public static Stopwatch Timer = new Stopwatch();
+        private static double lag = 0.0;
+        private static double previous;
+
         public static void AnimationUpdate(object sender, EventArgs e)
         {
-            foreach (CelestialObject obj in _systemObjects)
+            double current = Timer.Elapsed.TotalMilliseconds;
+            double elapsed = current - previous;
+            previous = current;
+
+            lag += elapsed;
+
+            while (lag >= 12)
             {
-                obj.Update();
+                foreach (CelestialObject obj in _systemObjects)
+                {
+                    obj.Update();
+                }
+                lag -= 12;
             }
+
+            //foreach (CelestialObject obj in _systemObjects)
+            //{
+            //    obj.Update();
+            //}
         }
 
         public static BitmapImage CreateImage(string filePath)

@@ -26,12 +26,9 @@ namespace CelestialObjectsLibrary
 
         protected override void CalculateChanges()
         {
-            double Xcoor = GravityCenter.X;
-            double Ycoor = GravityCenter.Y;
-
             double rad = Angle * Math.PI / 180;
-            X = Xcoor + Radius * Math.Cos(rad);
-            Y = Ycoor + Radius * Math.Sin(rad);
+            X = GravityCenter.X + Radius * Math.Cos(rad);
+            Y = GravityCenter.Y + Radius * Math.Sin(rad);
 
             Angle += Speed;
         }

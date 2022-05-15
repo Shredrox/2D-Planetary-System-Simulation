@@ -179,7 +179,7 @@ namespace PlanetarySystem
                 .FindIndex(o => o.Equals(
                     orbits
                     .Where(x => x.IsMouseOver == true)
-                    .FirstOrDefault()));
+                    .SingleOrDefault()));
 
             PlanetInfoTextChange(DataControl.SelectPlanet(selectedOrbitIndex));
             orbitIndex = selectedOrbitIndex;
@@ -237,12 +237,14 @@ namespace PlanetarySystem
             if (IsOrbitOn)
             {
                 CompositionTarget.Rendering -= DataControl.AnimationUpdate;
+                DataControl.Timer.Stop();
                 IsOrbitOn = false;
                 StopAnimationButton.Content = "Resume Animation";
             }
             else
             {
                 CompositionTarget.Rendering += DataControl.AnimationUpdate;
+                DataControl.Timer.Start();
                 IsOrbitOn = true;
                 StopAnimationButton.Content = "Pause Animation";
             }
@@ -264,13 +266,20 @@ namespace PlanetarySystem
             }
 
             CompositionTarget.Rendering -= DataControl.AnimationUpdate;
+            DataControl.Timer.Stop();
 
             VisibilityChange();
             DeleteSystemButton.Visibility = Visibility.Visible;
             EditSystemButton.Visibility= Visibility.Visible;
             LinkTextBlock.Visibility = Visibility.Hidden;
+            SystemStat1Card.Visibility = Visibility.Visible;
+            SystemStat2Card.Visibility = Visibility.Visible;
+            SystemStat3Card.Visibility = Visibility.Visible;
+
             StopAnimationButton.Visibility = Visibility.Visible;
             StopAnimationButton.Content = "Pause Animation";
+            LoadedSystemName.Text = ((SolarSystem)SystemList.SelectedItem).SystemName;
+            SystemImage.Source = DataControl.CreateImage("../../Images/starSystem.png");
 
             IsOrbitOn = true;
             solSystemLoaded = false;
@@ -297,7 +306,10 @@ namespace PlanetarySystem
             DataControl.FillCanvas(MainCanvas);
 
             SystemName.Text = ((SolarSystem)SystemList.Items[systemIndex]).SystemName;
+            SystemPlanetCount.Text = "System Planet Count: " + DataControl.PlanetCount().ToString();
+            SystemMoonCount.Text = "System Moon Count: " + DataControl.GetSystemMoonCount().ToString();
 
+            DataControl.Timer.Start();
             CompositionTarget.Rendering += DataControl.AnimationUpdate;
         }
 
@@ -305,12 +317,16 @@ namespace PlanetarySystem
         private void SolSystemButton_Click(object sender, RoutedEventArgs e)
         {
             CompositionTarget.Rendering -= DataControl.AnimationUpdate;
-            
+            DataControl.Timer.Stop();
+
             SystemName.Text = "Sol System";
-            
+            LoadedSystemName.Text = "Sol System";
+
             VisibilityChange();
             StopAnimationButton.Visibility = Visibility.Visible;
             StopAnimationButton.Content = "Pause Animation";
+
+            SystemImage.Source = DataControl.CreateImage("../../Images/starSystem.png");
 
             solSystemLoaded = true;
             IsOrbitOn = true;
@@ -361,6 +377,7 @@ namespace PlanetarySystem
 
             DataControl.FillCanvas(MainCanvas);
 
+            DataControl.Timer.Start();
             CompositionTarget.Rendering += DataControl.AnimationUpdate;
         }
 

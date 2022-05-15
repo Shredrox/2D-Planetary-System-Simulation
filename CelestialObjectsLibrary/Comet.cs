@@ -15,18 +15,15 @@ namespace CelestialObjectsLibrary
 
         protected override void CalculateChanges()
         {
-            double maxX = Canvas.ActualHeight;
-            double maxY = Canvas.ActualWidth;
-
             X += 10;
             Y += 10;
 
-            if (X > maxX)
+            if (X > Canvas.ActualWidth)
             {
                 X = 0;
             }
 
-            if(Y > maxY)
+            if(Y > Canvas.ActualHeight)
             {
                 Y = 0;
             }

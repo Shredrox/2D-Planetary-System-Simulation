@@ -229,6 +229,45 @@
                             <GradientStop Color="#FF1A127F" Offset="1"/>
                         </LinearGradientBrush>
                     </materialDesign:Card.Background>
+
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Name="LoadedSystemName" Width="auto" HorizontalAlignment="Center" 
+                           Height="40" FontSize="38" 
+                           Foreground="White" FontFamily="Century Gothic" Margin="10"/>
+                        
+                        <Image Name="SystemImage" HorizontalAlignment="Center" VerticalAlignment="Top" Height="300" Margin="20"/>
+
+                        <materialDesign:Card Name="SystemStat1Card" UniformCornerRadius="20" Visibility="Hidden">
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="#FF1D2A77" Offset="1"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <TextBlock Name="SystemPlanetCount" Padding="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Name="SystemStat2Card" UniformCornerRadius="20" Visibility="Hidden">
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="#FF1D2A77" Offset="1"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <TextBlock Name="SystemMoonCount" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Name="SystemStat3Card" UniformCornerRadius="20" Visibility="Hidden">
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="#FF1D2A77" Offset="1"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <TextBlock Name="PlanetsInHabitableZone" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                        </materialDesign:Card>
+                        
+                    </StackPanel>
                 </materialDesign:Card>
             </materialDesign:TransitioningContent>
         </Border>
@@ -243,6 +282,5 @@
                 </materialDesign:Card.Background>
             </materialDesign:Card>
         </materialDesign:TransitioningContent>
-
     </Grid>
 </Window>
