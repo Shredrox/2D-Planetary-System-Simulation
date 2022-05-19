@@ -9,7 +9,8 @@ using CelestialObjectsLibrary;
 namespace PlanetarySystem
 {
     public partial class AddPlanetsWindow : Window
-    {                                   
+    {
+        private DataControl control = new DataControl();
         private BitmapImage addImage = DataControl.CreateImage("../../Images/add.png");
         private BitmapImage addImage2 = DataControl.CreateImage("../../Images/add2.png");
 
@@ -19,9 +20,11 @@ namespace PlanetarySystem
         private List<CelestialObject> onlyPlanets;
         private SolarSystem editedSystem = new SolarSystem();
         
-        public AddPlanetsWindow(SolarSystem solarSystem)
+        public AddPlanetsWindow(SolarSystem solarSystem, DataControl dataControl)
         {
             InitializeComponent();
+
+            control = dataControl;
 
             SystemName.Text = solarSystem.SystemName;
 
@@ -49,11 +52,11 @@ namespace PlanetarySystem
                 images[i].MouseMove += ImageSelected;
             }
 
-            onlyPlanets = DataControl.GetOnlyPlanets(solarSystem);
+            onlyPlanets = control.GetOnlyPlanets(solarSystem);
 
             for (int i = 0; i < onlyPlanets.Count; i++)
             {
-                images[i].Source = DataControl.CreateImage(System.IO.Path.GetFullPath(onlyPlanets[i].Image.ImageSource.ToString()));
+                images[i].Source = DataControl.CreateImage(onlyPlanets[i].Image.ImageSource.ToString());
                 textBlocks[i].Text = onlyPlanets[i].Name;
             }
 

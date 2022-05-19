@@ -24,7 +24,7 @@ namespace PlanetarySystem
             PlanetHeight.Text = planet.Height.ToString();
             PlanetSpeed.Text = ((Planet)planet).Speed.ToString();
 
-            BitmapImage planetImage = DataControl.CreateImage(System.IO.Path.GetFullPath(planet.Image.ImageSource.ToString()));
+            BitmapImage planetImage = DataControl.CreateImage(planet.Image.ImageSource.ToString());
             PlanetImage.Source = planetImage;
 
             editedPlanet = planet;

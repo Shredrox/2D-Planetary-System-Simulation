@@ -12,33 +12,33 @@ using System.Diagnostics;
 
 namespace CelestialObjectsLibrary
 {
-    public static class DataControl
+    public class DataControl
     {
-        private static List<CelestialObject> _systemObjects = new List<CelestialObject>();
-        private static List<SolarSystem> _solarSystems = new List<SolarSystem>();
-        private static List<string> _paths = new List<string>();
+        private List<CelestialObject> _systemObjects = new List<CelestialObject>();
+        private List<SolarSystem> _solarSystems = new List<SolarSystem>();
+        private List<string> _paths = new List<string>();
 
-        public static void AddObject(CelestialObject obj)
+        public void AddObject(CelestialObject obj)
         {
             _systemObjects.Add(obj);
         }
 
-        public static void RemoveObject(CelestialObject obj)
+        public void RemoveObject(CelestialObject obj)
         {
             _systemObjects.Remove(obj);
         }
 
-        public static void ClearSystemObjects()
+        public void ClearSystemObjects()
         {
             _systemObjects.Clear();
         }
 
-        public static int SystemObjectsCount()
+        public int SystemObjectsCount()
         {
             return _systemObjects.Count;
         }
 
-        public static void AddMoons(CelestialObject obj, ComboBox SystemList, int systemIndex, int selectedPlanetIndex)
+        public void AddMoons(CelestialObject obj, ComboBox SystemList, int systemIndex, int selectedPlanetIndex)
         {
             if (((Planet)obj).MoonCount <= 3 && ((Planet)obj).MoonCount > 0)
             {
@@ -64,7 +64,7 @@ namespace CelestialObjectsLibrary
             }
         }
 
-        public static void RemoveMoons(CelestialObject planetToRemove, ComboBox SystemList, int systemIndex)
+        public void RemoveMoons(CelestialObject planetToRemove, ComboBox SystemList, int systemIndex)
         {
             var moonsToRemove = _systemObjects
                 .Where(o => o is Moon)
@@ -75,7 +75,7 @@ namespace CelestialObjectsLibrary
             ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.RemoveAll(m => moonsToRemove.Contains(m));
         }
 
-        public static CelestialObject SelectPlanet(int index)
+        public CelestialObject SelectPlanet(int index)
         {
             var onlyPlanets = _systemObjects
                 .Where(s => s is Planet);
@@ -84,39 +84,39 @@ namespace CelestialObjectsLibrary
                 .ElementAt(index);
         }
 
-        public static List<CelestialObject> GetOnlyPlanets(SolarSystem solarSystem)
+        public List<CelestialObject> GetOnlyPlanets(SolarSystem solarSystem)
         {
             return solarSystem.SystemPlanets
                 .Where(s => s is Planet)
                 .ToList();
         }
 
-        public static int GetPlanetIndex(CelestialObject obj)
+        public int GetPlanetIndex(CelestialObject obj)
         {
             return _systemObjects
                 .FindIndex(p => p.Equals(obj));
         }
 
-        public static void UpdatePlanet(CelestialObject obj, int index)
+        public void UpdatePlanet(CelestialObject obj, int index)
         {
             _systemObjects[index] = obj;
         }
 
-        public static int PlanetCount()
+        public int PlanetCount()
         {
             return _systemObjects
                 .OfType<Planet>()
                 .Count();
         }
 
-        public static int GetSystemMoonCount()
+        public int GetSystemMoonCount()
         {
             return _systemObjects
                 .Where(o => o is Moon)
                 .Count();
         }
 
-        public static void SetOrbitRadius()
+        public void SetOrbitRadius()
         {
             int orbitCounter = 1;
             for (int p = 0; p < _systemObjects.Count; p++)
@@ -139,7 +139,7 @@ namespace CelestialObjectsLibrary
             }
         }
 
-        public static void FillCanvas(Canvas canvas)
+        public void FillCanvas(Canvas canvas)
         {
             for (int i = 0; i < _systemObjects.Count; i++)
             {
@@ -148,11 +148,11 @@ namespace CelestialObjectsLibrary
         }
 
 
-        public static Stopwatch Timer = new Stopwatch();
-        private static double lag = 0.0;
-        private static double previous;
+        public Stopwatch Timer = new Stopwatch();
+        private double lag = 0.0;
+        private double previous;
 
-        public static void AnimationUpdate(object sender, EventArgs e)
+        public void AnimationUpdate(object sender, EventArgs e)
         {
             double current = Timer.Elapsed.TotalMilliseconds;
             double elapsed = current - previous;
@@ -177,17 +177,23 @@ namespace CelestialObjectsLibrary
 
         public static BitmapImage CreateImage(string filePath)
         {
+            if (filePath.Contains("file://"))
+            {
+                string[] pathSplit = filePath.Split(new string[] { "///" }, StringSplitOptions.None);
+                filePath = pathSplit[1];
+            }
+
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
             bitmapImage.UriSource = new Uri(filePath, UriKind.RelativeOrAbsolute);
             bitmapImage.EndInit();
             bitmapImage.Freeze();
-
+     
             return bitmapImage;
         }
 
-        public static void SaveToFile(ComboBox SystemList)
+        public void SaveToFile(ComboBox SystemList)
         {
             _solarSystems.Clear();
             int pathIndex = 0;
@@ -215,7 +221,7 @@ namespace CelestialObjectsLibrary
             myWriter.Close();
         }
 
-        public static void LoadFromFile(ComboBox SystemList)
+        public void LoadFromFile(ComboBox SystemList)
         {
             _solarSystems.Clear();
             XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
@@ -251,7 +257,7 @@ namespace CelestialObjectsLibrary
             }
         }
 
-        public static void LoadedObjectShapeSet(CelestialObject systemObj)
+        public void LoadedObjectShapeSet(CelestialObject systemObj)
         {
             systemObj.Image.ImageSource = CreateImage(systemObj.ImageUri);
             systemObj.Shape.Width = systemObj.Width;
@@ -262,7 +268,7 @@ namespace CelestialObjectsLibrary
             systemObj.Shape.Fill = systemObj.Image;
         }
 
-        public static void ImageCopy(List<String> paths)
+        public void ImageCopy(List<String> paths)
         {
             for (int i = 0; i < paths.Count; i++)
             {
@@ -278,7 +284,7 @@ namespace CelestialObjectsLibrary
             }
         }
 
-        public static void ImageDelete()
+        public void ImageDelete()
         {
             string[] imageFilesPaths = Directory.GetFiles("../../UserImages/");
             var userImages = _paths

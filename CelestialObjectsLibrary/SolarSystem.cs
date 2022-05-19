@@ -11,6 +11,7 @@ namespace CelestialObjectsLibrary
         public string SystemName { get; set; }
         public List<CelestialObject> SystemPlanets { get; set; }
         public int PlanetCount { get; set; }
+        public string Description { get; set; }
 
         public SolarSystem()
         {

@@ -257,16 +257,18 @@
                             <TextBlock Name="SystemMoonCount" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
                         </materialDesign:Card>
 
-                        <materialDesign:Card Name="SystemStat3Card" UniformCornerRadius="20" Visibility="Hidden">
+                        <materialDesign:Card Name="SystemStat3Card" Height="350" UniformCornerRadius="20" Visibility="Hidden">
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="PlanetsInHabitableZone" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBlock Name="SystemDescription" TextWrapping="Wrap" Padding="10" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                            </ScrollViewer>
                         </materialDesign:Card>
-                        
                     </StackPanel>
                 </materialDesign:Card>
             </materialDesign:TransitioningContent>

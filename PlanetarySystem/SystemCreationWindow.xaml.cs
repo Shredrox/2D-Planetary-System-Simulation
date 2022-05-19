@@ -132,10 +132,11 @@ namespace PlanetarySystem
             {
                 newSystemObjects.Add((sun));
 
-                SolarSystem newSystem = new SolarSystem { SystemName = SystemNameText.Text, SystemPlanets = newSystemObjects, PlanetCount = newSystemObjects.Count };
+                SolarSystem newSystem = new SolarSystem { SystemName = SystemNameText.Text, SystemPlanets = newSystemObjects, PlanetCount = newSystemObjects.Count, Description=SystemDescription.Text};
 
                 ((MainWindow)Application.Current.MainWindow).SystemList.Items.Add(newSystem);
                 ((MainWindow)Application.Current.MainWindow).SystemList.SelectedValuePath = newSystem.SystemName;
+
 
                 this.Close();
             }
