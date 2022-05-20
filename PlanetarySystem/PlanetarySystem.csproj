@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>galaxy.ico</ApplicationIcon>
+    <ApplicationIcon>systemIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -64,8 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddPlanetsWindow.xaml.cs">
-      <DependentUpon>AddPlanetsWindow.xaml</DependentUpon>
+    <Compile Include="EditSystemWindow.xaml.cs">
+      <DependentUpon>EditSystemWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BackgroundChangeWindow.xaml.cs">
       <DependentUpon>BackgroundChangeWindow.xaml</DependentUpon>
@@ -79,7 +79,7 @@
     <Compile Include="SystemCreationWindow.xaml.cs">
       <DependentUpon>SystemCreationWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddPlanetsWindow.xaml">
+    <Page Include="EditSystemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,9 +139,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="galaxy.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="UserImages\" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +191,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\starSystem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="systemIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\windowBackground3.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

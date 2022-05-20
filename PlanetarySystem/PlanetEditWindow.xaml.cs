@@ -24,8 +24,7 @@ namespace PlanetarySystem
             PlanetHeight.Text = planet.Height.ToString();
             PlanetSpeed.Text = ((Planet)planet).Speed.ToString();
 
-            BitmapImage planetImage = DataControl.CreateImage(planet.Image.ImageSource.ToString());
-            PlanetImage.Source = planetImage;
+            PlanetImage.Source = DataControl.CreateImage(planet.Image.ImageSource.ToString());
 
             editedPlanet = planet;
         }
@@ -70,12 +69,12 @@ namespace PlanetarySystem
                 editedPlanet.ImageUri = newImage.UriSource.ToString();
             }
 
-            this.Close();
+            DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            DialogResult = false;
         }
     }
 }

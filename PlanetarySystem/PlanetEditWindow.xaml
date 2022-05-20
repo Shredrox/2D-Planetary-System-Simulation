@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlanetarySystem"
         mc:Ignorable="d"
-        Title="PlanetEditWindow" Height="800" Width="530" Foreground="#FF964646" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+        Title="PlanetEditWindow" Height="800" Width="530" Foreground="#FF964646" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -14,7 +15,7 @@
         </LinearGradientBrush>
     </Window.Background>
     
-    <Grid Background="{x:Null}">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
@@ -120,12 +121,11 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                
+
                 <StackPanel Orientation="Horizontal">
                     <Button Name="CancelButton" Width="80" Content="Cancel" Margin="35,14,10,10" Click="CancelButton_Click" />
                     <Button Name="SaveButton" Width="80" Content="Save" Margin="10,14,10,10" Click="SaveButton_Click"/>
                 </StackPanel>
-                
             </StackPanel>
         </Grid>
     </Grid>

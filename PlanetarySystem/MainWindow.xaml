@@ -282,6 +282,11 @@
                         <GradientStop Color="#FF1D2A77" Offset="1"/>
                     </LinearGradientBrush>
                 </materialDesign:Card.Background>
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Name="ProgramIcon" Source="/systemIcon.ico" Margin="10"/>
+                    <TextBlock Text="Planetary System" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
+                </StackPanel>
             </materialDesign:Card>
         </materialDesign:TransitioningContent>
     </Grid>

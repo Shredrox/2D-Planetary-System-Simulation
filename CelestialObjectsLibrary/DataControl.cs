@@ -112,8 +112,9 @@ namespace CelestialObjectsLibrary
         public int GetSystemMoonCount()
         {
             return _systemObjects
-                .Where(o => o is Moon)
-                .Count();
+                .Where(o => o is Planet)
+                .Select(p => ((Planet)p).MoonCount)
+                .Sum();
         }
 
         public void SetOrbitRadius()
@@ -147,7 +148,6 @@ namespace CelestialObjectsLibrary
             }
         }
 
-
         public Stopwatch Timer = new Stopwatch();
         private double lag = 0.0;
         private double previous;
@@ -168,11 +168,6 @@ namespace CelestialObjectsLibrary
                 }
                 lag -= 12;
             }
-
-            //foreach (CelestialObject obj in _systemObjects)
-            //{
-            //    obj.Update();
-            //}
         }
 
         public static BitmapImage CreateImage(string filePath)

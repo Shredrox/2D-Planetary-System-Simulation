@@ -52,8 +52,6 @@
                 <Image Name="Background2" Height="110" Margin="10,0,10,0"/>
                 <TextBlock Name="Background2Name" Height="20" Text="Heart Of Creation" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
             </StackPanel>
-            
-           
         </materialDesign:Card>
 
         <materialDesign:Card Name="Background3Card" Grid.Row="2" Margin="10" UniformCornerRadius="20">
@@ -68,7 +66,6 @@
                 <Image Name="Background3" Height="110" Margin="10,0,10,0"/>
                 <TextBlock Name="Background3Name" Height="20" Text="Galactic Winds" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
             </StackPanel>
-           
         </materialDesign:Card>
 
         <materialDesign:Card Name="Background4Card" Grid.Row="3" Margin="10" UniformCornerRadius="20">
@@ -83,7 +80,6 @@
                 <Image Name="Background4" Height="110" Margin="10,0,10,0"/>
                 <TextBlock Name="Background4Name" Height="20" Text="Stellar Chaos" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
             </StackPanel>
-            
         </materialDesign:Card>
 
         <materialDesign:Card Name="Background5Card" Grid.Row="4" Margin="10" UniformCornerRadius="20">

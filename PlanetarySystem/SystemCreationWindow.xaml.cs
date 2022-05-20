@@ -12,15 +12,15 @@ namespace PlanetarySystem
     public partial class SystemCreationWindow : Window
     {
         public List<CelestialObject> newSystemObjects = new List<CelestialObject>();
+        private Star sun = new Star("Sun", DataControl.CreateImage("../../Images/sun.png"),
+                                    ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualWidth / 2,
+                                    ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 80, 80);
 
         private BitmapImage defaultImage = DataControl.CreateImage("../../Images/defaultPlanet.png");
         private BitmapImage newImage;
 
         private int counter = 0;
-        private Star sun = new Star("Sun", DataControl.CreateImage("../../Images/sun.png"),
-                                    ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualWidth / 2,
-                                    ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 86, 86);
-
+        
         public SystemCreationWindow()
         {
             InitializeComponent();
@@ -31,82 +31,69 @@ namespace PlanetarySystem
             if(newSystemObjects.OfType<Planet>().Count() == 8)
             {
                 MessageBox.Show("Maximum number of planets reached.");
+                return;
             }
-
-            if (Name.Text == String.Empty || Atmosphere.Text == String.Empty
+            else if (Name.Text == String.Empty || Atmosphere.Text == String.Empty
                 || OrbitalPeriod.Text == String.Empty || RotationPeriod.Text == String.Empty
                 || MoonCount.Text == String.Empty || Life.Text == String.Empty || Speed.Text == String.Empty ||
                 Width.Text == String.Empty || Height.Text == String.Empty)
             {
                 MessageBox.Show("Missing info for new planet.");
+                return;
             }
-            else
+            else if (!int.TryParse(MoonCount.Text, out _) || !int.TryParse(Width.Text, out _)
+                    || !int.TryParse(Height.Text, out _) || !double.TryParse(Speed.Text, out _))
             {
-                counter++;
+                MessageBox.Show("Input was not in the correct format.");
+                return;
             }
 
-            if (Name.Text != String.Empty && Atmosphere.Text != String.Empty
-                && OrbitalPeriod.Text != String.Empty && RotationPeriod.Text != String.Empty
-                && MoonCount.Text != String.Empty && Life.Text != String.Empty && Speed.Text != String.Empty && 
-                Width.Text != String.Empty && Height.Text != String.Empty && 
-                newSystemObjects.OfType<Planet>().Count() < 8)  
+            counter++;
+
+            int radius = 0;
+            switch (counter)
             {
-                if(!int.TryParse(MoonCount.Text, out _) || !int.TryParse(Width.Text, out _) || !int.TryParse(Height.Text, out _) || !double.TryParse(Speed.Text, out _))
-                {
-                    MessageBox.Show("Input was not in the correct format.");
-                    counter = 0;
-                    return;
-                }
-
-                int radius = 0;
-                switch (counter)
-                {
-                    case 1: radius = 50; break;
-                    case 2: radius = 100; break;
-                    case 3: radius = 150; break;
-                    case 4: radius = 200; break;
-                    case 5: radius = 280; break;
-                    case 6: radius = 330; break;
-                    case 7: radius = 370; break;
-                    case 8: radius = 400; break;
-                }
-
-                Planet newPlanet;
-
-                if (ImageOption.IsChecked == true)
-                {
-                    newPlanet = new Planet(Name.Text, Atmosphere.Text, OrbitalPeriod.Text, RotationPeriod.Text, int.Parse(MoonCount.Text), Life.Text,
-                    newImage, 10, 10, true, int.Parse(Width.Text), int.Parse(Height.Text), sun, radius, double.Parse(Speed.Text));
-                }
-                else
-                {
-                    newPlanet = new Planet(Name.Text, Atmosphere.Text, OrbitalPeriod.Text, RotationPeriod.Text, int.Parse(MoonCount.Text), Life.Text,
-                    defaultImage, 10, 10, true, int.Parse(Width.Text), int.Parse(Height.Text), sun, radius, double.Parse(Speed.Text));
-                }
-
-                newSystemObjects.Add(newPlanet);
-
-                if (int.Parse(MoonCount.Text) <= 3 && int.Parse(MoonCount.Text) > 0)
-                {
-                    for (int m = 1; m < int.Parse(MoonCount.Text) + 1; m++)
-                    {
-                        newSystemObjects.Add(new Moon($"Moon {m}",
-                            DataControl.CreateImage("../../Images/moon.png"), 
-                            10, 10, true, 5, 5, newPlanet, newPlanet.Width/2 + 10 + m * 4, m));
-                    }
-                }
-                else if (int.Parse(MoonCount.Text) > 3) 
-                {
-                    for (int m = 1; m < 4; m++)
-                    {
-                        newSystemObjects.Add(new Moon($"Moon {m}",
-                            DataControl.CreateImage("../../Images/moon.png"), 
-                            10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
-                    }
-                }
-
-                PlanetList.Items.Add($"Planet {counter}: " + newPlanet.Name + "     Image: " + ImageOption.IsChecked);
+                case 1: radius = 50; break;
+                case 2: radius = 100; break;
+                case 3: radius = 150; break;
+                case 4: radius = 200; break;
+                case 5: radius = 280; break;
+                case 6: radius = 330; break;
+                case 7: radius = 370; break;
+                case 8: radius = 400; break;
             }
+
+            Planet newPlanet = new Planet(Name.Text, Atmosphere.Text, OrbitalPeriod.Text, RotationPeriod.Text, int.Parse(MoonCount.Text), Life.Text,
+                defaultImage, 10, 10, true, int.Parse(Width.Text), int.Parse(Height.Text), sun, radius, double.Parse(Speed.Text));
+
+            if (ImageOption.IsChecked == true)
+            {
+                newPlanet.Image.ImageSource = newImage;
+            }
+
+            newSystemObjects.Add(newPlanet);
+
+            if (int.Parse(MoonCount.Text) <= 3 && int.Parse(MoonCount.Text) > 0)
+            {
+                for (int m = 1; m < int.Parse(MoonCount.Text) + 1; m++)
+                {
+                    newSystemObjects.Add(new Moon($"Moon {m}",
+                        DataControl.CreateImage("../../Images/moon.png"),
+                        10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
+                }
+            }
+            else if (int.Parse(MoonCount.Text) > 3)
+            {
+                for (int m = 1; m < 4; m++)
+                {
+                    newSystemObjects.Add(new Moon($"Moon {m}",
+                        DataControl.CreateImage("../../Images/moon.png"),
+                        10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
+                }
+            }
+
+            PlanetList.Items.Add($"Planet {counter}: " + newPlanet.Name + "     Image: " + ImageOption.IsChecked);
+            ImageOption.IsChecked = false;
         }
 
         private void AddImageButton_Click(object sender, RoutedEventArgs e)
@@ -128,27 +115,31 @@ namespace PlanetarySystem
 
         private void CreateSystemButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SystemNameText.Text != String.Empty)
+            if(SystemNameText.Text == String.Empty)
             {
-                newSystemObjects.Add((sun));
-
-                SolarSystem newSystem = new SolarSystem { SystemName = SystemNameText.Text, SystemPlanets = newSystemObjects, PlanetCount = newSystemObjects.Count, Description=SystemDescription.Text};
-
-                ((MainWindow)Application.Current.MainWindow).SystemList.Items.Add(newSystem);
-                ((MainWindow)Application.Current.MainWindow).SystemList.SelectedValuePath = newSystem.SystemName;
-
-
-                this.Close();
+                MessageBox.Show("Please enter system name.");
+                return;
             }
+
+            newSystemObjects.Add(sun);
+
+            SolarSystem newSystem = new SolarSystem 
+            { 
+                SystemName = SystemNameText.Text, 
+                SystemPlanets = newSystemObjects, 
+                PlanetCount = newSystemObjects.Count, 
+                Description = SystemDescription.Text 
+            };
+
+            ((MainWindow)Application.Current.MainWindow).SystemList.Items.Add(newSystem);
+            ((MainWindow)Application.Current.MainWindow).SystemList.SelectedValuePath = newSystem.SystemName;
+
+            DialogResult = true;
         }
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
+            DialogResult = false;
         }
 
         private void ImageOption_Checked(object sender, RoutedEventArgs e)
@@ -159,6 +150,11 @@ namespace PlanetarySystem
         private void ImageOption_Unchecked(object sender, RoutedEventArgs e)
         {
             AddImageButton.Visibility = Visibility.Hidden;
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

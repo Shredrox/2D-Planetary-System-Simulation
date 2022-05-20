@@ -71,10 +71,13 @@ namespace PlanetarySystem
 
         private void ApplyChangesButton_Click(object sender, RoutedEventArgs e)
         {
-            ImageBrush canvasBackground = new ImageBrush();
-            canvasBackground.ImageSource = selectedImage.Source;
-            ((MainWindow)Application.Current.MainWindow).MainCanvas.Background = canvasBackground;
-
+            if(selectedImage.Source != null)
+            {
+                ImageBrush canvasBackground = new ImageBrush();
+                canvasBackground.ImageSource = selectedImage.Source;
+                ((MainWindow)Application.Current.MainWindow).MainCanvas.Background = canvasBackground;
+            }
+            
             this.Close();
         }
     }
