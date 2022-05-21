@@ -84,7 +84,7 @@ namespace PlanetarySystem
                 if (images[i].IsMouseOver == true && images[i].Source == addImage2)
                 {
                     imageIndex = i;
-                    NewPlanetWindow newPlanetWindow = new NewPlanetWindow(editedSystem, onlyPlanets.Count, i);
+                    NewPlanetWindow newPlanetWindow = new NewPlanetWindow(editedSystem, i);
                     newPlanetWindow.ShowDialog();
 
                     if(newPlanetWindow.DialogResult == true)

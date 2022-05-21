@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -101,21 +100,15 @@ namespace PlanetarySystem
         //draws planet orbits
         private void SystemOrbitCreation(int count)
         {
-            int radius = 0;
-            for (int i = 1; i <= count; i++)
-            {
-                switch (i)
-                {
-                    case 5: radius += 30; break;
-                    case 7: radius -= 10; break;
-                    case 8: radius -= 20; break;
-                }
-                radius += 50;
+            var radiuses = dataControl.GetOrbitRadiuses();
 
+            for (int i = 0; i < count; i++)
+            {
                 Ellipse ellipse = new Ellipse();
-                ellipse.RenderTransform = new TranslateTransform(MainCanvas.ActualWidth / 2 - radius, MainCanvas.ActualHeight / 2 - radius);
-                ellipse.Width = radius * 2;
-                ellipse.Height = radius * 2;
+                ellipse.RenderTransform = new TranslateTransform(MainCanvas.ActualWidth / 2 - radiuses[i],
+                                                                MainCanvas.ActualHeight / 2 - radiuses[i]);
+                ellipse.Width = radiuses[i] * 2;
+                ellipse.Height = radiuses[i] * 2;
                 ellipse.Stroke = Brushes.White;
                 ellipse.StrokeThickness = 2;
                 ellipse.MouseLeftButtonDown += EllipseClick;
@@ -123,21 +116,6 @@ namespace PlanetarySystem
 
                 orbits.Add(ellipse);
                 MainCanvas.Children.Add(ellipse);
-            }
-        }
-
-        private void OrbitCorrection()
-        {
-            for (int i = 0; i < orbits.Count; i++)
-            {
-                var planetRadius = ((Planet)dataControl.GetOnlyPlanets((SolarSystem)SystemList.Items[systemIndex])[i]).Radius;
-
-                if (orbits[i].Width != planetRadius * 2)
-                {
-                    orbits[i].Width = planetRadius * 2;
-                    orbits[i].Height = planetRadius * 2;
-                    orbits[i].RenderTransform = new TranslateTransform(MainCanvas.ActualWidth / 2 - planetRadius, MainCanvas.ActualHeight / 2 - planetRadius);
-                }
             }
         }
 
@@ -149,7 +127,7 @@ namespace PlanetarySystem
                 if (orbits[i].IsMouseOver == true)
                 {
                     orbits[i].StrokeThickness = 5;
-                    orbits[i].Stroke = Brushes.MediumSlateBlue;
+                    orbits[i].Stroke = Brushes.DeepSkyBlue;
                 }
                 else
                 {
@@ -292,8 +270,6 @@ namespace PlanetarySystem
             IsOrbitOn = true;
             solSystemLoaded = false;
 
-            SystemOrbitCreation(((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.OfType<Planet>().Count());
-
             //comets
             Random randomNumber = new Random();
             Comet comet = new Comet("Comet", MainCanvas, cometImage, randomNumber.Next((int)MainCanvas.ActualWidth),
@@ -305,9 +281,9 @@ namespace PlanetarySystem
             }
             dataControl.AddObject(comet);
 
-            dataControl.FillCanvas(MainCanvas);
+            SystemOrbitCreation(dataControl.PlanetCount());
 
-            OrbitCorrection();
+            dataControl.FillCanvas(MainCanvas);
 
             //system info
             SystemName.Text = ((SolarSystem)SystemList.Items[systemIndex]).SystemName;
@@ -350,8 +326,6 @@ namespace PlanetarySystem
             solSystemLoaded = true;
             IsOrbitOn = true;
 
-            SystemOrbitCreation(8);
-
             Random randomNumber = new Random();
             Comet comet = new Comet("Comet", MainCanvas, cometImage, randomNumber.Next((int)MainCanvas.ActualWidth),
                 randomNumber.Next((int)MainCanvas.ActualHeight), true, 20, 20);
@@ -386,6 +360,8 @@ namespace PlanetarySystem
             dataControl.AddObject(sun);
             dataControl.AddObject(moon);
             dataControl.AddObject(comet);
+
+            SystemOrbitCreation(8);
 
             dataControl.FillCanvas(MainCanvas);
 

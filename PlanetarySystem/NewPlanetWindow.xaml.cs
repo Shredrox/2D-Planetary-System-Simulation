@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -13,7 +12,6 @@ namespace PlanetarySystem
         private BitmapImage defaultImage = DataControl.CreateImage("../../Images/defaultPlanet.png");
         private BitmapImage newImage;
 
-        private int planetCount;
         private int planetPosition;
         private SolarSystem editedSystem;
         private Star sun = new Star("Sun", DataControl.CreateImage("../../Images/sun.png"),
@@ -21,15 +19,14 @@ namespace PlanetarySystem
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 80, 80);
         Planet newPlanet;
 
-        public NewPlanetWindow(SolarSystem solarSystem, int PlanetCount, int planetPosition)
+        public NewPlanetWindow(SolarSystem solarSystem, int planetIndex)
         {
             InitializeComponent();
 
             PlanetImage.Source = defaultImage;
 
-            planetCount = PlanetCount;
             editedSystem = solarSystem;
-            this.planetPosition = planetPosition; 
+            planetPosition = planetIndex; 
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

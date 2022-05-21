@@ -91,6 +91,14 @@ namespace CelestialObjectsLibrary
                 .ToList();
         }
 
+        public List<int> GetOrbitRadiuses()
+        {
+            return _systemObjects
+                .Where(o => o is Planet)
+                    .Select(p => ((Planet)p).Radius)
+                .ToList();
+        }
+
         public int GetPlanetIndex(CelestialObject obj)
         {
             return _systemObjects
@@ -113,31 +121,8 @@ namespace CelestialObjectsLibrary
         {
             return _systemObjects
                 .Where(o => o is Planet)
-                .Select(p => ((Planet)p).MoonCount)
+                    .Select(p => ((Planet)p).MoonCount)
                 .Sum();
-        }
-
-        public void SetOrbitRadius()
-        {
-            int orbitCounter = 1;
-            for (int p = 0; p < _systemObjects.Count; p++)
-            {
-                if (_systemObjects[p] is Planet)
-                {
-                    switch (orbitCounter)
-                    {
-                        case 1: ((Planet)_systemObjects[p]).Radius = 50; break;
-                        case 2: ((Planet)_systemObjects[p]).Radius = 100; break;
-                        case 3: ((Planet)_systemObjects[p]).Radius = 150; break;
-                        case 4: ((Planet)_systemObjects[p]).Radius = 200; break;
-                        case 5: ((Planet)_systemObjects[p]).Radius = 280; break;
-                        case 6: ((Planet)_systemObjects[p]).Radius = 330; break;
-                        case 7: ((Planet)_systemObjects[p]).Radius = 370; break;
-                        case 8: ((Planet)_systemObjects[p]).Radius = 400; break;
-                    }
-                    orbitCounter++;
-                }
-            }
         }
 
         public void FillCanvas(Canvas canvas)
@@ -230,21 +215,15 @@ namespace CelestialObjectsLibrary
 
                 foreach (var system in _solarSystems)
                 {
-                    foreach (var s in system.SystemPlanets)
+                    foreach (var o in system.SystemPlanets)
                     {
-                        LoadedObjectShapeSet(s);
-                        if (s is Moon)
+                        LoadedObjectShapeSet(o);
+                        if (o is Moon)
                         {
-                            int moonIndex = system.SystemPlanets.FindIndex(p => p.Equals(s));
-
-                            for (int i = moonIndex; i >= 0; i--)
-                            {
-                                if (system.SystemPlanets[i] is Planet)
-                                {
-                                    ((Moon)s).GravityCenter = system.SystemPlanets[i];
-                                    break;
-                                }
-                            }
+                            ((Moon)o).GravityCenter = system.SystemPlanets
+                                .Where(p => p is Planet)
+                                    .Where(p => ((Planet)((Moon)o).GravityCenter).Radius == ((Planet)p).Radius)
+                                    .SingleOrDefault();
                         }
                     }
                     SystemList.Items.Add(system);
@@ -254,6 +233,7 @@ namespace CelestialObjectsLibrary
 
         public void LoadedObjectShapeSet(CelestialObject systemObj)
         {
+            
             systemObj.Image.ImageSource = CreateImage(systemObj.ImageUri);
             systemObj.Shape.Width = systemObj.Width;
             systemObj.Shape.Height = systemObj.Height;
