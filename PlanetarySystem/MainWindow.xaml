@@ -148,7 +148,7 @@
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Visibility="Hidden" Name="PlanetInfo" Padding="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                            <TextBlock Visibility="Hidden" Name="PlanetInfo" Padding="10" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
                         </materialDesign:Card>
 
                         <materialDesign:Card Name="PlanetAtmoCard" UniformCornerRadius="20" Visibility="Hidden">
@@ -205,10 +205,11 @@
                         <Button Name="DeletePlanetButton" Margin="10" Content="Delete Planet" HorizontalAlignment="Center" Visibility="Hidden" Click="DeletePlanetButton_Click" />
 
                         <TextBlock Name="LinkTextBlock" Visibility="Hidden" Margin="20" VerticalAlignment="Center" FontFamily="Ebrima" Foreground="White" FontSize="20">
-                        <Hyperlink NavigateUri="https://en.wikipedia.org/wiki/" RequestNavigate="Hyperlink_RequestNavigate">
-                            <TextBlock Name="LinkName"/>
-                        </Hyperlink>
-                    </TextBlock>
+                            <Hyperlink NavigateUri="https://en.wikipedia.org/wiki/" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock Name="LinkName"/>
+                            </Hyperlink>
+                        </TextBlock>
+                        
                     </StackPanel>
                 </materialDesign:Card>
             </materialDesign:TransitioningContent>

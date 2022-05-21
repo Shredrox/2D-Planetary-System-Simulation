@@ -173,7 +173,7 @@ namespace PlanetarySystem
             }
         }
 
-        //changes the textblocks to the selected planet info
+        //changes the textblocks to the selected planet's info
         private void PlanetInfoTextChange(CelestialObject planet)
         {
             PlanetInfo.Text = planet.Name;
@@ -186,7 +186,7 @@ namespace PlanetarySystem
             SelectedPlanetImage.Source = DataControl.CreateImage(planet.Image.ImageSource.ToString());
         }
 
-        //changes the visivility of window elements
+        //changes the visibility of window elements
         private void VisibilityChange()
         {
             PlanetInfo.Visibility = Visibility.Hidden;
@@ -208,7 +208,7 @@ namespace PlanetarySystem
             PlanetLifeCard.Visibility = Visibility.Hidden;
         }
 
-        //stopping/playing the animation
+        //stop/play the animation
         private bool IsOrbitOn = true;
         private void StopAnimationButton_Click(object sender, RoutedEventArgs e)
         {
@@ -232,7 +232,7 @@ namespace PlanetarySystem
         private void ChangeBackgroundButton_Click(object sender, RoutedEventArgs e)
         {
             BackgroundChangeWindow backgroundChangeWindow = new BackgroundChangeWindow();
-            backgroundChangeWindow.Show();
+            backgroundChangeWindow.ShowDialog();
         }
 
         //loads a system from the combobox list of systems
@@ -411,12 +411,12 @@ namespace PlanetarySystem
                       .Where(m => ((Moon)m).GravityCenter == planetToRemove)
                       .ToList();
 
-                dataControl.RemoveMoons(planetToRemove, SystemList, systemIndex);
-
                 for (int i = 0; i < moonsToRemoveFromCanvas.Count; i++)
                 {
                     MainCanvas.Children.Remove(moonsToRemoveFromCanvas[i].Shape);
                 }
+
+                dataControl.RemoveMoons(planetToRemove, SystemList, systemIndex);
 
                 //removes the deleted planet's orbit
                 MainCanvas.Children
@@ -443,6 +443,11 @@ namespace PlanetarySystem
         {
             SystemCreationWindow systemCreationWindow = new SystemCreationWindow();
             systemCreationWindow.ShowDialog();
+
+            if(systemCreationWindow.DialogResult == true)
+            {
+                SystemList.SelectedItem = (SolarSystem)SystemList.Items[systemIndex];
+            }
         }
 
         //button to edit selected system
@@ -454,7 +459,7 @@ namespace PlanetarySystem
             if(editSystemWindow.DialogResult == true)
             {
                 SystemList.SelectedValuePath = ((SolarSystem)SystemList.Items[systemIndex]).SystemName;
-                SystemList.SelectedItem = ((SolarSystem)SystemList.Items[systemIndex]);
+                SystemList.SelectedItem = (SolarSystem)SystemList.Items[systemIndex];
                 SystemList.Items.Refresh();
 
                 LoadSystem_Click(sender, e);

@@ -122,7 +122,12 @@ namespace PlanetarySystem
 
         private void CreateSystemButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SystemNameText.Text == String.Empty)
+            if(newSystemObjects.Count == 0)
+            {
+                MessageBox.Show("System has no objects");
+                return;
+            }
+            else if(SystemNameText.Text == String.Empty)
             {
                 MessageBox.Show("Please enter system name.");
                 return;
@@ -140,6 +145,8 @@ namespace PlanetarySystem
 
             ((MainWindow)Application.Current.MainWindow).SystemList.Items.Add(newSystem);
             ((MainWindow)Application.Current.MainWindow).SystemList.SelectedValuePath = newSystem.SystemName;
+
+            MessageBox.Show("A new system was added to the systems list.");
 
             DialogResult = true;
         }

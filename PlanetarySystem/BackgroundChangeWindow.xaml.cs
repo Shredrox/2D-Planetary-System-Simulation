@@ -14,7 +14,7 @@ namespace PlanetarySystem
             InitializeComponent();
 
             Background1.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground.jpg");
-            Background1.MouseDown += delegate
+            Background1.MouseDown += (s, e) =>
             {
                 Background1Card.Background = Brushes.Cyan;
                 Background2Card.Background = Brush1;
@@ -25,7 +25,7 @@ namespace PlanetarySystem
             };
 
             Background2.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground2.jpg");
-            Background2.MouseDown += delegate
+            Background2.MouseDown += (s, e) =>
             {
                 Background1Card.Background = Brush1;
                 Background2Card.Background = Brushes.Cyan;
@@ -36,7 +36,7 @@ namespace PlanetarySystem
             };
 
             Background3.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground3.jpg");
-            Background3.MouseDown += delegate
+            Background3.MouseDown += (s, e) =>
             {
                 Background1Card.Background = Brush1;
                 Background2Card.Background = Brush1;
@@ -47,7 +47,7 @@ namespace PlanetarySystem
             };
 
             Background4.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground4.jpg");
-            Background4.MouseDown += delegate
+            Background4.MouseDown += (s, e) =>
             {
                 Background1Card.Background = Brush1;
                 Background2Card.Background = Brush1;
@@ -58,7 +58,7 @@ namespace PlanetarySystem
             };
 
             Background5.Source = DataControl.CreateImage("../../Images/spaceCanvasBackground5.jpg");
-            Background5.MouseDown += delegate
+            Background5.MouseDown += (s, e) =>
             {
                 Background1Card.Background = Brush1;
                 Background2Card.Background = Brush1;
@@ -71,14 +71,17 @@ namespace PlanetarySystem
 
         private void ApplyChangesButton_Click(object sender, RoutedEventArgs e)
         {
-            if(selectedImage.Source != null)
+            if(selectedImage.Source == null)
             {
-                ImageBrush canvasBackground = new ImageBrush();
-                canvasBackground.ImageSource = selectedImage.Source;
-                ((MainWindow)Application.Current.MainWindow).MainCanvas.Background = canvasBackground;
+                MessageBox.Show("Please select background.");
+                return;
             }
-            
-            this.Close();
+
+            ImageBrush canvasBackground = new ImageBrush();
+            canvasBackground.ImageSource = selectedImage.Source;
+            ((MainWindow)Application.Current.MainWindow).MainCanvas.Background = canvasBackground;
+
+            DialogResult = true;
         }
     }
 }

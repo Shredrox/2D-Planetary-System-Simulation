@@ -16,6 +16,7 @@ namespace CelestialObjectsLibrary
         public CelestialObject GravityCenter { get; set; }
         public int Radius { get; set; }
         public double Speed { get; set; }
+
         private double Angle = 0;
 
         public Planet(string name, string atmosphere, string orbitalPeriod, string rotationPeriod,

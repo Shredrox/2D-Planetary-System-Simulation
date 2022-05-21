@@ -26,21 +26,12 @@ namespace CelestialObjectsLibrary
         public bool IsOrbiting { get; set; }
         public string ImageUri { get; set; }
 
-        private ImageBrush imageBrush = new ImageBrush();
-
         public CelestialObject(string name, BitmapImage image, double startx, double starty, bool orbiting, int width, int height)
         {
             Name = name;
+            Image = new ImageBrush();
+            Image.ImageSource = image;
             Shape = new Ellipse();
-            if (image != null)
-            {
-                imageBrush.ImageSource = image;
-            }
-            else
-            {
-                imageBrush.ImageSource = new BitmapImage(new Uri("../../Images/defaultPlanet.png", UriKind.RelativeOrAbsolute));
-            }
-            Image = imageBrush;
             Shape.Fill = Image;
             X = startx;
             Y = starty;
