@@ -33,19 +33,26 @@ namespace PlanetarySystem
         {
             if (PlanetName.Text == String.Empty || PlanetAtmo.Text == String.Empty
                 || PlanetOrbitalPeriod.Text == String.Empty || PlanetRotationPeriod.Text == String.Empty
-                || PlanetMoonCount.Text == String.Empty || PlanetLife.Text == String.Empty || PlanetSpeed.Text == String.Empty ||
-                PlanetWidth.Text == String.Empty || PlanetHeight.Text == String.Empty)
+                || PlanetMoonCount.Text == String.Empty || PlanetLife.Text == String.Empty || PlanetSpeed.Text == String.Empty 
+                || PlanetWidth.Text == String.Empty || PlanetHeight.Text == String.Empty)
             {
                 MessageBox.Show("Missing info for new planet");
                 return;
             }
             else if (!int.TryParse(PlanetMoonCount.Text, out _) || !int.TryParse(PlanetWidth.Text, out _)
-                || !int.TryParse(PlanetHeight.Text, out _) || !double.TryParse(PlanetSpeed.Text, out _))
+                || !int.TryParse(PlanetHeight.Text, out _) || !double.TryParse(PlanetSpeed.Text, out _)
+                || int.Parse(PlanetMoonCount.Text) < 0 || double.Parse(PlanetSpeed.Text) < -10)
             {
                 MessageBox.Show("Input was not in the correct format.");
                 return;
             }
-
+            else if (int.Parse(PlanetWidth.Text) > 75 || int.Parse(PlanetHeight.Text) > 75
+                || int.Parse(PlanetMoonCount.Text) > 500000 || double.Parse(PlanetSpeed.Text) > 10)
+            {
+                MessageBox.Show("Value too big. Please enter a smaller value.");
+                return;
+            }
+            
             int radius = 0;
             switch (planetPosition + 1)
             {

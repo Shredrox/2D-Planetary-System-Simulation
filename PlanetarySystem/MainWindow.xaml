@@ -71,20 +71,22 @@
                     <Button Margin="10" Content="Create System" Width="130" Height="40" Name="CreateSystemButton" Click="CreateSystemButton_Click"/>
                     <materialDesign:Card Width="310" Height="50" Background="{x:Null}" VerticalAlignment="Center" Margin="10">
                         <TextBlock Name="SystemName" Text="SOLAR SYSTEM" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                           Height="40" FontSize="38" 
-                           Foreground="White" FontFamily="Century Gothic"/>
+                           Height="40" FontSize="38"  
+                           Foreground="White" FontFamily="Century Gothic">
+                        </TextBlock>
                     </materialDesign:Card>
 
                     <ComboBox ItemContainerStyle="{StaticResource ItemColor}"
                           SelectionChanged="SystemList_SelectionChanged" 
-                          DropDownOpened="SystemList_DropDownOpened" 
                           Padding="10" Text="Systems" 
                           Name="SystemList" Width="130" Height="40" 
                           Margin="10" Background="#FF673AB7"
                           Focusable="False" IsEditable="True" 
                           VerticalAlignment="Center"
                           HorizontalAlignment="Center" 
-                          IsReadOnly="True" FontSize="15" Foreground="White" BorderBrush="#89FFFFFF"/>
+                          IsReadOnly="True" FontSize="15" Foreground="White"
+                          BorderBrush="#89FFFFFF">
+                    </ComboBox>
 
                     <Button Name="LoadSystem" Content="Load System" Margin="10" Width="130" Height="40" Click="LoadSystem_Click"/>
                 </StackPanel>
@@ -166,7 +168,7 @@
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="PlanetOrbitalPeriod" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                            <TextBlock Name="PlanetOrbitalPeriod" Margin="10" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
                         </materialDesign:Card>
 
                         <materialDesign:Card Name="PlanetRotationPerdiodCard" UniformCornerRadius="20" Visibility="Hidden">
@@ -176,7 +178,7 @@
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="PlanetRotationPeriod" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                            <TextBlock Name="PlanetRotationPeriod" Margin="10" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
                         </materialDesign:Card>
 
                         <materialDesign:Card Name="PlanetMoonCountCard" UniformCornerRadius="20" Visibility="Hidden">

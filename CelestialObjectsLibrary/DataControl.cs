@@ -203,37 +203,37 @@ namespace CelestialObjectsLibrary
 
         public void LoadFromFile(ComboBox SystemList)
         {
-            _solarSystems.Clear();
+            if (!File.Exists("data"))
+            {
+                return;
+            }
+
             XmlSerializer mySerializer = new XmlSerializer(typeof(List<SolarSystem>));
 
-            if (File.Exists("data"))
+            using (var myFileStream = new FileStream("data", FileMode.Open))
             {
-                using (var myFileStream = new FileStream("data", FileMode.Open))
-                {
-                    _solarSystems = (List<SolarSystem>)mySerializer.Deserialize(myFileStream);
-                }
+                _solarSystems = (List<SolarSystem>)mySerializer.Deserialize(myFileStream);
+            }
 
-                foreach (var system in _solarSystems)
+            foreach (var system in _solarSystems)
+            {
+                foreach (var o in system.SystemPlanets)
                 {
-                    foreach (var o in system.SystemPlanets)
+                    LoadedObjectShapeSet(o);
+                    if (o is Moon)
                     {
-                        LoadedObjectShapeSet(o);
-                        if (o is Moon)
-                        {
-                            ((Moon)o).GravityCenter = system.SystemPlanets
-                                .Where(p => p is Planet)
-                                    .Where(p => ((Planet)((Moon)o).GravityCenter).Radius == ((Planet)p).Radius)
-                                    .SingleOrDefault();
-                        }
+                        ((Moon)o).GravityCenter = system.SystemPlanets
+                            .Where(p => p is Planet)
+                                .Where(p => ((Planet)((Moon)o).GravityCenter).Radius == ((Planet)p).Radius)
+                                .SingleOrDefault();
                     }
-                    SystemList.Items.Add(system);
                 }
+                SystemList.Items.Add(system);
             }
         }
 
         public void LoadedObjectShapeSet(CelestialObject systemObj)
         {
-            
             systemObj.Image.ImageSource = CreateImage(systemObj.ImageUri);
             systemObj.Shape.Width = systemObj.Width;
             systemObj.Shape.Height = systemObj.Height;
@@ -243,7 +243,7 @@ namespace CelestialObjectsLibrary
             systemObj.Shape.Fill = systemObj.Image;
         }
 
-        public void ImageCopy(List<String> paths)
+        public void ImageCopy(List<string> paths)
         {
             for (int i = 0; i < paths.Count; i++)
             {

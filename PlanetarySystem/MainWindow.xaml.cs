@@ -400,10 +400,12 @@ namespace PlanetarySystem
             {
                 var planetToRemove = dataControl.SelectPlanet(orbitIndex);
 
+                //removes the planet
                 dataControl.RemoveObject(planetToRemove);
-
                 ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Remove(planetToRemove);
+                MainCanvas.Children.Remove(planetToRemove.Shape);
 
+                //removes the deleted planet's moons
                 var moonsToRemoveFromCanvas = ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets
                   .Where(o => o is Moon)
                       .Where(m => ((Moon)m).GravityCenter == planetToRemove)
@@ -411,16 +413,12 @@ namespace PlanetarySystem
 
                 dataControl.RemoveMoons(planetToRemove, SystemList, systemIndex);
 
-                //MainCanvas.Children.Clear();
-                //orbits.Clear();
-
-                MainCanvas.Children.Remove(planetToRemove.Shape);
-
                 for (int i = 0; i < moonsToRemoveFromCanvas.Count; i++)
                 {
                     MainCanvas.Children.Remove(moonsToRemoveFromCanvas[i].Shape);
                 }
 
+                //removes the deleted planet's orbit
                 MainCanvas.Children
                     .Remove(orbits
                             .Where(o => o.Width / 2 == ((Planet)planetToRemove).Radius)
@@ -430,10 +428,6 @@ namespace PlanetarySystem
                     .Remove(orbits
                             .Where(o => o.Width / 2 == ((Planet)planetToRemove).Radius)
                             .SingleOrDefault());
-                
-                //SystemOrbitCreation(dataControl.PlanetCount());
-                //dataControl.SetOrbitRadius();
-                //dataControl.FillCanvas(MainCanvas);
 
                 SystemPlanetCount.Text = "System Planet Count: " + dataControl.PlanetCount().ToString();
                 SystemMoonCount.Text = "System Moon Count: " + dataControl.GetSystemMoonCount().ToString();
@@ -490,15 +484,6 @@ namespace PlanetarySystem
                     VisibilityChange();
                 }
             }
-        }
-
-        //changes combobox text to selected system name
-        private void SystemList_DropDownOpened(object sender, EventArgs e)
-        {
-            //if (SystemList.SelectedIndex != -1)
-            //{
-            //    SystemList.Text = ((SolarSystem)SystemList.Items[SystemList.SelectedIndex]).SystemName;
-            //}
         }
 
         //changes the selected system

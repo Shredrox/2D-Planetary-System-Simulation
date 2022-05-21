@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlanetarySystem"
         mc:Ignorable="d"
-        Title="AddPlanetsWindow" Height="410" Width="900" 
+        Title="AddPlanetsWindow" Height="415" Width="900" 
         WindowStartupLocation="CenterScreen" 
         ResizeMode="NoResize" WindowStyle="None">
     
@@ -33,39 +33,39 @@
 
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
             <Image Name="Planet1Image" Height="140" Margin="10,10,10,10"/>
-            <TextBlock Name="Planet1Name" HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Name="Planet1Name" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
             <Image Name="Planet2Image" Height="140" Margin="10,10,10,10"/>
-            <TextBlock Name="Planet2Name" HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Name="Planet2Name" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0">
             <Image Name="Planet3Image" Height="140" Margin="10,10,10,10"/>
-            <TextBlock Name="Planet3Name" HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Name="Planet3Name" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="0">
             <Image Name="Planet4Image" Height="140" Margin="10,10,10,10"/>
-            <TextBlock Name="Planet4Name" HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Name="Planet4Name" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
             <Image Name="Planet5Image" Height="140" Margin="10,10,10,10"/>
-            <TextBlock Name="Planet5Name" HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Name="Planet5Name" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
             <Image Name="Planet6Image" Height="140" Margin="10,10,10,10"/>
-            <TextBlock Name="Planet6Name" HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Name="Planet6Name" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1">
             <Image Name="Planet7Image" Height="140" Margin="10,10,10,10"/>
-            <TextBlock Name="Planet7Name" HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Name="Planet7Name" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="1">
             <Image Name="Planet8Image" Height="140" Margin="10,10,10,10"/>
-            <TextBlock Name="Planet8Name" HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Name="Planet8Name" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
         </StackPanel>
 
         <TextBlock Name="RenameSystem" Grid.Row="2" Grid.Column="0" Margin="10" Text="System Name: " Foreground="White" VerticalAlignment="Center" FontSize="18"/>
-        <TextBox Name="SystemName" Foreground="White" Height="26.6" Margin="10" BorderBrush="#89009CFF" Grid.Column="1" Grid.Row="2">
+        <TextBox Name="SystemName" MaxLength="12" Foreground="White" Width="130" Height="26.6" Margin="10" BorderBrush="#89009CFF" Grid.Column="1" Grid.Row="2">
             <TextBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF4626A2"/>
@@ -74,7 +74,9 @@
             </TextBox.Background>
         </TextBox>
 
-        <TextBox Name="SystemDescriptionEdit" Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Margin="15" Foreground="White" AcceptsReturn="True" TextWrapping="Wrap">
+        <TextBox Name="SystemDescriptionEdit" Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" 
+                 Margin="15" Foreground="White" AcceptsReturn="True" TextWrapping="Wrap"
+                 MaxLength="2500">
             <TextBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF4626A2"/>

@@ -78,12 +78,10 @@ namespace PlanetarySystem
 
         private void ImageClick(object s, MouseEventArgs e)
         {
-            int imageIndex = 0;
             for (int i = 0; i < images.Count; i++)
             {
                 if (images[i].IsMouseOver == true && images[i].Source == addImage2)
                 {
-                    imageIndex = i;
                     NewPlanetWindow newPlanetWindow = new NewPlanetWindow(editedSystem, i);
                     newPlanetWindow.ShowDialog();
 
@@ -93,8 +91,8 @@ namespace PlanetarySystem
                                 .Where(p => p is Planet)
                                 .ToList();
 
-                        images[imageIndex].Source = newPlanetWindow.NewImage();
-                        textBlocks[imageIndex].Text = onlyPlanets[onlyPlanets.Count - 1].Name;
+                        images[i].Source = newPlanetWindow.NewImage();
+                        textBlocks[i].Text = onlyPlanets[onlyPlanets.Count - 1].Name;
                     }
                 }
             }

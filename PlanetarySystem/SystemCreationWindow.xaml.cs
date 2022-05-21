@@ -28,7 +28,7 @@ namespace PlanetarySystem
 
         private void CreatePlanetButton_Click(object sender, RoutedEventArgs e)
         {
-            if(newSystemObjects.OfType<Planet>().Count() == 8)
+            if (newSystemObjects.OfType<Planet>().Count() == 8)
             {
                 MessageBox.Show("Maximum number of planets reached.");
                 return;
@@ -42,12 +42,19 @@ namespace PlanetarySystem
                 return;
             }
             else if (!int.TryParse(MoonCount.Text, out _) || !int.TryParse(Width.Text, out _)
-                    || !int.TryParse(Height.Text, out _) || !double.TryParse(Speed.Text, out _))
+                    || !int.TryParse(Height.Text, out _) || !double.TryParse(Speed.Text, out _)
+                    || int.Parse(MoonCount.Text) < 0 || double.Parse(Speed.Text) < -10)
             {
                 MessageBox.Show("Input was not in the correct format.");
                 return;
             }
-
+            else if (int.Parse(Width.Text) > 75 || int.Parse(Height.Text) > 75
+                || int.Parse(MoonCount.Text) > 500000 || double.Parse(Speed.Text) > 10)
+            {
+                MessageBox.Show("Value too big. Please enter a smaller value.");
+                return;
+            } 
+            
             counter++;
 
             int radius = 0;
@@ -92,7 +99,7 @@ namespace PlanetarySystem
                 }
             }
 
-            PlanetList.Items.Add($"Planet {counter}: " + newPlanet.Name + "     Image: " + ImageOption.IsChecked);
+            PlanetList.Items.Add($"Planet {counter}: " + newPlanet.Name + "\n     Image: " + ImageOption.IsChecked);
             ImageOption.IsChecked = false;
         }
 

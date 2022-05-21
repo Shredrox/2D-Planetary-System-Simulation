@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlanetarySystem"
         mc:Ignorable="d"
-        Title="PlanetEditWindow" Height="800" Width="530" Foreground="#FF964646" 
+        Title="PlanetEditWindow" Height="810" Width="530" Foreground="#FF964646" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     
     <Window.Background>
@@ -17,39 +17,41 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="530"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="300"/>
-            <RowDefinition Height="460"/>
+            <RowDefinition Height="500"/>
         </Grid.RowDefinitions>
 
         <Image Grid.Column="0" HorizontalAlignment="Center" Name="PlanetImage" Margin="20"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="265"/>
                 <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="460"/>
-            </Grid.RowDefinitions>
-
+            
             <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
                 <TextBlock Text="Name: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
                 <TextBlock Text="Atmosphere: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
                 <TextBlock Text="Orbital Period: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
                 <TextBlock Text="Rotation Period: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-                <TextBlock Text="Moon Count: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-                <TextBlock Text="Life: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-                <TextBlock Text="Width: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-                <TextBlock Text="Height: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
+                <TextBlock Text="Moon Count: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
+                <TextBlock Text="Max Value: 500000 (max visualized: 3)" Foreground="Gray" HorizontalAlignment="Center"/>
+                <TextBlock Text="Life: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
+                <TextBlock Text="Width: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
+                <TextBlock Text="Max Value: 75" Foreground="Gray" HorizontalAlignment="Center"/>
+                <TextBlock Text="Height: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
+                <TextBlock Text="Max Value: 75" Foreground="Gray" HorizontalAlignment="Center"/>
                 <TextBlock Text="Speed: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-                <Button Name="ImageEditButton" Width="130" Content="Change Image" Margin="10" Click="ImageEditButton_Click"/>
+                <TextBlock Text="Max Value: 10" Foreground="Gray" HorizontalAlignment="Center"/>
+
+                <Button Name="ImageEditButton" Width="130" Content="Change Image" Margin="10,14,10,0" Click="ImageEditButton_Click"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                <TextBox Name="PlanetName" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+                <TextBox Name="PlanetName" MaxLength="20" Foreground="White" Margin="10" BorderBrush="#89009CFF">
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -57,7 +59,7 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetAtmo" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+                <TextBox Name="PlanetAtmo" MaxLength="15" Foreground="White" Margin="10" BorderBrush="#89009CFF">
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -65,7 +67,7 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetOrbitalPeriod" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+                <TextBox Name="PlanetOrbitalPeriod" MaxLength="15" Foreground="White" Margin="10" BorderBrush="#89009CFF">
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -73,7 +75,7 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetRotationPeriod" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+                <TextBox Name="PlanetRotationPeriod" MaxLength="15" Foreground="White" Margin="10" BorderBrush="#89009CFF">
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -81,7 +83,7 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetMoonCount" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+                <TextBox Name="PlanetMoonCount" MaxLength="6" Foreground="White" Margin="10,20,10,15" BorderBrush="#89009CFF">
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -89,7 +91,7 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetLife" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+                <TextBox Name="PlanetLife" MaxLength="15" Foreground="White" Margin="10" BorderBrush="#89009CFF">
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -97,7 +99,7 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetWidth" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+                <TextBox Name="PlanetWidth" MaxLength="2" Foreground="White" Margin="10,10,10,15" BorderBrush="#89009CFF">
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -105,7 +107,7 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetHeight" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+                <TextBox Name="PlanetHeight" MaxLength="2" Foreground="White" Margin="10" BorderBrush="#89009CFF">
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -113,7 +115,7 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetSpeed" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+                <TextBox Name="PlanetSpeed" MaxLength="6" Foreground="White" Margin="10,20,10,10" BorderBrush="#89009CFF">
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
