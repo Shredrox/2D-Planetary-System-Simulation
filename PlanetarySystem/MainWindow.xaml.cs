@@ -285,7 +285,7 @@ namespace PlanetarySystem
 
             dataControl.FillCanvas(MainCanvas);
 
-            //system info
+            //system info 
             SystemName.Text = ((SolarSystem)SystemList.Items[systemIndex]).SystemName;
             SystemPlanetCount.Text = "System Planet Count: " + dataControl.PlanetCount().ToString();
             SystemMoonCount.Text = "System Moon Count: " + dataControl.GetSystemMoonCount().ToString();
