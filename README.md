@@ -75,6 +75,12 @@ The editing of systems allows for different layouts, depending on the positions 
     style="display: inline-block; margin: 0 auto; max-width: 300px">
 </p>
 
+## 🌌 Animations!
+The orbits are animated, with the option to change the speed, direction or pause the animation.
+
+## 🌌 Canvas zooming
+The user can zoom in and look at the systems they have created.
+
 ## 🌌 The model of our Sol System
 The program has a built in model of our solar system with all the data written in. There's also a link to wikipedia for more information for each planet.
 
@@ -82,11 +88,12 @@ The program has a built in model of our solar system with all the data written i
 Changing the space background to suit your space vibes!
 <p align="center">
   <img
-    src="PlanetarySystem/Images/ProjectScreenshots/ssBackgroundChange1.jpg"
-    style="display: inline-block; margin: 0 auto; max-width: 300px">
-</p>
-<p align="center">
-  <img
     src="PlanetarySystem/Images/ProjectScreenshots/ssBackgroundChange2.jpg"
     style="display: inline-block; margin: 0 auto; max-width: 300px">
 </p>
+
+# The UI
+The front end of the application is written in XAML and most of the ui elements' style is from the nuget package MaterialDesign.
+
+# Serialization/Saving system data
+All the custom systems and data, entered by the user, are serialized using the XML format and deserialized upon the start of the application.
