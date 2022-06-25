@@ -15,7 +15,8 @@ It can visualize 2D custom solar systems and planets, created by the user, with 
 # Features:
 
 ## 🌌 Creating custom solar systems
-The user can create custom solar systems with custom planets by entering the planets' data and choosing an image to visualize the planet.
+The user can create custom solar systems with custom planets by entering the planets' data and choosing an image to visualize the planet. The maximum number of planets in a system is 8.
+
 <p align="center">
   Creating new system
 </p>
@@ -93,7 +94,7 @@ Changing the space background to suit your space vibes!
 </p>
 
 # The UI
-The front end of the application is written in XAML and most of the ui elements' style is from the nuget package MaterialDesign.
+The front end of the application is written in XAML and most of the UI element styles are from the nuget package MaterialDesign.
 
 # Serialization/Saving system data
 All the custom systems and data, entered by the user, are serialized using the XML format and deserialized upon the start of the application.
