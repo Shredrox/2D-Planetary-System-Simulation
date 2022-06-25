@@ -198,5 +198,17 @@
   <ItemGroup>
     <Resource Include="Images\windowBackground3.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ProjectScreenshots\ssAddingNewPlanet.jpg" />
+    <Resource Include="Images\ProjectScreenshots\ssBackgroundChange1.jpg" />
+    <Resource Include="Images\ProjectScreenshots\ssBackgroundChange2.jpg" />
+    <Resource Include="Images\ProjectScreenshots\ssEditPlanet.jpg" />
+    <Resource Include="Images\ProjectScreenshots\ssEditSystem.jpg" />
+    <Resource Include="Images\ProjectScreenshots\ssSolSystem.jpg" />
+    <Resource Include="Images\ProjectScreenshots\ssSystemCreation.jpg" />
+    <Resource Include="Images\ProjectScreenshots\ssSystemLayout1.jpg" />
+    <Resource Include="Images\ProjectScreenshots\ssSystemLayout2.jpg" />
+    <Resource Include="Images\ProjectScreenshots\ssSystemLayout3.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
