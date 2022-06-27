@@ -228,7 +228,6 @@ namespace PlanetarySystem
             }
         }
 
-        //opens the window for background change
         private void ChangeBackgroundButton_Click(object sender, RoutedEventArgs e)
         {
             BackgroundChangeWindow backgroundChangeWindow = new BackgroundChangeWindow();
