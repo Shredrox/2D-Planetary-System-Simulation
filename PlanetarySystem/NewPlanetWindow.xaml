@@ -24,7 +24,11 @@
             <RowDefinition Height="500"/>
         </Grid.RowDefinitions>
 
-        <Image Grid.Column="0" HorizontalAlignment="Center" Name="PlanetImage" Margin="20"/>
+        <Image 
+            Grid.Column="0" 
+            HorizontalAlignment="Center" 
+            Name="PlanetImage" 
+            Margin="20"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -32,25 +36,115 @@
                 <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
-                <TextBlock Text="Name: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-                <TextBlock Text="Atmosphere: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-                <TextBlock Text="Orbital Period: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-                <TextBlock Text="Rotation Period: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-                <TextBlock Text="Moon Count: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-                <TextBlock Text="Max Value: 500000 (max visualized: 3)" Foreground="Gray" HorizontalAlignment="Center"/>
-                <TextBlock Text="Life: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-                <TextBlock Text="Width: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-                <TextBlock Text="Max Value: 75" Foreground="Gray" HorizontalAlignment="Center"/>
-                <TextBlock Text="Height: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-                <TextBlock Text="Max Value: 75" Foreground="Gray" HorizontalAlignment="Center"/>
-                <TextBlock Text="Speed: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-                <TextBlock Text="Max Value: 10" Foreground="Gray" HorizontalAlignment="Center"/>
-                <Button Name="ImageAddButton" Width="130" Content="Add Image" Margin="10,14,10,0" Click="ImageAddButton_Click"/>
+            <StackPanel 
+                Orientation="Vertical" 
+                Grid.Column="0" 
+                Grid.Row="0">
+
+                <TextBlock 
+                    Text="Name: " 
+                    Foreground="White" 
+                    HorizontalAlignment="Center" 
+                    Margin="10" 
+                    FontSize="20"/>
+
+                <TextBlock 
+                    Text="Atmosphere: " 
+                    Foreground="White" 
+                    HorizontalAlignment="Center" 
+                    Margin="10"
+                    FontSize="20"/>
+
+                <TextBlock 
+                    Text="Orbital Period: " 
+                    Foreground="White" 
+                    HorizontalAlignment="Center"
+                    Margin="10" 
+                    FontSize="20"/>
+
+                <TextBlock 
+                    Text="Rotation Period: " 
+                    Foreground="White" 
+                    HorizontalAlignment="Center" 
+                    Margin="10" 
+                    FontSize="20"/>
+
+                <TextBlock 
+                    Text="Moon Count: " 
+                    Foreground="White" 
+                    HorizontalAlignment="Center" 
+                    Margin="10,10,10,0" 
+                    FontSize="20"/>
+
+                <TextBlock 
+                    Text="Max Value: 500000 (max visualized: 3)" 
+                    Foreground="Gray" 
+                    HorizontalAlignment="Center"/>
+
+                <TextBlock 
+                    Text="Life: " 
+                    Foreground="White" 
+                    HorizontalAlignment="Center"
+                    Margin="10,10,10,0" 
+                    FontSize="20"/>
+
+                <TextBlock 
+                    Text="Width: " 
+                    Foreground="White" 
+                    HorizontalAlignment="Center" 
+                    Margin="10,10,10,0"
+                    FontSize="20"/>
+
+                <TextBlock 
+                    Text="Max Value: 75" 
+                    Foreground="Gray" 
+                    HorizontalAlignment="Center"/>
+
+                <TextBlock 
+                    Text="Height: "
+                    Foreground="White" 
+                    HorizontalAlignment="Center" 
+                    Margin="10,10,10,0" 
+                    FontSize="20"/>
+
+                <TextBlock 
+                    Text="Max Value: 75" 
+                    Foreground="Gray" 
+                    HorizontalAlignment="Center"/>
+
+                <TextBlock 
+                    Text="Speed: " 
+                    Foreground="White" 
+                    HorizontalAlignment="Center"
+                    Margin="10,10,10,0" 
+                    FontSize="20"/>
+
+                <TextBlock 
+                    Text="Max Value: 10" 
+                    Foreground="Gray" 
+                    HorizontalAlignment="Center"/>
+
+                <Button 
+                    Name="ImageAddButton" 
+                    Width="130" 
+                    Content="Add Image" 
+                    Margin="10,14,10,0" 
+                    Click="ImageAddButton_Click"/>
+
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                <TextBox Name="PlanetName" MaxLength="20" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+            <StackPanel 
+                Orientation="Vertical" 
+                Grid.Column="1" 
+                Grid.Row="0">
+
+                <TextBox 
+                    Name="PlanetName" 
+                    MaxLength="20" 
+                    Foreground="White" 
+                    Margin="10" 
+                    BorderBrush="#89009CFF">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -58,7 +152,14 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetAtmo" MaxLength="15" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+
+                <TextBox 
+                    Name="PlanetAtmo" 
+                    MaxLength="15" 
+                    Foreground="White" 
+                    Margin="10" 
+                    BorderBrush="#89009CFF">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -66,7 +167,14 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetOrbitalPeriod" MaxLength="15" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+
+                <TextBox 
+                    Name="PlanetOrbitalPeriod" 
+                    MaxLength="15" 
+                    Foreground="White"
+                    Margin="10" 
+                    BorderBrush="#89009CFF">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -74,7 +182,14 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetRotationPeriod" MaxLength="15" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+
+                <TextBox 
+                    Name="PlanetRotationPeriod" 
+                    MaxLength="15"
+                    Foreground="White" 
+                    Margin="10"
+                    BorderBrush="#89009CFF">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -82,7 +197,14 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetMoonCount" MaxLength="6" Foreground="White" Margin="10,20,10,15" BorderBrush="#89009CFF">
+
+                <TextBox 
+                    Name="PlanetMoonCount" 
+                    MaxLength="6" 
+                    Foreground="White" 
+                    Margin="10,20,10,15" 
+                    BorderBrush="#89009CFF">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -90,7 +212,14 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetLife" MaxLength="15" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+
+                <TextBox 
+                    Name="PlanetLife" 
+                    MaxLength="15" 
+                    Foreground="White" 
+                    Margin="10" 
+                    BorderBrush="#89009CFF">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -98,7 +227,14 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetWidth" MaxLength="2" Foreground="White" Margin="10,10,10,15" BorderBrush="#89009CFF">
+
+                <TextBox 
+                    Name="PlanetWidth" 
+                    MaxLength="2" 
+                    Foreground="White" 
+                    Margin="10,10,10,15" 
+                    BorderBrush="#89009CFF">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -106,7 +242,14 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetHeight" MaxLength="2" Foreground="White" Margin="10" BorderBrush="#89009CFF">
+
+                <TextBox 
+                    Name="PlanetHeight"
+                    MaxLength="2" 
+                    Foreground="White" 
+                    Margin="10"
+                    BorderBrush="#89009CFF">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -114,7 +257,14 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                <TextBox Name="PlanetSpeed" MaxLength="6" Foreground="White" Margin="10,20,10,10" BorderBrush="#89009CFF">
+
+                <TextBox 
+                    Name="PlanetSpeed" 
+                    MaxLength="6" 
+                    Foreground="White"
+                    Margin="10,20,10,10" 
+                    BorderBrush="#89009CFF">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -122,13 +272,30 @@
                         </LinearGradientBrush>
                     </TextBox.Background>
                 </TextBox>
-                
+
                 <StackPanel Orientation="Horizontal">
-                    <Button Name="CancelButton" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                            Width="80" Content="Cancel" Margin="35,14,10,10" Click="CancelButton_Click">
+                    <Button 
+                        Name="CancelButton" 
+                        Grid.Column="1" 
+                        Grid.Row="1" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Width="80" 
+                        Content="Cancel"
+                        Margin="35,14,10,10" 
+                        Click="CancelButton_Click">
                     </Button>
-                    <Button Name="SaveButton" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" 
-                            Width="80" Content="Save" Margin="10,14,10,10" Click="SaveButton_Click">
+
+                    <Button 
+                        Name="SaveButton" 
+                        Grid.Column="1" 
+                        Grid.Row="1" 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Center" 
+                        Width="80" 
+                        Content="Save" 
+                        Margin="10,14,10,10" 
+                        Click="SaveButton_Click">
                     </Button>
                 </StackPanel>
             </StackPanel>

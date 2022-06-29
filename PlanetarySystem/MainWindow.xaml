@@ -40,8 +40,17 @@
             <RowDefinition Height="880"/>
         </Grid.RowDefinitions>
 
-        <materialDesign:TransitioningContent Grid.Column="2" Grid.Row="0" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
-            <materialDesign:Card Grid.Column="1" Grid.Row="0" UniformCornerRadius="20" Margin="10,10,12,0">
+        <materialDesign:TransitioningContent 
+            Grid.Column="2" 
+            Grid.Row="0" 
+            OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
+
+            <materialDesign:Card 
+                Grid.Column="1" 
+                Grid.Row="0" 
+                UniformCornerRadius="20" 
+                Margin="10,10,12,0">
+
                 <materialDesign:Card.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black"/>
@@ -49,16 +58,52 @@
                     </LinearGradientBrush>
                 </materialDesign:Card.Background>
 
-                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
-                    <Button Name="DeleteSystemButton" Margin="10,0,0,0" Width="125" Height="40" Content="Delete System" Visibility="Hidden" Click="DeleteSystemButton_Click"/>
-                    <Button Name="EditSystemButton" Margin="10,0,0,0" Width="125" Height="40" Content="Edit System" Visibility="Hidden" Click="EditSystemButton_Click"/>
-                    <Button Margin="10,0,0,0" Height="40" Name="CloseButton" Content="(X)" Click="CloseButton_Click"/>
+                <StackPanel 
+                    Grid.Column="1" 
+                    Grid.Row="0" 
+                    Orientation="Horizontal">
+
+                    <Button 
+                        Name="DeleteSystemButton" 
+                        Margin="10,0,0,0" 
+                        Width="125" 
+                        Height="40" 
+                        Content="Delete System" 
+                        Visibility="Hidden" 
+                        Click="DeleteSystemButton_Click"/>
+
+                    <Button 
+                        Name="EditSystemButton" 
+                        Margin="10,0,0,0" 
+                        Width="125" 
+                        Height="40" 
+                        Content="Edit System" 
+                        Visibility="Hidden" 
+                        Click="EditSystemButton_Click"/>
+
+                    <Button 
+                        Margin="10,0,0,0" 
+                        Height="40" 
+                        Name="CloseButton" 
+                        Content="(X)" 
+                        Click="CloseButton_Click"/>
+
                 </StackPanel>
             </materialDesign:Card>
         </materialDesign:TransitioningContent>
 
-        <materialDesign:TransitioningContent Grid.Column="1" Grid.Row="0" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
-            <materialDesign:Card MouseDown="Card_MouseDown" UniformCornerRadius="20" Grid.Row="0" Grid.Column="0" Margin="10,10,10,0">
+        <materialDesign:TransitioningContent 
+            Grid.Column="1" 
+            Grid.Row="0" 
+            OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
+
+            <materialDesign:Card 
+                MouseDown="Card_MouseDown" 
+                UniformCornerRadius="20" 
+                Grid.Row="0" 
+                Grid.Column="0" 
+                Margin="10,10,10,0">
+
                 <materialDesign:Card.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black"/>
@@ -67,40 +112,95 @@
                 </materialDesign:Card.Background>
 
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin="10" Click="SolSystemButton_Click" Content="Sol System" Width="110" Height="40"/>
-                    <Button Margin="10" Content="Create System" Width="130" Height="40" Name="CreateSystemButton" Click="CreateSystemButton_Click"/>
-                    <materialDesign:Card Width="310" Height="50" Background="{x:Null}" VerticalAlignment="Center" Margin="10">
-                        <TextBlock Name="SystemName" Text="SOLAR SYSTEM" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                           Height="40" FontSize="38"  
-                           Foreground="White" FontFamily="Century Gothic">
+                    <Button 
+                        Margin="10"
+                        Click="SolSystemButton_Click" 
+                        Content="Sol System" 
+                        Width="110" 
+                        Height="40"/>
+
+                    <Button 
+                        Margin="10" 
+                        Content="Create System" 
+                        Width="130" 
+                        Height="40" 
+                        Name="CreateSystemButton"
+                        Click="CreateSystemButton_Click"/>
+
+                    <materialDesign:Card 
+                        Width="310" 
+                        Height="50" 
+                        Background="{x:Null}" 
+                        VerticalAlignment="Center" 
+                        Margin="10">
+
+                        <TextBlock 
+                            Name="SystemName" 
+                            Text="SOLAR SYSTEM"
+                            Width="auto" 
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" 
+                            Height="40" 
+                            FontSize="38"  
+                            Foreground="White" 
+                            FontFamily="Century Gothic">
                         </TextBlock>
                     </materialDesign:Card>
 
-                    <ComboBox ItemContainerStyle="{StaticResource ItemColor}"
-                          SelectionChanged="SystemList_SelectionChanged" 
-                          Padding="10" Text="Systems" 
-                          Name="SystemList" Width="130" Height="40" 
-                          Margin="10" Background="#FF673AB7"
-                          Focusable="False" IsEditable="True" 
-                          VerticalAlignment="Center"
-                          HorizontalAlignment="Center" 
-                          IsReadOnly="True" FontSize="15" Foreground="White"
-                          BorderBrush="#89FFFFFF">
+                    <ComboBox 
+                        ItemContainerStyle="{StaticResource ItemColor}"
+                        SelectionChanged="SystemList_SelectionChanged" 
+                        Padding="10" 
+                        Text="Systems" 
+                        Name="SystemList" 
+                        Width="130" 
+                        Height="40" 
+                        Margin="10" 
+                        Background="#FF673AB7"
+                        Focusable="False" 
+                        IsEditable="True" 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center" 
+                        IsReadOnly="True" 
+                        FontSize="15" 
+                        Foreground="White"
+                        BorderBrush="#89FFFFFF">
                     </ComboBox>
 
-                    <Button Name="LoadSystem" Content="Load System" Margin="10" Width="130" Height="40" Click="LoadSystem_Click"/>
+                    <Button 
+                        Name="LoadSystem" 
+                        Content="Load System" 
+                        Margin="10" 
+                        Width="130" 
+                        Height="40" 
+                        Click="LoadSystem_Click"/>
+
                 </StackPanel>
             </materialDesign:Card>
         </materialDesign:TransitioningContent>
 
-        <Border ClipToBounds="True" Grid.Row="1" Grid.Column="1" BorderThickness="5" CornerRadius="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border 
+            ClipToBounds="True" 
+            Grid.Row="1" 
+            Grid.Column="1" 
+            BorderThickness="5" 
+            CornerRadius="8" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center">
+
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
                     <GradientStop Color="#FF0A0F5D" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <Canvas Name="MainCanvas" Width="900" Height="850" Margin="10">
+
+            <Canvas 
+                Name="MainCanvas"
+                Width="900"
+                Height="850"
+                Margin="10">
+
                 <Canvas.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black"/>
@@ -110,8 +210,15 @@
             </Canvas>
         </Border>
 
-        <Border ClipToBounds="True" Grid.Column="2" Grid.Row="1" BorderThickness="5" CornerRadius="8" HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+        <Border 
+            ClipToBounds="True" 
+            Grid.Column="2" 
+            Grid.Row="1" 
+            BorderThickness="5"
+            CornerRadius="8" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
@@ -120,7 +227,12 @@
             </Border.Background>
 
             <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:1.5}">
-                <materialDesign:Card Name="PlanetInfoPanel" Margin="10" Width="330" Height="850">
+                <materialDesign:Card 
+                    Name="PlanetInfoPanel" 
+                    Margin="10" 
+                    Width="330" 
+                    Height="850">
+
                     <materialDesign:Card.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black"/>
@@ -135,88 +247,203 @@
                                 <ColumnDefinition Width="165"/>
                             </Grid.ColumnDefinitions>
 
-                            <Button Name="ChangeBackgroundButton" Grid.Column="0" Content="Change Background" VerticalAlignment="Center" Width="160" Click="ChangeBackgroundButton_Click"/>
-                            <Button Name="StopAnimationButton" Grid.Column="1" Margin="10" Content="Pause Animation" VerticalAlignment="Center" Visibility="Visible" Click="StopAnimationButton_Click"/>
+                            <Button 
+                                Name="ChangeBackgroundButton" 
+                                Grid.Column="0" 
+                                Content="Change Background" 
+                                VerticalAlignment="Center"
+                                Width="160" 
+                                Click="ChangeBackgroundButton_Click"/>
+
+                            <Button
+                                Name="StopAnimationButton" 
+                                Grid.Column="1" 
+                                Margin="10" 
+                                Content="Pause Animation" 
+                                VerticalAlignment="Center"
+                                Visibility="Visible" 
+                                Click="StopAnimationButton_Click"/>
+
                         </Grid>
 
-                        <Image HorizontalAlignment="Center" Height="300" Name="SelectedPlanetImage" Margin="20"/>
+                        <Image 
+                            HorizontalAlignment="Center" 
+                            Height="300" 
+                            Name="SelectedPlanetImage" 
+                            Margin="20"/>
 
-                        <materialDesign:Card Name="PlanetNameCard" UniformCornerRadius="20" Visibility="Hidden">
+                        <materialDesign:Card 
+                            Name="PlanetNameCard" 
+                            UniformCornerRadius="20" 
+                            Visibility="Hidden">
+
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Visibility="Hidden" Name="PlanetInfo" Padding="10" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
+
+                            <TextBlock 
+                                Visibility="Hidden" 
+                                Name="PlanetInfo" 
+                                Padding="10" 
+                                HorizontalAlignment="Center" 
+                                FontSize="18"
+                                Foreground="White"/>
+
                         </materialDesign:Card>
 
-                        <materialDesign:Card Name="PlanetAtmoCard" UniformCornerRadius="20" Visibility="Hidden">
+                        <materialDesign:Card 
+                            Name="PlanetAtmoCard" 
+                            UniformCornerRadius="20" 
+                            Visibility="Hidden">
+
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="PlanetAtmosphere" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+
+                            <TextBlock 
+                                Name="PlanetAtmosphere" 
+                                Margin="10" 
+                                HorizontalAlignment="Center" 
+                                FontSize="20" 
+                                Foreground="White"/>
+
                         </materialDesign:Card>
 
-                        <materialDesign:Card Name="PlanetOrbitalPeriodCard" UniformCornerRadius="20" Visibility="Hidden">
+                        <materialDesign:Card 
+                            Name="PlanetOrbitalPeriodCard" 
+                            UniformCornerRadius="20" 
+                            Visibility="Hidden">
+
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="PlanetOrbitalPeriod" Margin="10" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
+
+                            <TextBlock 
+                                Name="PlanetOrbitalPeriod" 
+                                Margin="10" 
+                                HorizontalAlignment="Center" 
+                                FontSize="18" 
+                                Foreground="White"/>
+
                         </materialDesign:Card>
 
-                        <materialDesign:Card Name="PlanetRotationPerdiodCard" UniformCornerRadius="20" Visibility="Hidden">
+                        <materialDesign:Card 
+                            Name="PlanetRotationPerdiodCard" 
+                            UniformCornerRadius="20" 
+                            Visibility="Hidden">
+
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="PlanetRotationPeriod" Margin="10" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
+
+                            <TextBlock 
+                                Name="PlanetRotationPeriod" 
+                                Margin="10" 
+                                HorizontalAlignment="Center" 
+                                FontSize="18" 
+                                Foreground="White"/>
+
                         </materialDesign:Card>
 
-                        <materialDesign:Card Name="PlanetMoonCountCard" UniformCornerRadius="20" Visibility="Hidden">
+                        <materialDesign:Card 
+                            Name="PlanetMoonCountCard" 
+                            UniformCornerRadius="20" 
+                            Visibility="Hidden">
+
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="PlanetMoonCount" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+
+                            <TextBlock 
+                                Name="PlanetMoonCount" 
+                                Margin="10" 
+                                HorizontalAlignment="Center" 
+                                FontSize="20" 
+                                Foreground="White"/>
+
                         </materialDesign:Card>
 
-                        <materialDesign:Card Name="PlanetLifeCard" UniformCornerRadius="20" Visibility="Hidden">
+                        <materialDesign:Card 
+                            Name="PlanetLifeCard" 
+                            UniformCornerRadius="20" 
+                            Visibility="Hidden">
+
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="PlanetLife" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+
+                            <TextBlock
+                                Name="PlanetLife"
+                                Margin="10" 
+                                HorizontalAlignment="Center" 
+                                FontSize="20" 
+                                Foreground="White"/>
+
                         </materialDesign:Card>
 
-                        <Button Name="EditPlanetButton" Margin="10" Content="Edit Planet" HorizontalAlignment="Center" Visibility="Hidden"  Click="EditPlanetButton_Click"/>
-                        <Button Name="DeletePlanetButton" Margin="10" Content="Delete Planet" HorizontalAlignment="Center" Visibility="Hidden" Click="DeletePlanetButton_Click" />
+                        <Button 
+                            Name="EditPlanetButton"
+                            Margin="10" 
+                            Content="Edit Planet" 
+                            HorizontalAlignment="Center" 
+                            Visibility="Hidden"  
+                            Click="EditPlanetButton_Click"/>
 
-                        <TextBlock Name="LinkTextBlock" Visibility="Hidden" Margin="20" VerticalAlignment="Center" FontFamily="Ebrima" Foreground="White" FontSize="20">
-                            <Hyperlink NavigateUri="https://en.wikipedia.org/wiki/" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Button 
+                            Name="DeletePlanetButton" 
+                            Margin="10" 
+                            Content="Delete Planet"
+                            HorizontalAlignment="Center" 
+                            Visibility="Hidden" 
+                            Click="DeletePlanetButton_Click" />
+
+                        <TextBlock 
+                            Name="LinkTextBlock" 
+                            Visibility="Hidden" 
+                            Margin="20" 
+                            VerticalAlignment="Center" 
+                            FontFamily="Ebrima" 
+                            Foreground="White" 
+                            FontSize="20">
+                            
+                            <Hyperlink 
+                                NavigateUri="https://en.wikipedia.org/wiki/" 
+                                RequestNavigate="Hyperlink_RequestNavigate">
                                 <TextBlock Name="LinkName"/>
                             </Hyperlink>
                         </TextBlock>
-                        
                     </StackPanel>
                 </materialDesign:Card>
             </materialDesign:TransitioningContent>
         </Border>
 
-        <Border ClipToBounds="True" Grid.Column="0" Grid.Row="1" BorderThickness="5" CornerRadius="8" HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+        <Border 
+            ClipToBounds="True" 
+            Grid.Column="0"
+            Grid.Row="1" 
+            BorderThickness="5" 
+            CornerRadius="8" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
@@ -225,7 +452,12 @@
             </Border.Background>
 
             <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:1.5}">
-                <materialDesign:Card Name="SystemInfoPanel" Margin="10" Width="330" Height="850">
+                <materialDesign:Card 
+                    Name="SystemInfoPanel"
+                    Margin="10" 
+                    Width="330"
+                    Height="850">
+
                     <materialDesign:Card.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black"/>
@@ -234,33 +466,71 @@
                     </materialDesign:Card.Background>
 
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Name="LoadedSystemName" Width="auto" HorizontalAlignment="Center" 
-                           Height="40" FontSize="38" 
-                           Foreground="White" FontFamily="Century Gothic" Margin="10"/>
-                        
-                        <Image Name="SystemImage" HorizontalAlignment="Center" VerticalAlignment="Top" Height="300" Margin="20"/>
+                        <TextBlock 
+                            Name="LoadedSystemName" 
+                            Width="auto" 
+                            HorizontalAlignment="Center" 
+                            Height="40" 
+                            FontSize="38" 
+                            Foreground="White" 
+                            FontFamily="Century Gothic" 
+                            Margin="10"/>
 
-                        <materialDesign:Card Name="SystemStat1Card" UniformCornerRadius="20" Visibility="Hidden">
+                        <Image 
+                            Name="SystemImage" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Top" 
+                            Height="300" 
+                            Margin="20"/>
+
+                        <materialDesign:Card 
+                            Name="SystemStat1Card"
+                            UniformCornerRadius="20" 
+                            Visibility="Hidden">
+
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="SystemPlanetCount" Padding="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+
+                            <TextBlock 
+                                Name="SystemPlanetCount" 
+                                Padding="10" 
+                                HorizontalAlignment="Center"
+                                FontSize="20" 
+                                Foreground="White"/>
+
                         </materialDesign:Card>
 
-                        <materialDesign:Card Name="SystemStat2Card" UniformCornerRadius="20" Visibility="Hidden">
+                        <materialDesign:Card 
+                            Name="SystemStat2Card" 
+                            UniformCornerRadius="20"
+                            Visibility="Hidden">
+
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="#FF1D2A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
-                            <TextBlock Name="SystemMoonCount" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+
+                            <TextBlock 
+                                Name="SystemMoonCount" 
+                                Margin="10" 
+                                HorizontalAlignment="Center" 
+                                FontSize="20" 
+                                Foreground="White"/>
+
                         </materialDesign:Card>
 
-                        <materialDesign:Card Name="SystemStat3Card" Height="350" UniformCornerRadius="20" Visibility="Hidden">
+                        <materialDesign:Card
+                            Name="SystemStat3Card" 
+                            Height="350" 
+                            UniformCornerRadius="20" 
+                            Visibility="Hidden">
+
                             <materialDesign:Card.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Black"/>
@@ -269,7 +539,15 @@
                             </materialDesign:Card.Background>
 
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <TextBlock Name="SystemDescription" TextWrapping="Wrap" Padding="10" Margin="10" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                                <TextBlock 
+                                    Name="SystemDescription" 
+                                    TextWrapping="Wrap"
+                                    Padding="10" 
+                                    Margin="10" 
+                                    HorizontalAlignment="Center"
+                                    FontSize="20" 
+                                    Foreground="White"/>
+
                             </ScrollViewer>
                         </materialDesign:Card>
                     </StackPanel>
@@ -277,8 +555,17 @@
             </materialDesign:TransitioningContent>
         </Border>
 
-        <materialDesign:TransitioningContent Grid.Column="0" Grid.Row="0" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
-            <materialDesign:Card Grid.Column="1" Grid.Row="0" UniformCornerRadius="20" Margin="10,10,12,0">
+        <materialDesign:TransitioningContent 
+            Grid.Column="0" 
+            Grid.Row="0" 
+            OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop,Duration=0:0:1}">
+
+            <materialDesign:Card 
+                Grid.Column="1" 
+                Grid.Row="0" 
+                UniformCornerRadius="20" 
+                Margin="10,10,12,0">
+
                 <materialDesign:Card.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black"/>
@@ -287,8 +574,18 @@
                 </materialDesign:Card.Background>
 
                 <StackPanel Orientation="Horizontal">
-                    <Image Name="ProgramIcon" Source="/systemIcon.ico" Margin="10"/>
-                    <TextBlock Text="Planetary System" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
+                    <Image 
+                        Name="ProgramIcon" 
+                        Source="/systemIcon.ico" 
+                        Margin="10"/>
+
+                    <TextBlock 
+                        Text="Planetary System" 
+                        Foreground="White" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center"
+                        FontSize="30"/>
+
                 </StackPanel>
             </materialDesign:Card>
         </materialDesign:TransitioningContent>

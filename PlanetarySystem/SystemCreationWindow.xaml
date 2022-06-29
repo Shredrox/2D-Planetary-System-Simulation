@@ -15,7 +15,7 @@
             <GradientStop Color="#FF0F245A" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-    
+
     <Grid MouseDown="Grid_MouseDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="170"/>
@@ -27,7 +27,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
+
         <materialDesign:Card Margin="5">
             <materialDesign:Card.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -35,39 +35,146 @@
                     <GradientStop Color="#FF1E2F8A" Offset="1"/>
                 </LinearGradientBrush>
             </materialDesign:Card.Background>
-            <TextBlock Text="Planet Creation" Foreground="White" VerticalAlignment="Center" 
-                       HorizontalAlignment="Center" FontSize="20" FontFamily="Dubai Light">
+
+            <TextBlock 
+                Text="Planet Creation" 
+                Foreground="White" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center" 
+                FontSize="20" 
+                FontFamily="Dubai Light">
+
             </TextBlock>
         </materialDesign:Card>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-            <Button Name="CreatePlanetButton" Content="Create Planet" VerticalAlignment="Center" 
-                    Margin="10" Width="120" Click="CreatePlanetButton_Click">
+        <StackPanel 
+            Orientation="Horizontal" 
+            Grid.Row="0" 
+            Grid.Column="1">
+
+            <Button 
+                Name="CreatePlanetButton" 
+                Content="Create Planet"
+                VerticalAlignment="Center" 
+                Margin="10" 
+                Width="120" 
+                Click="CreatePlanetButton_Click">
             </Button>
         </StackPanel>
 
-        <TextBlock Text="Current Planets: " VerticalAlignment="Center" HorizontalAlignment="Center" 
-                   Grid.Column="2" Grid.Row="0" Foreground="White" FontSize="24" FontFamily="Century Gothic">
+        <TextBlock 
+            Text="Current Planets: " 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center" 
+            Grid.Column="2"
+            Grid.Row="0" 
+            Foreground="White" 
+            FontSize="24" 
+            FontFamily="Century Gothic">
         </TextBlock>
-        
+
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
-            <TextBlock Text="Name: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-            <TextBlock Text="Atmosphere: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-            <TextBlock Text="Orbital Period: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-            <TextBlock Text="Rotation Period: " Foreground="White" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
-            <TextBlock Text="Moon Count: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-            <TextBlock Text="(max amount of visualized moons is 3)" Foreground="#FFBD9494" HorizontalAlignment="Center" FontSize="10"/>
-            <TextBlock Text="Life: " Foreground="White" HorizontalAlignment="Center" Margin="10,20,10,0" FontSize="20"/>
-            <TextBlock Text="Width: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-            <TextBlock Text="Max Value: 75" Foreground="Gray" HorizontalAlignment="Center"/>
-            <TextBlock Text="Height: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-            <TextBlock Text="Max Value: 75" Foreground="Gray" HorizontalAlignment="Center"/>
-            <TextBlock Text="Speed: " Foreground="White" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="20"/>
-            <TextBlock Text="Max Value: 10" Foreground="Gray" HorizontalAlignment="Center"/>
+            <TextBlock 
+                Text="Name: " 
+                Foreground="White" 
+                HorizontalAlignment="Center" 
+                Margin="10" 
+                FontSize="20"/>
+
+            <TextBlock 
+                Text="Atmosphere: " 
+                Foreground="White" 
+                HorizontalAlignment="Center" 
+                Margin="10" 
+                FontSize="20"/>
+
+            <TextBlock 
+                Text="Orbital Period: " 
+                Foreground="White" 
+                HorizontalAlignment="Center" 
+                Margin="10" 
+                FontSize="20"/>
+
+            <TextBlock 
+                Text="Rotation Period: " 
+                Foreground="White" 
+                HorizontalAlignment="Center" 
+                Margin="10" 
+                FontSize="20"/>
+
+            <TextBlock 
+                Text="Moon Count: " 
+                Foreground="White" 
+                HorizontalAlignment="Center" 
+                Margin="10,10,10,0"
+                FontSize="20"/>
+
+            <TextBlock 
+                Text="(max amount of visualized moons is 3)" 
+                Foreground="#FFBD9494" 
+                HorizontalAlignment="Center" 
+                FontSize="10"/>
+
+            <TextBlock 
+                Text="Life: " 
+                Foreground="White" 
+                HorizontalAlignment="Center" 
+                Margin="10,20,10,0" 
+                FontSize="20"/>
+
+            <TextBlock 
+                Text="Width: " 
+                Foreground="White" 
+                HorizontalAlignment="Center" 
+                Margin="10,10,10,0" 
+                FontSize="20"/>
+
+            <TextBlock 
+                Text="Max Value: 75" 
+                Foreground="Gray" 
+                HorizontalAlignment="Center"/>
+
+            <TextBlock 
+                Text="Height: " 
+                Foreground="White" 
+                HorizontalAlignment="Center" 
+                Margin="10,10,10,0" 
+                FontSize="20"/>
+
+            <TextBlock 
+                Text="Max Value: 75" 
+                Foreground="Gray" 
+                HorizontalAlignment="Center"/>
+
+            <TextBlock 
+                Text="Speed: " 
+                Foreground="White" 
+                HorizontalAlignment="Center" 
+                Margin="10,10,10,0" 
+                FontSize="20"/>
+
+            <TextBlock 
+                Text="Max Value: 10" 
+                Foreground="Gray" 
+                HorizontalAlignment="Center"/>
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Add Image? " Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="60,15,0,0" FontSize="16"/>
-                <CheckBox  Name="ImageOption" Foreground="White" VerticalAlignment="Center" Checked="ImageOption_Checked" Margin="0,15,0,0" Unchecked="ImageOption_Unchecked">
+                <TextBlock 
+                    Text="Add Image? " 
+                    Foreground="White" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Right"
+                    Margin="60,15,0,0" 
+                    FontSize="16"/>
+
+                <CheckBox  
+                    Name="ImageOption" 
+                    Foreground="White" 
+                    VerticalAlignment="Center" 
+                    Checked="ImageOption_Checked" 
+                    Margin="0,15,0,0" 
+                    Unchecked="ImageOption_Unchecked">
+
                     <CheckBox.Resources>
                         <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                         <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="White"/>
@@ -76,8 +183,20 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-            <TextBox Name="Name" MaxLength="20" Foreground="White" Width="120" Height="26.6" Margin="10" BorderBrush="#89009CFF">
+        <StackPanel 
+            Orientation="Vertical"
+            Grid.Row="1" 
+            Grid.Column="1">
+
+            <TextBox 
+                Name="Name" 
+                MaxLength="20" 
+                Foreground="White"
+                Width="120" 
+                Height="26.6"
+                Margin="10" 
+                BorderBrush="#89009CFF">
+
                 <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF4626A2"/>
@@ -85,7 +204,16 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            <TextBox Name="Atmosphere" MaxLength="15" Foreground="White" Width="120" Height="26.6" Margin="10" BorderBrush="#89009CFF">
+
+            <TextBox 
+                Name="Atmosphere" 
+                MaxLength="15" 
+                Foreground="White" 
+                Width="120" 
+                Height="26.6" 
+                Margin="10" 
+                BorderBrush="#89009CFF">
+
                 <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF4626A2"/>
@@ -93,7 +221,16 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            <TextBox Name="OrbitalPeriod" MaxLength="15" Foreground="White" Width="120" Height="26.6" Margin="10" BorderBrush="#89009CFF">
+
+            <TextBox 
+                Name="OrbitalPeriod" 
+                MaxLength="15" 
+                Foreground="White" 
+                Width="120" 
+                Height="26.6" 
+                Margin="10" 
+                BorderBrush="#89009CFF">
+
                 <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF4626A2"/>
@@ -101,7 +238,16 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            <TextBox Name="RotationPeriod" MaxLength="15" Foreground="White" Width="120" Height="26.6" Margin="10" BorderBrush="#89009CFF">
+
+            <TextBox 
+                Name="RotationPeriod" 
+                MaxLength="15" 
+                Foreground="White" 
+                Width="120" 
+                Height="26.6" 
+                Margin="10" 
+                BorderBrush="#89009CFF">
+
                 <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF4626A2"/>
@@ -109,7 +255,16 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            <TextBox Name="MoonCount" MaxLength="6" Foreground="White" Width="120" Height="26.6" Margin="10,20,10,15" BorderBrush="#89009CFF">
+
+            <TextBox 
+                Name="MoonCount" 
+                MaxLength="6" 
+                Foreground="White"
+                Width="120" 
+                Height="26.6" 
+                Margin="10,20,10,15" 
+                BorderBrush="#89009CFF">
+
                 <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF4626A2"/>
@@ -117,7 +272,16 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            <TextBox Name="Life" MaxLength="15" Foreground="White" Width="120" Height="26.6" Margin="10" BorderBrush="#89009CFF">
+
+            <TextBox 
+                Name="Life" 
+                MaxLength="15" 
+                Foreground="White" 
+                Width="120" 
+                Height="26.6" 
+                Margin="10" 
+                BorderBrush="#89009CFF">
+
                 <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF4626A2"/>
@@ -125,7 +289,16 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            <TextBox Name="Width" MaxLength="2" Foreground="White" Width="120" Height="26.6" Margin="10" BorderBrush="#89009CFF">
+
+            <TextBox 
+                Name="Width"
+                MaxLength="2" 
+                Foreground="White" 
+                Width="120" 
+                Height="26.6" 
+                Margin="10" 
+                BorderBrush="#89009CFF">
+
                 <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF4626A2"/>
@@ -133,7 +306,16 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            <TextBox Name="Height" MaxLength="2" Foreground="White" Width="120" Height="26.6" Margin="10" BorderBrush="#89009CFF">
+
+            <TextBox 
+                Name="Height" 
+                MaxLength="2" 
+                Foreground="White" 
+                Width="120" 
+                Height="26.6" 
+                Margin="10" 
+                BorderBrush="#89009CFF">
+
                 <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF4626A2"/>
@@ -141,7 +323,16 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            <TextBox Name="Speed" MaxLength="6" Foreground="White" Width="120" Height="26.6" Margin="10,20,10,10" BorderBrush="#89009CFF">
+
+            <TextBox 
+                Name="Speed" 
+                MaxLength="6" 
+                Foreground="White"
+                Width="120" 
+                Height="26.6" 
+                Margin="10,20,10,10"
+                BorderBrush="#89009CFF">
+
                 <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF4626A2"/>
@@ -149,18 +340,50 @@
                     </LinearGradientBrush>
                 </TextBox.Background>
             </TextBox>
-            
-            <Button Name="AddImageButton" Content="Add Image" Margin="10" Click="AddImageButton_Click" Visibility="Hidden"/>
+
+            <Button 
+                Name="AddImageButton" 
+                Content="Add Image" 
+                Margin="10" 
+                Click="AddImageButton_Click" 
+                Visibility="Hidden"/>
+
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1">
-            <ListBox Height="355" Name="PlanetList" Grid.Column="2" Grid.Row="1" Foreground="#DDFFFFFF">
+        <StackPanel 
+            Orientation="Vertical" 
+            Grid.Column="2" 
+            Grid.Row="1">
 
+            <ListBox 
+                Height="355" 
+                Name="PlanetList" 
+                Grid.Column="2" 
+                Grid.Row="1" 
+                Foreground="#DDFFFFFF">
             </ListBox>
-            
-            <StackPanel Orientation="Horizontal" Margin="0,25,0,0">
-                <TextBlock Text="System Name:" VerticalAlignment="Center" Margin="10" Foreground="White" FontSize="20"/>
-                <TextBox Name="SystemNameText" MaxLength="12" Width="110" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Foreground="White">
+
+            <StackPanel 
+                Orientation="Horizontal" 
+                Margin="0,25,0,0">
+
+                <TextBlock 
+                    Text="System Name:" 
+                    VerticalAlignment="Center" 
+                    Margin="10" 
+                    Foreground="White" 
+                    FontSize="20"/>
+
+                <TextBox 
+                    Name="SystemNameText" 
+                    MaxLength="12"
+                    Width="110" 
+                    Height="30" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Right" 
+                    Margin="10" 
+                    Foreground="White">
+
                     <TextBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4626A2"/>
@@ -169,20 +392,53 @@
                     </TextBox.Background>
                 </TextBox>
             </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
-                <Button Name="CancelButton" Content="Cancel" Width="110" Height="30" Margin="10" Click="CancelButton_Click"/>
-                <Button Name="CreateSystemButton" Content="Create System" Width="130" Height="30" Margin="10" Click="CreateSystemButton_Click"/>
+
+            <StackPanel 
+                Orientation="Horizontal" 
+                Margin="0,15,0,0">
+
+                <Button 
+                    Name="CancelButton" 
+                    Content="Cancel" 
+                    Width="110"
+                    Height="30" 
+                    Margin="10" 
+                    Click="CancelButton_Click"/>
+
+                <Button 
+                    Name="CreateSystemButton" 
+                    Content="Create System" 
+                    Width="130"
+                    Height="30" 
+                    Margin="10" 
+                    Click="CreateSystemButton_Click"/>
+
             </StackPanel>
         </StackPanel>
 
-        <TextBlock Text="System Description" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                   Grid.Column="3" Grid.Row="0" Foreground="White" FontSize="24" FontFamily="Century Gothic">
+        <TextBlock 
+            Text="System Description" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center" 
+            Grid.Column="3" 
+            Grid.Row="0" 
+            Foreground="White" 
+            FontSize="24" 
+            FontFamily="Century Gothic">
         </TextBlock>
-        
-        <TextBox Name="SystemDescription" Grid.Column="3" Grid.Row="1" Margin="0" 
-                 Width="280" Height="430" Foreground="White" AcceptsReturn="True" 
-                 TextWrapping="Wrap" MaxLength="2500">
+
+        <TextBox 
+            Name="SystemDescription" 
+            Grid.Column="3"
+            Grid.Row="1" 
+            Margin="0" 
+            Width="280" 
+            Height="430" 
+            Foreground="White"
+            AcceptsReturn="True" 
+            TextWrapping="Wrap" 
+            MaxLength="2500">
+
             <TextBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF4626A2"/>
