@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace CelestialObjectsLibrary
 {
@@ -17,6 +18,8 @@ namespace CelestialObjectsLibrary
         private List<CelestialObject> _systemObjects = new List<CelestialObject>();
         private List<SolarSystem> _solarSystems = new List<SolarSystem>();
         private List<string> _paths = new List<string>();
+        public static string appDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string userImagesDir = System.IO.Path.Combine(appDirectory, "UserImages");
 
         public void AddObject(CelestialObject obj)
         {
@@ -162,6 +165,11 @@ namespace CelestialObjectsLibrary
                 string[] pathSplit = filePath.Split(new string[] { "///" }, StringSplitOptions.None);
                 filePath = pathSplit[1];
             }
+            else
+            {
+                string filename = Path.Combine(appDirectory, "Images", filePath);
+                filePath = filename;
+            }
 
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
@@ -247,12 +255,17 @@ namespace CelestialObjectsLibrary
         {
             for (int i = 0; i < paths.Count; i++)
             {
+                if (paths[i].Contains("PlanetarySystem") && paths[i].Contains("Images"))
+                {
+                    continue;
+                }
+               
                 if (paths[i].Contains("file://"))
                 {
                     string[] pathSplit = paths[i].Split(new string[] { "///" }, StringSplitOptions.None);
                     string path = pathSplit[1];
                     string name = System.IO.Path.GetFileName(path);
-                    string combinedPath = System.IO.Path.Combine("../../UserImages/", name);
+                    string combinedPath = System.IO.Path.Combine(userImagesDir, name);
                     File.Copy(path, combinedPath, true);
                     paths[i] = combinedPath;
                 }
@@ -261,14 +274,30 @@ namespace CelestialObjectsLibrary
 
         public void ImageDelete()
         {
-            string[] imageFilesPaths = Directory.GetFiles("../../UserImages/");
+            string[] imageFilesPaths = Directory.GetFiles(userImagesDir);
             var userImages = _paths
-                .Where(p => p.Contains("/UserImages"))
+                .Where(p => p.Contains("/UserImages") || p.Contains(@"\UserImages"))
                 .ToArray();
+
+            var userImagesPaths = new string[userImages.Length];
+
+            for (int i = 0; i < userImages.Length; i++)
+            {
+                if (userImages[i].Contains("file://"))
+                {
+                    string[] pathSplit = userImages[i].Split(new string[] { "///" }, StringSplitOptions.None);
+                    userImagesPaths[i] = pathSplit[1];
+                }
+                else
+                {
+                    userImagesPaths[i] = userImages[i].Replace(@"\", @"/");
+                }
+            }
 
             for (int i = 0; i < imageFilesPaths.Length; i++)
             {
-                if (!userImages.Contains(imageFilesPaths[i]))
+                string path = imageFilesPaths[i].Replace(@"\", @"/");
+                if (!userImagesPaths.Contains(path))
                 {
                     File.Delete(imageFilesPaths[i]);
                 }

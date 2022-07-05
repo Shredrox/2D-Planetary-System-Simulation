@@ -14,8 +14,8 @@ namespace PlanetarySystem
         private List<CelestialObject> onlyPlanets;
         private SolarSystem editedSystem = new SolarSystem();
 
-        private BitmapImage addImage = DataControl.CreateImage("../../Images/add.png");
-        private BitmapImage addImage2 = DataControl.CreateImage("../../Images/add2.png");
+        private BitmapImage addImage = DataControl.CreateImage("add.png");
+        private BitmapImage addImage2 = DataControl.CreateImage("add2.png");
 
         private List<Image> images = new List<Image>();
         private List<TextBlock> textBlocks = new List<TextBlock>();

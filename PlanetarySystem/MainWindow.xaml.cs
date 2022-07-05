@@ -22,42 +22,44 @@ namespace PlanetarySystem
         private bool solSystemLoaded = false;
 
         //sol system images
-        private BitmapImage sunImage = DataControl.CreateImage("../../Images/sun.png");
-        private BitmapImage earthImage = DataControl.CreateImage("../../Images/earth.png");
-        private BitmapImage marsImage = DataControl.CreateImage("../../Images/mars.png");
-        private BitmapImage mercuryImage = DataControl.CreateImage("../../Images/mercury.png");
-        private BitmapImage venusImage = DataControl.CreateImage("../../Images/venus.png");
-        private BitmapImage moonImage = DataControl.CreateImage("../../Images/moon.png");
-        private BitmapImage jupiterImage = DataControl.CreateImage("../../Images/jupiter.png");
-        private BitmapImage saturnImage = DataControl.CreateImage("../../Images/saturn.png");
-        private BitmapImage uranusImage = DataControl.CreateImage("../../Images/uranus.png");
-        private BitmapImage neptuneImage = DataControl.CreateImage("../../Images/neptune.png");
-        private BitmapImage cometImage = DataControl.CreateImage("../../Images/comet.png");
+        private BitmapImage sunImage = DataControl.CreateImage("sun.png");
+        private BitmapImage earthImage = DataControl.CreateImage("earth.png");
+        private BitmapImage marsImage = DataControl.CreateImage("mars.png");
+        private BitmapImage mercuryImage = DataControl.CreateImage("mercury.png");
+        private BitmapImage venusImage = DataControl.CreateImage("venus.png");
+        private BitmapImage moonImage = DataControl.CreateImage("moon.png");
+        private BitmapImage jupiterImage = DataControl.CreateImage("jupiter.png");
+        private BitmapImage saturnImage = DataControl.CreateImage("saturn.png");
+        private BitmapImage uranusImage = DataControl.CreateImage("uranus.png");
+        private BitmapImage neptuneImage = DataControl.CreateImage("neptune.png");
+        private BitmapImage cometImage = DataControl.CreateImage("comet.png");
 
         public MainWindow()
-        { 
+        {
             InitializeComponent();
 
+            System.IO.Directory.CreateDirectory(DataControl.userImagesDir);
+
             //main window background
-            BitmapImage windowBackground = DataControl.CreateImage("../../Images/windowBackground.png");
+            BitmapImage windowBackground = DataControl.CreateImage("windowBackground.png");
             ImageBrush imageBackground = new ImageBrush();
             imageBackground.ImageSource = windowBackground;
             this.Background = imageBackground;
 
             //planet info background
-            BitmapImage windowBackground2 = DataControl.CreateImage("../../Images/windowBackground2.jpg");
+            BitmapImage windowBackground2 = DataControl.CreateImage("windowBackground2.jpg");
             ImageBrush imageBackground2 = new ImageBrush();
             imageBackground2.ImageSource = windowBackground2;
             PlanetInfoPanel.Background = imageBackground2;
 
             //system info background
-            BitmapImage windowBackground3 = DataControl.CreateImage("../../Images/windowBackground3.jpg");
+            BitmapImage windowBackground3 = DataControl.CreateImage("windowBackground3.jpg");
             ImageBrush imageBackground3 = new ImageBrush();
             imageBackground3.ImageSource = windowBackground3;
             SystemInfoPanel.Background = imageBackground3;
 
             //canvas background
-            BitmapImage backgroundImage = DataControl.CreateImage("../../Images/spaceCanvasBackground.jpg");
+            BitmapImage backgroundImage = DataControl.CreateImage("spaceCanvasBackground.jpg");
             ImageBrush image = new ImageBrush();
             image.ImageSource = backgroundImage;
             MainCanvas.Background = image;
@@ -264,7 +266,7 @@ namespace PlanetarySystem
             StopAnimationButton.Content = "Pause Animation";
 
             LoadedSystemName.Text = ((SolarSystem)SystemList.SelectedItem).SystemName;
-            SystemImage.Source = DataControl.CreateImage("../../Images/starSystem.png");
+            SystemImage.Source = DataControl.CreateImage("starSystem.png");
 
             IsOrbitOn = true;
             solSystemLoaded = false;
@@ -320,7 +322,7 @@ namespace PlanetarySystem
             "Our solar system consists of our star, the Sun, and everything bound to it by gravity – the planets Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune;"
             + " " + "dwarf planets such as Pluto; dozens of moons; and millions of asteroids, comets, and meteoroids.";
 
-            SystemImage.Source = DataControl.CreateImage("../../Images/starSystem.png");
+            SystemImage.Source = DataControl.CreateImage("starSystem.png");
 
             solSystemLoaded = true;
             IsOrbitOn = true;

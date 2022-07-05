@@ -138,45 +138,85 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="UserImages\" />
+    <Content Include="Images\comet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\earth.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\jupiter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\mars.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\mercury.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\moon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\neptune.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\saturn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\sun.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\uranus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\venus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\comet.png" />
-    <Resource Include="Images\earth.png" />
-    <Resource Include="Images\jupiter.png" />
-    <Resource Include="Images\mars.png" />
-    <Resource Include="Images\mercury.png" />
-    <Resource Include="Images\moon.png" />
-    <Resource Include="Images\neptune.png" />
-    <Resource Include="Images\saturn.png" />
-    <Resource Include="Images\sun.png" />
-    <Resource Include="Images\uranus.png" />
-    <Resource Include="Images\venus.png" />
+    <Content Include="Images\defaultPlanet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\defaultPlanet.png" />
+    <Content Include="Images\windowBackground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\windowBackground.png" />
+    <Content Include="Images\windowBackground2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\windowBackground2.jpg" />
+    <Content Include="Images\spaceCanvasBackground.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\spaceCanvasBackground3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\spaceCanvasBackground4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\spaceCanvasBackground5.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\spaceCanvasBackground.jpg" />
-    <Resource Include="Images\spaceCanvasBackground3.jpg" />
-    <Resource Include="Images\spaceCanvasBackground4.jpg" />
-    <Resource Include="Images\spaceCanvasBackground5.jpg" />
+    <Content Include="Images\add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\add.png" />
+    <Content Include="Images\add2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\add2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\spaceCanvasBackground2.jpg" />
+    <Content Include="Images\spaceCanvasBackground2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes">
@@ -190,13 +230,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\starSystem.png" />
+    <Content Include="Images\starSystem.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="systemIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\windowBackground3.jpg" />
+    <Content Include="Images\windowBackground3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ProjectScreenshots\ssAddingNewPlanet.jpg" />

@@ -12,11 +12,11 @@ namespace PlanetarySystem
     public partial class SystemCreationWindow : Window
     {
         public List<CelestialObject> newSystemObjects = new List<CelestialObject>();
-        private Star sun = new Star("Sun", DataControl.CreateImage("../../Images/sun.png"),
+        private Star sun = new Star("Sun", DataControl.CreateImage("sun.png"),
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualWidth / 2,
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 80, 80);
 
-        private BitmapImage defaultImage = DataControl.CreateImage("../../Images/defaultPlanet.png");
+        private BitmapImage defaultImage = DataControl.CreateImage("defaultPlanet.png");
         private BitmapImage newImage;
 
         private int counter = 0;
@@ -85,7 +85,7 @@ namespace PlanetarySystem
                 for (int m = 1; m < int.Parse(MoonCount.Text) + 1; m++)
                 {
                     newSystemObjects.Add(new Moon($"Moon {m}",
-                        DataControl.CreateImage("../../Images/moon.png"),
+                        DataControl.CreateImage("moon.png"),
                         10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                 }
             }
@@ -94,7 +94,7 @@ namespace PlanetarySystem
                 for (int m = 1; m < 4; m++)
                 {
                     newSystemObjects.Add(new Moon($"Moon {m}",
-                        DataControl.CreateImage("../../Images/moon.png"),
+                        DataControl.CreateImage("moon.png"),
                         10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                 }
             }

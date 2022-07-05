@@ -9,12 +9,12 @@ namespace PlanetarySystem
 {
     public partial class NewPlanetWindow : Window
     {
-        private BitmapImage defaultImage = DataControl.CreateImage("../../Images/defaultPlanet.png");
+        private BitmapImage defaultImage = DataControl.CreateImage("defaultPlanet.png");
         private BitmapImage newImage;
 
         private int planetPosition;
         private SolarSystem editedSystem;
-        private Star sun = new Star("Sun", DataControl.CreateImage("../../Images/sun.png"),
+        private Star sun = new Star("Sun", DataControl.CreateImage("sun.png"),
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualWidth / 2,
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 80, 80);
         Planet newPlanet;
@@ -82,7 +82,7 @@ namespace PlanetarySystem
                 for (int m = 1; m < int.Parse(PlanetMoonCount.Text) + 1; m++)
                 {
                     editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}", 
-                        DataControl.CreateImage("../../Images/moon.png"),
+                        DataControl.CreateImage("moon.png"),
                         10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                 }
             }
@@ -91,7 +91,7 @@ namespace PlanetarySystem
                 for (int m = 1; m < 4; m++)
                 {
                     editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}",
-                        DataControl.CreateImage("../../Images/moon.png"),
+                        DataControl.CreateImage("moon.png"),
                         10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                 }
             }
