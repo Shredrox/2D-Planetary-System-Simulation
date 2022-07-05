@@ -48,10 +48,10 @@ namespace CelestialObjectsLibrary
                 for (int m = 1; m < ((Planet)obj).MoonCount + 1; m++)
                 {
                     ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Insert(selectedPlanetIndex + 1,
-                        new Moon($"Moon {m}", CreateImage("../../Images/moon.png"), 10, 10, true, 5, 5, obj, obj.Width / 2 + 10 + m * 4, m));
+                        new Moon($"Moon {m}", CreateImage("moon.png"), 10, 10, true, 5, 5, obj, obj.Width / 2 + 10 + m * 4, m));
 
                     _systemObjects.Insert(selectedPlanetIndex + 1,
-                        new Moon($"Moon {m}", CreateImage("../../Images/moon.png"), 10, 10, true, 5, 5, obj, obj.Width / 2 + 10 + m * 4, m));
+                        new Moon($"Moon {m}", CreateImage("moon.png"), 10, 10, true, 5, 5, obj, obj.Width / 2 + 10 + m * 4, m));
                 }
             }
             else if (((Planet)obj).MoonCount > 3)
@@ -59,10 +59,10 @@ namespace CelestialObjectsLibrary
                 for (int m = 1; m < 4; m++)
                 {
                     ((SolarSystem)SystemList.Items[systemIndex]).SystemPlanets.Insert(selectedPlanetIndex + 1,
-                        new Moon($"Moon {m}", CreateImage("../../Images/moon.png"), 10, 10, true, 5, 5, obj, obj.Width / 2 + 10 + m * 4, m));
+                        new Moon($"Moon {m}", CreateImage("moon.png"), 10, 10, true, 5, 5, obj, obj.Width / 2 + 10 + m * 4, m));
 
                     _systemObjects.Insert(selectedPlanetIndex + 1,
-                        new Moon($"Moon {m}", CreateImage("../../Images/moon.png"), 10, 10, true, 5, 5, obj, obj.Width / 2 + 10 + m * 4, m));
+                        new Moon($"Moon {m}", CreateImage("moon.png"), 10, 10, true, 5, 5, obj, obj.Width / 2 + 10 + m * 4, m));
                 }
             }
         }
