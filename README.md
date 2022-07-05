@@ -13,7 +13,7 @@ My first coursework project from Uni. The program is written in C# on the framew
 It can visualize 2D custom solar systems and planets, created by the user, with orbit animations. 
 
 # Installation
-* Download PlanetarySystemSetup.msi and setup.exe from the latest release
+* Download PlanetarySystem.v1.0.0.zip from the latest release and unarchive it
 * Run setup.exe
 * Choose installation folder
 * Finish the installation
