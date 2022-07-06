@@ -10,55 +10,55 @@ namespace PlanetarySystem
 {
     public partial class EditSystemWindow : Window
     {
-        private DataControl control = new DataControl();
-        private List<CelestialObject> onlyPlanets;
-        private SolarSystem editedSystem = new SolarSystem();
+        private DataControl _control = new DataControl();
+        private List<CelestialObject> _onlyPlanets;
+        private SolarSystem _editedSystem = new SolarSystem();
 
-        private BitmapImage addImage = DataControl.CreateImage("add.png");
-        private BitmapImage addImage2 = DataControl.CreateImage("add2.png");
+        private readonly BitmapImage _addImage = DataControl.CreateImage("add.png");
+        private readonly BitmapImage _addImage2 = DataControl.CreateImage("add2.png");
 
-        private List<Image> images = new List<Image>();
-        private List<TextBlock> textBlocks = new List<TextBlock>();
+        private List<Image> _images = new List<Image>();
+        private List<TextBlock> _textBlocks = new List<TextBlock>();
 
         public EditSystemWindow(SolarSystem solarSystem, DataControl dataControl)
         {
             InitializeComponent();
 
-            control = dataControl;
+            _control = dataControl;
 
             SystemName.Text = solarSystem.SystemName;
             SystemDescriptionEdit.Text = solarSystem.Description;
 
-            images.Add(Planet1Image);
-            images.Add(Planet2Image);
-            images.Add(Planet3Image);
-            images.Add(Planet4Image);
-            images.Add(Planet5Image);
-            images.Add(Planet6Image);
-            images.Add(Planet7Image);
-            images.Add(Planet8Image);
-            textBlocks.Add(Planet1Name);
-            textBlocks.Add(Planet2Name);
-            textBlocks.Add(Planet3Name);
-            textBlocks.Add(Planet4Name);
-            textBlocks.Add(Planet5Name);
-            textBlocks.Add(Planet6Name);
-            textBlocks.Add(Planet7Name);
-            textBlocks.Add(Planet8Name);
+            _images.Add(Planet1Image);
+            _images.Add(Planet2Image);
+            _images.Add(Planet3Image);
+            _images.Add(Planet4Image);
+            _images.Add(Planet5Image);
+            _images.Add(Planet6Image);
+            _images.Add(Planet7Image);
+            _images.Add(Planet8Image);
+            _textBlocks.Add(Planet1Name);
+            _textBlocks.Add(Planet2Name);
+            _textBlocks.Add(Planet3Name);
+            _textBlocks.Add(Planet4Name);
+            _textBlocks.Add(Planet5Name);
+            _textBlocks.Add(Planet6Name);
+            _textBlocks.Add(Planet7Name);
+            _textBlocks.Add(Planet8Name);
 
-            for (int i = 0; i < images.Count; i++)
+            for (int i = 0; i < _images.Count; i++)
             {
-                images[i].Source = addImage;
-                images[i].MouseLeftButtonDown += ImageClick;
-                images[i].MouseMove += ImageSelected;
+                _images[i].Source = _addImage;
+                _images[i].MouseLeftButtonDown += ImageClick;
+                _images[i].MouseMove += ImageSelected;
             }
 
-            onlyPlanets = control.GetOnlyPlanets(solarSystem);
+            _onlyPlanets = _control.GetOnlyPlanets(solarSystem);
 
             int position = 0;
-            for (int i = 0; i < onlyPlanets.Count; i++)
+            for (int i = 0; i < _onlyPlanets.Count; i++)
             {
-                switch (((Planet)onlyPlanets[i]).Radius)
+                switch (((Planet)_onlyPlanets[i]).Radius)
                 {
                     case 50: position = 0; break;
                     case 100: position = 1; break;
@@ -69,30 +69,30 @@ namespace PlanetarySystem
                     case 370: position = 6; break;
                     case 400: position = 7; break;
                 }
-                images[position].Source = DataControl.CreateImage(onlyPlanets[i].Image.ImageSource.ToString());
-                textBlocks[position].Text = onlyPlanets[i].Name;
+                _images[position].Source = DataControl.CreateImage(_onlyPlanets[i].Image.ImageSource.ToString());
+                _textBlocks[position].Text = _onlyPlanets[i].Name;
             }
 
-            editedSystem = solarSystem;
+            _editedSystem = solarSystem;
         }
 
         private void ImageClick(object s, MouseEventArgs e)
         {
-            for (int i = 0; i < images.Count; i++)
+            for (int i = 0; i < _images.Count; i++)
             {
-                if (images[i].IsMouseOver == true && images[i].Source == addImage2)
+                if (_images[i].IsMouseOver == true && _images[i].Source == _addImage2)
                 {
-                    NewPlanetWindow newPlanetWindow = new NewPlanetWindow(editedSystem, i);
+                    NewPlanetWindow newPlanetWindow = new NewPlanetWindow(_editedSystem, i);
                     newPlanetWindow.ShowDialog();
 
                     if(newPlanetWindow.DialogResult == true)
                     {
-                        onlyPlanets = editedSystem.SystemPlanets
+                        _onlyPlanets = _editedSystem.SystemPlanets
                                 .Where(p => p is Planet)
                                 .ToList();
 
-                        images[i].Source = newPlanetWindow.NewImage();
-                        textBlocks[i].Text = onlyPlanets[onlyPlanets.Count - 1].Name;
+                        _images[i].Source = newPlanetWindow.NewImage();
+                        _textBlocks[i].Text = _onlyPlanets[_onlyPlanets.Count - 1].Name;
                     }
                 }
             }
@@ -100,23 +100,23 @@ namespace PlanetarySystem
 
         private void ImageSelected(object s , MouseEventArgs e)
         {
-            for (int i = 0; i < images.Count; i++) 
+            for (int i = 0; i < _images.Count; i++) 
             {
-                if (images[i].IsMouseOver == true && images[i].Source == addImage)
+                if (_images[i].IsMouseOver == true && _images[i].Source == _addImage)
                 {
-                    images[i].Source = addImage2;
+                    _images[i].Source = _addImage2;
                 }
-                else if(images[i].IsMouseOver == false && images[i].Source == addImage2)
+                else if(_images[i].IsMouseOver == false && _images[i].Source == _addImage2)
                 {
-                    images[i].Source = addImage;
+                    _images[i].Source = _addImage;
                 }
             }
         }
 
         private void SaveChangesButton_Click(object sender, RoutedEventArgs e)
         {
-            editedSystem.SystemName = SystemName.Text;
-            editedSystem.Description = SystemDescriptionEdit.Text;
+            _editedSystem.SystemName = SystemName.Text;
+            _editedSystem.Description = SystemDescriptionEdit.Text;
             DialogResult = true;
         }
 

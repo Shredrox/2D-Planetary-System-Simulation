@@ -7,7 +7,7 @@ namespace PlanetarySystem
 {
     public partial class BackgroundChangeWindow : Window
     {
-        private Image selectedImage = new Image();
+        private Image _selectedImage = new Image();
 
         public BackgroundChangeWindow()
         {
@@ -21,7 +21,7 @@ namespace PlanetarySystem
                 Background3Card.Background = Brush1;
                 Background4Card.Background = Brush1;
                 Background5Card.Background = Brush1;
-                selectedImage = Background1;
+                _selectedImage = Background1;
             };
 
             Background2.Source = DataControl.CreateImage("spaceCanvasBackground2.jpg");
@@ -32,7 +32,7 @@ namespace PlanetarySystem
                 Background3Card.Background = Brush1;
                 Background4Card.Background = Brush1;
                 Background5Card.Background = Brush1;    
-                selectedImage = Background2;
+                _selectedImage = Background2;
             };
 
             Background3.Source = DataControl.CreateImage("spaceCanvasBackground3.jpg");
@@ -43,7 +43,7 @@ namespace PlanetarySystem
                 Background3Card.Background = Brushes.Cyan;
                 Background4Card.Background = Brush1;
                 Background5Card.Background = Brush1;
-                selectedImage = Background3;
+                _selectedImage = Background3;
             };
 
             Background4.Source = DataControl.CreateImage("spaceCanvasBackground4.jpg");
@@ -54,7 +54,7 @@ namespace PlanetarySystem
                 Background3Card.Background = Brush1;
                 Background4Card.Background = Brushes.Cyan;
                 Background5Card.Background = Brush1;
-                selectedImage = Background4;
+                _selectedImage = Background4;
             };
 
             Background5.Source = DataControl.CreateImage("spaceCanvasBackground5.jpg");
@@ -65,20 +65,20 @@ namespace PlanetarySystem
                 Background3Card.Background = Brush1;
                 Background4Card.Background = Brush1;
                 Background5Card.Background = Brushes.Cyan;
-                selectedImage = Background5;
+                _selectedImage = Background5;
             };
         }
 
         private void ApplyChangesButton_Click(object sender, RoutedEventArgs e)
         {
-            if(selectedImage.Source == null)
+            if(_selectedImage.Source == null)
             {
                 MessageBox.Show("Please select background.");
                 return;
             }
 
             ImageBrush canvasBackground = new ImageBrush();
-            canvasBackground.ImageSource = selectedImage.Source;
+            canvasBackground.ImageSource = _selectedImage.Source;
             ((MainWindow)Application.Current.MainWindow).MainCanvas.Background = canvasBackground;
 
             DialogResult = true;

@@ -9,12 +9,12 @@ namespace PlanetarySystem
 {
     public partial class NewPlanetWindow : Window
     {
-        private BitmapImage defaultImage = DataControl.CreateImage("defaultPlanet.png");
-        private BitmapImage newImage;
+        private readonly BitmapImage _defaultImage = DataControl.CreateImage("defaultPlanet.png");
+        private BitmapImage _newImage;
 
-        private int planetPosition;
-        private SolarSystem editedSystem;
-        private Star sun = new Star("Sun", DataControl.CreateImage("sun.png"),
+        private int _planetPosition;
+        private SolarSystem _editedSystem;
+        private Star _sun = new Star("Sun", DataControl.CreateImage("sun.png"),
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualWidth / 2,
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 80, 80);
         Planet newPlanet;
@@ -23,10 +23,10 @@ namespace PlanetarySystem
         {
             InitializeComponent();
 
-            PlanetImage.Source = defaultImage;
+            PlanetImage.Source = _defaultImage;
 
-            editedSystem = solarSystem;
-            planetPosition = planetIndex; 
+            _editedSystem = solarSystem;
+            _planetPosition = planetIndex; 
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -54,7 +54,7 @@ namespace PlanetarySystem
             }
             
             int radius = 0;
-            switch (planetPosition + 1)
+            switch (_planetPosition + 1)
             {
                 case 1: radius = 50; break;
                 case 2: radius = 100; break;
@@ -67,21 +67,21 @@ namespace PlanetarySystem
             }
 
             newPlanet = new Planet(PlanetName.Text, PlanetAtmo.Text, PlanetOrbitalPeriod.Text, PlanetRotationPeriod.Text,
-                int.Parse(PlanetMoonCount.Text), PlanetLife.Text, defaultImage, 10, 10, true, 
-                int.Parse(PlanetWidth.Text), int.Parse(PlanetHeight.Text), sun, radius, double.Parse(PlanetSpeed.Text));
+                int.Parse(PlanetMoonCount.Text), PlanetLife.Text, _defaultImage, 10, 10, true, 
+                int.Parse(PlanetWidth.Text), int.Parse(PlanetHeight.Text), _sun, radius, double.Parse(PlanetSpeed.Text));
 
-            if (newImage != null)
+            if (_newImage != null)
             {
-                newPlanet.Image.ImageSource = newImage;
+                newPlanet.Image.ImageSource = _newImage;
             }
 
-            editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, newPlanet);
+            _editedSystem.SystemPlanets.Insert(_editedSystem.SystemPlanets.Count - 1, newPlanet);
 
             if (int.Parse(PlanetMoonCount.Text) <= 3 && int.Parse(PlanetMoonCount.Text) > 0)
             {
                 for (int m = 1; m < int.Parse(PlanetMoonCount.Text) + 1; m++)
                 {
-                    editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}", 
+                    _editedSystem.SystemPlanets.Insert(_editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}", 
                         DataControl.CreateImage("moon.png"),
                         10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                 }
@@ -90,7 +90,7 @@ namespace PlanetarySystem
             {
                 for (int m = 1; m < 4; m++)
                 {
-                    editedSystem.SystemPlanets.Insert(editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}",
+                    _editedSystem.SystemPlanets.Insert(_editedSystem.SystemPlanets.Count - 1, new Moon($"Moon {m}",
                         DataControl.CreateImage("moon.png"),
                         10, 10, true, 5, 5, newPlanet, newPlanet.Width / 2 + 10 + m * 4, m));
                 }
@@ -109,19 +109,19 @@ namespace PlanetarySystem
 
             if (fileDialog.ShowDialog() == true)
             {
-                newImage = DataControl.CreateImage(fileDialog.FileName);
-                PlanetImage.Source = newImage;
+                _newImage = DataControl.CreateImage(fileDialog.FileName);
+                PlanetImage.Source = _newImage;
             }
         }
 
         public ImageSource NewImage()
         {
-            if(newImage == null)
+            if(_newImage == null)
             {
-                newImage = defaultImage;
-                return newImage;
+                _newImage = _defaultImage;
+                return _newImage;
             }
-            return newImage;
+            return _newImage;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

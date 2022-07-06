@@ -12,14 +12,14 @@ namespace PlanetarySystem
     public partial class SystemCreationWindow : Window
     {
         public List<CelestialObject> newSystemObjects = new List<CelestialObject>();
-        private Star sun = new Star("Sun", DataControl.CreateImage("sun.png"),
+        private Star _sun = new Star("Sun", DataControl.CreateImage("sun.png"),
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualWidth / 2,
                                     ((MainWindow)Application.Current.MainWindow).MainCanvas.ActualHeight / 2, 80, 80);
 
-        private BitmapImage defaultImage = DataControl.CreateImage("defaultPlanet.png");
-        private BitmapImage newImage;
+        private readonly BitmapImage _defaultImage = DataControl.CreateImage("defaultPlanet.png");
+        private BitmapImage _newImage;
 
-        private int counter = 0;
+        private int _counter = 0;
         
         public SystemCreationWindow()
         {
@@ -55,10 +55,10 @@ namespace PlanetarySystem
                 return;
             } 
             
-            counter++;
+            _counter++;
 
             int radius = 0;
-            switch (counter)
+            switch (_counter)
             {
                 case 1: radius = 50; break;
                 case 2: radius = 100; break;
@@ -71,11 +71,11 @@ namespace PlanetarySystem
             }
 
             Planet newPlanet = new Planet(Name.Text, Atmosphere.Text, OrbitalPeriod.Text, RotationPeriod.Text, int.Parse(MoonCount.Text), Life.Text,
-                defaultImage, 10, 10, true, int.Parse(Width.Text), int.Parse(Height.Text), sun, radius, double.Parse(Speed.Text));
+                _defaultImage, 10, 10, true, int.Parse(Width.Text), int.Parse(Height.Text), _sun, radius, double.Parse(Speed.Text));
 
             if (ImageOption.IsChecked == true)
             {
-                newPlanet.Image.ImageSource = newImage;
+                newPlanet.Image.ImageSource = _newImage;
             }
 
             newSystemObjects.Add(newPlanet);
@@ -99,7 +99,7 @@ namespace PlanetarySystem
                 }
             }
 
-            PlanetList.Items.Add($"Planet {counter}: " + newPlanet.Name + "\n     Image: " + ImageOption.IsChecked);
+            PlanetList.Items.Add($"Planet {_counter}: " + newPlanet.Name + "\n     Image: " + ImageOption.IsChecked);
             ImageOption.IsChecked = false;
         }
 
@@ -115,7 +115,7 @@ namespace PlanetarySystem
 
                 if (fileDialog.ShowDialog() == true)
                 {
-                    newImage = DataControl.CreateImage(fileDialog.FileName);
+                    _newImage = DataControl.CreateImage(fileDialog.FileName);
                 }
             }
         }
@@ -133,7 +133,7 @@ namespace PlanetarySystem
                 return;
             }
 
-            newSystemObjects.Add(sun);
+            newSystemObjects.Add(_sun);
 
             SolarSystem newSystem = new SolarSystem 
             { 

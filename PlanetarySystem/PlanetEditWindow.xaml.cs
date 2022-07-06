@@ -8,8 +8,8 @@ namespace PlanetarySystem
 {
     public partial class PlanetEditWindow : Window
     {
-        private CelestialObject editedPlanet;
-        private BitmapImage newImage;
+        private CelestialObject _editedPlanet;
+        private BitmapImage _newImage;
 
         public PlanetEditWindow(CelestialObject planet)
         {
@@ -27,7 +27,7 @@ namespace PlanetarySystem
 
             PlanetImage.Source = DataControl.CreateImage(planet.Image.ImageSource.ToString());
 
-            editedPlanet = planet;
+            _editedPlanet = planet;
         }
 
         private void ImageEditButton_Click(object sender, RoutedEventArgs e)
@@ -40,8 +40,8 @@ namespace PlanetarySystem
 
             if (fileDialog.ShowDialog() == true)
             {
-                newImage = DataControl.CreateImage(fileDialog.FileName);
-                PlanetImage.Source = newImage;
+                _newImage = DataControl.CreateImage(fileDialog.FileName);
+                PlanetImage.Source = _newImage;
             }
         }
 
@@ -69,20 +69,20 @@ namespace PlanetarySystem
                 return;
             }
             
-            editedPlanet.Name = PlanetName.Text;
-            ((Planet)editedPlanet).Atmosphere = PlanetAtmo.Text;
-            ((Planet)editedPlanet).OrbitalPeriod = PlanetOrbitalPeriod.Text;
-            ((Planet)editedPlanet).RotationPeriod = PlanetRotationPeriod.Text;
-            ((Planet)editedPlanet).MoonCount = int.Parse(PlanetMoonCount.Text);
-            ((Planet)editedPlanet).Life = PlanetLife.Text;
-            editedPlanet.Width = int.Parse(PlanetWidth.Text);
-            editedPlanet.Height = int.Parse(PlanetHeight.Text);
-            ((Planet)editedPlanet).Speed = double.Parse(PlanetSpeed.Text);
+            _editedPlanet.Name = PlanetName.Text;
+            ((Planet)_editedPlanet).Atmosphere = PlanetAtmo.Text;
+            ((Planet)_editedPlanet).OrbitalPeriod = PlanetOrbitalPeriod.Text;
+            ((Planet)_editedPlanet).RotationPeriod = PlanetRotationPeriod.Text;
+            ((Planet)_editedPlanet).MoonCount = int.Parse(PlanetMoonCount.Text);
+            ((Planet)_editedPlanet).Life = PlanetLife.Text;
+            _editedPlanet.Width = int.Parse(PlanetWidth.Text);
+            _editedPlanet.Height = int.Parse(PlanetHeight.Text);
+            ((Planet)_editedPlanet).Speed = double.Parse(PlanetSpeed.Text);
             
-            if(newImage != null)
+            if(_newImage != null)
             {
-                editedPlanet.Image.ImageSource = newImage;
-                editedPlanet.ImageUri = newImage.UriSource.ToString();
+                _editedPlanet.Image.ImageSource = _newImage;
+                _editedPlanet.ImageUri = _newImage.UriSource.ToString();
             }
 
             DialogResult = true;
