@@ -20,6 +20,7 @@ namespace CelestialObjectsLibrary
         private List<string> _paths = new List<string>();
         public static string appDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public static string userImagesDir = System.IO.Path.Combine(appDirectory, "UserImages");
+        public static string ImagesDir = System.IO.Path.Combine(appDirectory, "Images");
 
         public void AddObject(CelestialObject obj)
         {
@@ -253,13 +254,29 @@ namespace CelestialObjectsLibrary
 
         public void ImageCopy(List<string> paths)
         {
+            string[] stockImagesPaths = Directory.GetFiles(ImagesDir);
+            string[] userImagesPaths = Directory.GetFiles(userImagesDir);
+
+            for (int i = 0; i < stockImagesPaths.Length; i++)
+            {
+                string convertedString = stockImagesPaths[i].Replace(@"\", @"/");
+                stockImagesPaths[i] = convertedString;
+            }
+
+            for (int i = 0; i < userImagesPaths.Length; i++)
+            {
+                string convertedString = userImagesPaths[i].Replace(@"\", @"/");
+                userImagesPaths[i] = convertedString;
+            }
+
             for (int i = 0; i < paths.Count; i++)
             {
-                if (paths[i].Contains("PlanetarySystem") && paths[i].Contains("Images"))
+                string pathString = paths[i].Replace("file:///", String.Empty);
+                if (stockImagesPaths.Contains(pathString) || userImagesPaths.Contains(pathString))
                 {
                     continue;
                 }
-               
+
                 if (paths[i].Contains("file://"))
                 {
                     string[] pathSplit = paths[i].Split(new string[] { "///" }, StringSplitOptions.None);
