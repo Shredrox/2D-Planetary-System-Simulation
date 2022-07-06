@@ -199,7 +199,11 @@
                 Name="MainCanvas"
                 Width="900"
                 Height="850"
-                Margin="10">
+                Margin="10"
+                MouseLeftButtonDown="MainCanvas_MouseLeftButtonDown"
+                MouseLeftButtonUp="MainCanvas_MouseLeftButtonUp"
+                MouseMove="MainCanvas_MouseMove"
+                MouseWheel="MainCanvas_MouseWheel">
 
                 <Canvas.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

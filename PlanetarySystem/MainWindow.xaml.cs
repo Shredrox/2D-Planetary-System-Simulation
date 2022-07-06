@@ -20,6 +20,9 @@ namespace PlanetarySystem
         private int systemIndex = 0;
         private int orbitIndex = 0;
         private bool solSystemLoaded = false;
+        private MatrixTransform mt;
+        private Point _lastMousePos;
+        private bool isCanvasDragging = false;
 
         //sol system images
         private BitmapImage sunImage = DataControl.CreateImage("sun.png");
@@ -64,37 +67,8 @@ namespace PlanetarySystem
             image.ImageSource = backgroundImage;
             MainCanvas.Background = image;
 
-            //zoom in and zoom out
-            var mt = new MatrixTransform();
+            mt = new MatrixTransform();
             MainCanvas.RenderTransform = mt;
-            MainCanvas.MouseWheel += (s, e) =>
-            {
-                if (mt.Value.OffsetX <= 0 && mt.Value.OffsetY <= 0 && e.Delta > 0) 
-                {
-                    var matrix = mt.Matrix;
-                    var mousePosition = e.GetPosition(MainCanvas);
-                    var scale = e.Delta > 0 ? 1.1 : 1 / 1.1;
-                    matrix.ScaleAt(scale, scale, mousePosition.X, mousePosition.Y);
-                    mt.Matrix = matrix;
-                    e.Handled = true;
-                }
-                else if(mt.Value.OffsetX < 0 && mt.Value.OffsetY < 0 && e.Delta < 0)
-                {
-                    var matrix = mt.Matrix;
-                    var mousePosition = e.GetPosition(MainCanvas);
-                    var scale = e.Delta > 0 ? 1.1 : 1 / 1.1;
-                    matrix.ScaleAt(scale, scale, mousePosition.X, mousePosition.Y);
-                    if (matrix.OffsetX > 0 || matrix.OffsetY > 0)
-                    {
-                        matrix.SetIdentity();
-                        mt.Matrix = matrix;
-                        e.Handled = true;
-                        return;
-                    }
-                    mt.Matrix = matrix;
-                    e.Handled = true;
-                }
-            };
 
             dataControl.LoadFromFile(SystemList);
         }
@@ -517,7 +491,68 @@ namespace PlanetarySystem
             e.Handled = true;
         }
 
-        //dragging the window
+        //canvas panning 
+        private void MainCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!isCanvasDragging)
+            {
+                return;
+            }
+
+            if (e.LeftButton == MouseButtonState.Pressed && MainCanvas.IsMouseCaptured)
+            {
+                Point mousePos = e.GetPosition(MainCanvas);
+                var matrix = mt.Matrix;
+                matrix.Translate(mousePos.X - _lastMousePos.X, mousePos.Y - _lastMousePos.Y);
+                mt.Matrix = matrix;
+                _lastMousePos = mousePos;
+            }
+        }
+
+        private void MainCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MainCanvas.CaptureMouse();
+            _lastMousePos = e.GetPosition(MainCanvas);
+            isCanvasDragging = true;
+        }
+
+        private void MainCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MainCanvas.ReleaseMouseCapture();
+            isCanvasDragging = false;
+        }
+
+        //canvas zooming
+        private void MainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (mt.Value.OffsetX <= 0 && mt.Value.OffsetY <= 0 && e.Delta > 0)
+            {
+                var matrix = mt.Matrix;
+                var mousePosition = e.GetPosition(MainCanvas);
+                var scale = e.Delta > 0 ? 1.1 : 1 / 1.1;
+                matrix.ScaleAt(scale, scale, mousePosition.X, mousePosition.Y);
+                mt.Matrix = matrix;
+                e.Handled = true;
+            }
+            else if (mt.Value.OffsetX < 0 && mt.Value.OffsetY < 0 && e.Delta < 0)
+            {
+                var matrix = mt.Matrix;
+                var mousePosition = e.GetPosition(MainCanvas);
+                var scale = e.Delta > 0 ? 1.1 : 1 / 1.1;
+                matrix.ScaleAt(scale, scale, mousePosition.X, mousePosition.Y);
+                if (matrix.OffsetX > 0 || matrix.OffsetY > 0)
+                {
+                    matrix.SetIdentity();
+                    mt.Matrix = matrix;
+                    e.Handled = true;
+                    return;
+                }
+                mt.Matrix = matrix;
+                e.Handled = true;
+            }
+        }
+
+        //window drag
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
