@@ -526,7 +526,7 @@ namespace PlanetarySystem
         //canvas zooming
         private void MainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (_mt.Value.OffsetX <= 0 && _mt.Value.OffsetY <= 0 && e.Delta > 0)
+            if ((_mt.Value.OffsetX <= 0 || _mt.Value.OffsetY <= 0) && e.Delta > 0)
             {
                 var matrix = _mt.Matrix;
                 var mousePosition = e.GetPosition(MainCanvas);
@@ -535,7 +535,7 @@ namespace PlanetarySystem
                 _mt.Matrix = matrix;
                 e.Handled = true;
             }
-            else if (_mt.Value.OffsetX < 0 && _mt.Value.OffsetY < 0 && e.Delta < 0)
+            else if ((_mt.Value.OffsetX < 0 || _mt.Value.OffsetY < 0) && e.Delta < 0)
             {
                 var matrix = _mt.Matrix;
                 var mousePosition = e.GetPosition(MainCanvas);
