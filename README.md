@@ -20,6 +20,7 @@ It can visualize 2D custom solar systems and planets, created by the user, with 
 * Run the program with the exe in the install folder or with a shortcut 
 
 (if installing in Program Files/Program Files (x86) run the program as administrator)
+(The app is Windows-only)
 
 # Features:
 
